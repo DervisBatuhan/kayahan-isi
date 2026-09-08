@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+@theme {
+  /* ---- Kayahan Isı — kurumsal renk paleti ----
+     Lacivert #16377D · Turkuaz #00A9D6 · Kırmızı #D71920
+     Turuncu  #F58220 · Sarı    #FDB913                     */
+
+  /* Lacivert — güven, kurumsallık (semantic: navy) */
+  --color-navy-950: #0a2350;
+  --color-navy-900: #0d2b64;
+  --color-navy-800: #123274;
+  --color-navy-700: #16377d;
+  --color-navy-600: #1e4696;
+
+  /* Mavi — teknoloji / iklimlendirme / soğutma vurgusu (referans mockup tonu) */
+  --color-brand-700: #1f5fa8;
+  --color-brand-600: #2670bf;
+  --color-brand-500: #2f7fd1;
+  --color-brand-400: #55a0dd;
+  --color-brand-300: #9ac6ec;
+
+  /* Turuncu — enerji, sıcaklık (semantic: accent) */
+  --color-accent-600: #e0700f;
+  --color-accent-500: #f58220;
+
+  /* Sarı — enerji, ışık, gelecek */
+  --color-sari-700: #9a6d00;
+  --color-sari-600: #c08600;
+  --color-sari-500: #fdb913;
+  --color-sari-400: #ffc748;
+
+  /* Kırmızı — ısıtma, enerji akışı (semantic: danger) */
+  --color-danger-600: #b9161c;
+  --color-danger-500: #d71920;
+
+  --color-ink-900: #16233d;
+  --color-ink-800: #22314e;
+  --color-ink-600: #55617a;
+  --color-ink-500: #6b7688;
+  --color-ink-400: #8a94a6;
+
+  --color-line: #e6e9f0;
+  --color-line-strong: #d3d9e6;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f7fb;
+  --color-surface-blue: #ecf5fb;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(16, 35, 77, 0.04), 0 8px 24px rgba(16, 35, 77, 0.06);
+  --shadow-card-hover: 0 4px 12px rgba(16, 35, 77, 0.08), 0 18px 40px rgba(16, 35, 77, 0.12);
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #16233d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+ * Admin-panel dark mode. Scoped to `.dark` (toggled by ThemeProvider around
+ * the authenticated panel layout only — the public site never gets this
+ * class, so its `bg-white` / `text-ink-*` / etc. usages are untouched).
+ * Overriding the tokens here, rather than sprinkling `dark:` utilities
+ * through every admin component, is what lets the whole admin UI kit
+ * (fields.tsx, ListEditor.tsx, Sidebar.tsx…) pick up the theme for free.
+ */
+.dark {
+  color-scheme: dark;
+
+  --color-white: #131b2e;
+  --color-surface: #0f1626;
+  --color-surface-muted: #0a0f1c;
+  --color-surface-blue: #142238;
+
+  --color-ink-900: #eef2f9;
+  --color-ink-800: #dbe2ee;
+  --color-ink-600: #aab4c8;
+  --color-ink-500: #8994ab;
+  --color-ink-400: #6b7690;
+
+  --color-line: #232d42;
+  --color-line-strong: #2c3752;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.24);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.28), 0 18px 40px rgba(0, 0, 0, 0.32);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.tracking-label {
+  letter-spacing: 0.14em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand-500) 28%, transparent);
 }

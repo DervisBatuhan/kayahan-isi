@@ -1,0 +1,81 @@
+/* Shared guards for the activity / solution templates (they carry `.cp-page`,
+   so the corporate `_corporate-fixes` container rules already apply — this only
+   adds the small-screen overflow guards for the `.ap-*` / `.sp-*` markup). */
+
+/* the source grids draw top + vertical rules but no bottom edge — close them */
+.ap-pillar-grid article,
+.sp-stage-grid article {
+  border-bottom: 1px solid #ffffff30;
+}
+
+@media (max-width: 1000px) {
+  .ap-page,
+  .sp-page {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .ap-page,
+  .sp-page,
+  .ap-page *,
+  .sp-page * {
+    max-width: 100%;
+  }
+  .ap-page :is(h1, h2, h3, p, span, b, strong, em, li, a),
+  .sp-page :is(h1, h2, h3, p, span, b, strong, em, li, a) {
+    overflow-wrap: anywhere;
+  }
+
+  /* section gutters — match the corporate 22px on phones */
+  .ap-hero,
+  .ap-intro,
+  .ap-pillars,
+  .ap-process,
+  .ap-uses,
+  .sp-thesis,
+  .sp-architecture,
+  .sp-output {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+  .ap-copy {
+    padding: 44px 22px !important;
+  }
+  .sp-copy {
+    left: 22px !important;
+    right: 22px !important;
+  }
+
+  /* the switch nav must be swipeable, not overflow */
+  .ap-switch,
+  .sp-switch {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* headings + hero titles down a notch so the hard <br/>s still fit */
+  .ap-copy h1,
+  .sp-copy h1 {
+    font-size: clamp(30px, 9vw, 44px);
+  }
+  .ap-intro h2,
+  .ap-pillars h2,
+  .ap-uses h2,
+  .sp-thesis h2,
+  .sp-architecture h2,
+  .sp-output h2 {
+    font-size: clamp(26px, 7.5vw, 40px);
+    line-height: 1.1;
+  }
+
+  /* grid tracks allowed to shrink */
+  .ap-pillar-grid article,
+  .ap-uses article,
+  .sp-stage-grid article,
+  .sp-output article,
+  .ap-intro > *,
+  .sp-thesis > * {
+    min-width: 0;
+  }
+}

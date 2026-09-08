@@ -1,0 +1,17 @@
+// Global base rules that aren't Tailwind's job.
+// (Tailwind v4 + @theme tokens stay in globals.css — that file is the
+// PostCSS/Tailwind entry point and cannot be a .scss file.)
+
+// Safety net: clip any stray horizontal overflow so no page can be scrolled
+// sideways on mobile, whatever a section's layout does. `clip` (not `hidden`)
+// keeps `position: sticky` working.
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+}

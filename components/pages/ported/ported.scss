@@ -1,0 +1,12 @@
+// Aggregated stylesheet for the pages ported from the v13 source.
+// Each partial is a v13 template stylesheet, converted to SCSS (CSS is valid
+// SCSS) and kept scoped under its own `.cp-*` / `.ap-*` / `.sp-*` / `.hub-*`
+// prefix so it can't leak into the rest of the app.
+@use "corporate";
+@use "corporate-fixes";
+@use "activity";
+@use "solution";
+@use "expansion";
+@use "utility";
+@use "hub";
+@use "ported-fixes";

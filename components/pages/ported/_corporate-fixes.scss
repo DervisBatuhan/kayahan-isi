@@ -1,0 +1,139 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Ported-corporate adjustments (loaded after _corporate.scss).
+   - fit the content to the page like the homepage: no 1440 cap, full-bleed
+   - kill horizontal overflow on small screens
+   - turn the hero-visual "era" marker into a legible badge (like .cp-living-note)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.cp-page {
+  max-width: none; // homepage is full-bleed — match it, no centred 1440 column
+  width: 100%;
+  overflow-x: clip;
+}
+
+/* ---- hero "1976 — BUGÜN" marker → badge ---- */
+.cp-era {
+  right: 6%;
+  bottom: 7%;
+  grid-template-columns: auto 34px auto;
+  gap: 11px;
+  padding: 12px 18px;
+  background: rgba(4, 29, 58, 0.82);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid #59d7f0;
+  color: #fff;
+  letter-spacing: 0.16em;
+}
+.cp-era b {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+.cp-era span {
+  color: #7cdef1;
+  font-size: 10px;
+}
+.cp-era i {
+  background: linear-gradient(90deg, #59d7f0, #f7941d);
+}
+
+/* ---- keep the wide 3-column bands from overflowing on large screens ---- */
+.cp-intro {
+  gap: clamp(28px, 5vw, 82px);
+}
+.cp-principles,
+.cp-quality-system,
+.cp-sustain-intro,
+.cp-balance {
+  gap: clamp(32px, 6vw, 110px);
+}
+
+/* "Geçmişten taşıdığımız dört değer." grid: the source draws top+bottom rules
+   and dividers between cards, but leaves the row open on the left/right — close it */
+.cp-value-grid {
+  border-left: 1px solid #d7e0e9;
+}
+.cp-value-grid article:last-child {
+  border-right: 1px solid #d7e0e9;
+}
+
+/* grid/flex items must be allowed to shrink below their content width,
+   otherwise a long unbroken word forces the whole track past the viewport */
+.cp-hero > *,
+.cp-intro > *,
+.cp-dual > *,
+.cp-principles > *,
+.cp-quality-system > *,
+.cp-sustain-intro > *,
+.cp-balance > *,
+.cp-dark-story > *,
+.cp-story-track article,
+.cp-value-grid article,
+.cp-commit-grid article,
+.cp-sustain-grid article,
+.cp-principle-list article {
+  min-width: 0;
+}
+
+/* ---- tablet / mobile: stop the horizontal bleed ---- */
+@media (max-width: 1000px) {
+  .cp-page {
+    overflow-x: hidden;
+  }
+  .cp-hero,
+  .cp-sustainability.cp-hero {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  /* nothing inside can be wider than the screen */
+  .cp-page,
+  .cp-page * {
+    max-width: 100%;
+  }
+  .cp-page :is(h1, h2, h3, p, span, b, strong, em, li, a) {
+    overflow-wrap: anywhere;
+  }
+
+  .cp-section {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+  .cp-hero-copy {
+    padding: 44px 22px;
+  }
+
+  .cp-hero h1 {
+    font-size: clamp(30px, 9vw, 42px);
+  }
+  /* the source puts the 2nd line in <em> after a <br/>; keep it on its own row */
+  .cp-hero h1 em {
+    display: block;
+  }
+  .cp-page :is(.cp-intro, .cp-values, .cp-principles, .cp-quality-system,
+      .cp-sustain-intro, .cp-balance, .cp-dual, .cp-dark-story, .cp-quality-banner,
+      .cp-statement, .cp-cta) h2 {
+    font-size: clamp(26px, 7.5vw, 38px);
+    line-height: 1.1;
+  }
+  .cp-page :is(.cp-hero-copy, .cp-intro, .cp-values, .cp-dual, .cp-quality-system,
+      .cp-sustain-intro, .cp-balance, .cp-dark-story, .cp-principle-list) p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .cp-intro strong {
+    font-size: 52px;
+  }
+
+  .cp-era {
+    right: 14px;
+    bottom: 14px;
+    padding: 10px 14px;
+    grid-template-columns: auto 22px auto;
+  }
+  .cp-era b {
+    font-size: 13px;
+  }
+}

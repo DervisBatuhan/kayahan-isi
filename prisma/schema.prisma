@@ -1,0 +1,87 @@
+// Kayahan Isı — admin panel data model.
+// Local: SQLite (file:./dev.db). Production (Vercel): Turso / libSQL via the
+// @prisma/adapter-libsql driver adapter — swap the datasource url + adapter then.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("editor") // "admin" | "editor"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// One row per locale. `data` is the full structured SiteContent JSON
+/// (validated with Zod on write). Keeps the panel flexible while the public
+/// site keeps its typed shape.
+model SiteContent {
+  id        String   @id @default(cuid())
+  locale    String   @unique // "tr" | "en"
+  data      String   // JSON string
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  locale    String
+  slug      String // e.g. "kurumsal/hakkimizda"
+  eyebrow   String
+  title     String
+  intro     String
+  bullets   String   @default("[]") // JSON string[]
+  children  String   @default("[]") // JSON {title,slug,text}[]
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([locale, slug])
+}
+
+/// Structured content for the richly-designed inner pages ("ported" layouts).
+/// One row per page (family + kind + locale). `data` is the full editable
+/// content tree as JSON, validated on write; the static default in
+/// `lib/content/ported/*` is the fallback when a row is missing.
+model PortedContent {
+  id        String   @id @default(cuid())
+  family    String // "hub" | "corporate" | "activity" | "solution" | "expansion" | "utility"
+  kind      String // e.g. "about", "heating", "systems"
+  locale    String   @default("tr")
+  data      String // JSON string
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  @@unique([family, kind, locale])
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  type        String   @default("contact") // "contact" | "quote"
+  name        String
+  phone       String
+  email       String?
+  company     String?
+  subject     String   @default("") // contact form: selected subject
+  projectType String   @default("") // quote form: project type
+  location    String   @default("") // quote form: city / district
+  fields      String   @default("[]") // quote form: interested areas (JSON string[])
+  message     String   @default("")
+  source      String   @default("") // which page / form
+  locale      String   @default("tr")
+  status      String   @default("new") // "new" | "contacted" | "closed"
+  notes       String   @default("") // internal admin notes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

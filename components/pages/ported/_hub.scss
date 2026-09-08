@@ -1,0 +1,213 @@
+/* Section hub / landing pages (Kurumsal, Faaliyet Alanlarımız, Çözümlerimiz).
+   Same design line as the ported corporate pages: navy + cyan, uppercase
+   labels, big display headings, bordered card grid with a hover lift. */
+
+.hub-page {
+  --hub-accent: #00a7d6;
+}
+.hub-activity {
+  --hub-accent: #f47b20;
+}
+.hub-solutions {
+  --hub-accent: #26b7e1;
+}
+
+/* ---- hero ---- */
+.hub-hero .cp-hero-copy h1 em {
+  color: var(--hub-accent);
+}
+.hub-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hub-art::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.7) 12%, transparent 34%),
+    linear-gradient(0deg, #fff 0%, transparent 16%);
+  pointer-events: none;
+}
+.hub-art img {
+  width: 114%;
+  height: 112%;
+  object-fit: cover;
+  object-position: center;
+  transform: translateX(-6%) scale(1.02);
+  transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hub-art:hover img {
+  transform: translateX(-4%) scale(1.06);
+}
+
+/* ---- card grid ---- */
+.hub-grid-wrap {
+  background: #fff;
+}
+.hub-grid-head {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  align-items: start;
+  gap: 4vw;
+}
+.hub-grid-head h2 {
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  color: var(--navy);
+  margin: 0;
+}
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 60px;
+  border-top: 1px solid #d7e0e9;
+  border-left: 1px solid #d7e0e9;
+}
+.hub-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: 34px 30px 30px;
+  border-right: 1px solid #d7e0e9;
+  border-bottom: 1px solid #d7e0e9;
+  color: var(--ink);
+  transition: transform 0.35s, background 0.35s, box-shadow 0.35s;
+}
+.hub-card:hover {
+  transform: translateY(-8px);
+  background: #f7fbfd;
+  box-shadow: 0 24px 55px rgba(5, 45, 96, 0.1);
+}
+.hub-card > b {
+  position: absolute;
+  right: 26px;
+  top: 26px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--hub-accent);
+}
+.hub-card svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 1.4;
+  color: var(--navy);
+}
+.hub-card h3 {
+  margin: 30px 0 12px;
+  font-size: 19px;
+  color: var(--navy);
+}
+.hub-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+.hub-more {
+  margin-top: auto;
+  padding-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--navy);
+}
+.hub-more svg {
+  width: 14px;
+  height: 14px;
+  color: var(--hub-accent);
+}
+.hub-card:hover .hub-more {
+  gap: 18px;
+}
+
+/* ---- closing band ---- */
+.hub-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 72px max(5vw, 54px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 45px;
+  background: linear-gradient(100deg, #06336f, #04234f);
+  color: #fff;
+}
+.hub-band-glow {
+  position: absolute;
+  z-index: -1;
+  inset: auto -8% -60px auto;
+  width: 55%;
+  height: 130px;
+  background: radial-gradient(ellipse at center, #f47b20 0, rgba(227, 38, 50, 0.5) 26%, rgba(0, 167, 214, 0.35) 58%, transparent 74%);
+  filter: blur(26px);
+  opacity: 0.8;
+  transform: skewX(-18deg);
+}
+.hub-band h2 {
+  margin: 12px 0 0;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.hub-band .cp-label {
+  color: var(--hub-accent);
+}
+.hub-band > a {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 15px 24px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.hub-band > a svg {
+  width: 15px;
+}
+
+/* ---- responsive ---- */
+@media (max-width: 1000px) {
+  .hub-grid-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .hub-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .hub-grid-wrap {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+  .hub-grid {
+    grid-template-columns: 1fr;
+    margin-top: 36px;
+  }
+  .hub-card {
+    min-height: 0;
+    padding: 26px 22px;
+  }
+  .hub-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+    padding: 54px 22px;
+    text-align: left;
+  }
+  .hub-band h2 {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+}

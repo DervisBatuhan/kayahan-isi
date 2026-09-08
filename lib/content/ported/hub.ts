@@ -1,0 +1,145 @@
+import type { HubContent } from "./types";
+
+export type HubKind = "corporate" | "activity" | "solutions";
+
+export const HUB_CHROME = {
+  gridDefaultLabel: "BAŞLIKLAR",
+  gridDefaultTitle: "Bu bölümde neler var?",
+  more: "İncele",
+};
+
+export const HUB_CHROME_EN = {
+  gridDefaultLabel: "SECTIONS",
+  gridDefaultTitle: "What's in this section?",
+  more: "Explore",
+};
+
+export function hubChrome(locale: string) {
+  return locale === "en" ? HUB_CHROME_EN : HUB_CHROME;
+}
+
+export const hubDefaults: Record<HubKind, HubContent> = {
+  corporate: {
+    eyebrow: "KURUMSAL",
+    titleTop: "Köklü bir yapı,",
+    titleAccent: "güncel bir bakış.",
+    lead: "45 yıllık teknik birikimi kurumsal bir düzene taşıyan Kayahan Isı; geçmişin ustalığını modern mühendislik anlayışıyla birleştirir.",
+    image: "/assets/corporate-memory-cgi.png",
+    imageAlt: "Kurumsal hafızayı temsil eden cam katmanlar",
+    gridHeadLabel: HUB_CHROME.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME.gridDefaultTitle,
+    items: [
+      { title: "Hakkımızda", href: "/tr/kurumsal/hakkimizda", text: "1976’dan bugüne kısa hikâye ve bugünkü yapı.", icon: "building" },
+      { title: "Yönetim Kurulu", href: "/tr/kurumsal/yonetim-kurulu", text: "Tecrübenin yön verdiği, geleceğe açık yönetim.", icon: "users" },
+      { title: "Yönetim Kurulu Mesajı", href: "/tr/kurumsal/yonetim-kurulu-mesaji", text: "Geçmişe bağlı, geleceğe hazır bir bakış.", icon: "quote" },
+      { title: "Misyon & Vizyon", href: "/tr/kurumsal/misyon-vizyon", text: "Nereden geldik, nereye gidiyoruz.", icon: "target" },
+      { title: "Kalite Politikamız", href: "/tr/kurumsal/kalite-politikasi", text: "Ölçülebilir, izlenebilir ve standartlara bağlı hizmet.", icon: "shield" },
+      { title: "Sürdürülebilirlik", href: "/tr/kurumsal/surdurulebilirlik", text: "Daha az tüketen, daha uzun ömürlü sistemler.", icon: "leaf" },
+    ],
+    band: "Ticari faaliyetin ötesinde bir sorumluluk.",
+    ctaLabel: "İletişime Geçin",
+    ctaHref: "/tr/iletisim",
+  },
+  activity: {
+    eyebrow: "FAALİYET ALANLARIMIZ",
+    titleTop: "İklimi, enerjiyi ve",
+    titleAccent: "yapıyı birlikte düşünüyoruz.",
+    lead: "İklimlendirme, ısıtma, soğutma, yalıtım ve enerji; tek bir mühendislik disiplini altında toplanan beş ana alan.",
+    image: "/assets/climate-orchestration-cgi.png",
+    imageAlt: "Isı, hava ve enerjiyi birleştiren iklim sistemi",
+    gridHeadLabel: HUB_CHROME.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME.gridDefaultTitle,
+    items: [
+      { title: "İklimlendirme", href: "/tr/faaliyet-alanlari/iklimlendirme", text: "Kontrollü, sağlıklı ve verimli iç ortam.", icon: "wind" },
+      { title: "Isıtma", href: "/tr/faaliyet-alanlari/isitma", text: "Güvenli, dengeli ve yüksek verimli ısı yönetimi.", icon: "heat" },
+      { title: "Soğutma", href: "/tr/faaliyet-alanlari/sogutma", text: "Yüksek performansı kontrollü tüketimle buluşturan çözümler.", icon: "snow" },
+      { title: "Yalıtım", href: "/tr/faaliyet-alanlari/yalitim", text: "Enerji kaybını azaltan, yapıyı koruyan sistem yaklaşımı.", icon: "layers" },
+      { title: "Enerji", href: "/tr/faaliyet-alanlari/enerji", text: "Tüketimi ölçen, kayıpları görünür kılan mühendislik.", icon: "zap" },
+    ],
+    band: "Her yapı için doğru sistem, doğru denge.",
+    ctaLabel: "Teklif Alın",
+    ctaHref: "/tr/teklif-al",
+  },
+  solutions: {
+    eyebrow: "ÇÖZÜMLERİMİZ",
+    titleTop: "Parçaları değil,",
+    titleAccent: "bütünü çözüyoruz.",
+    lead: "Analizden devreye almaya, bakımdan otomasyona; mekanik sistemleri birlikte çalışan bir performans bütünü olarak tasarlıyoruz.",
+    image: "/assets/solution-systems-cgi.png",
+    imageAlt: "Sistem çözümleri teknik görselleştirmesi",
+    gridHeadLabel: HUB_CHROME.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME.gridDefaultTitle,
+    items: [
+      { title: "Sistem Çözümleri", href: "/tr/cozumler/sistem-cozumleri", text: "Uçtan uca mühendislik: analiz, tasarım, devreye alma.", icon: "network" },
+      { title: "Bina Otomasyonu", href: "/tr/cozumler/bina-otomasyonu", text: "Tek merkezden izleme, kontrol ve raporlama.", icon: "cpu" },
+      { title: "Enerji Verimliliği", href: "/tr/cozumler/enerji-verimliligi", text: "Kayıpları görünür kılan, ölçülebilir iyileştirme.", icon: "gauge" },
+      { title: "Servis & Bakım", href: "/tr/cozumler/servis-bakim", text: "Sistem ömrü boyunca kesintisiz performans.", icon: "wrench" },
+    ],
+    band: "Tek bir hedef için çalışan, birbiriyle konuşan sistemler.",
+    ctaLabel: "Çözümleri Görüşelim",
+    ctaHref: "/tr/iletisim",
+  },
+};
+
+export const hubDefaultsEn: Record<HubKind, HubContent> = {
+  corporate: {
+    eyebrow: "CORPORATE",
+    titleTop: "A rooted structure,",
+    titleAccent: "a current outlook.",
+    lead: "Kayahan Isı carries 45 years of technical know-how into a corporate order, joining the craftsmanship of the past with a modern engineering mindset.",
+    image: "/assets/corporate-memory-cgi.png",
+    imageAlt: "Glass layers representing corporate memory",
+    gridHeadLabel: HUB_CHROME_EN.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME_EN.gridDefaultTitle,
+    items: [
+      { title: "About Us", href: "/en/kurumsal/hakkimizda", text: "The short story since 1976 and today's structure.", icon: "building" },
+      { title: "Board of Directors", href: "/en/kurumsal/yonetim-kurulu", text: "A board guided by experience, open to the future.", icon: "users" },
+      { title: "Message from the Board", href: "/en/kurumsal/yonetim-kurulu-mesaji", text: "Rooted in the past, ready for the future.", icon: "quote" },
+      { title: "Mission & Vision", href: "/en/kurumsal/misyon-vizyon", text: "Where we come from, where we are heading.", icon: "target" },
+      { title: "Quality Policy", href: "/en/kurumsal/kalite-politikasi", text: "Measurable, traceable, standards-based service.", icon: "shield" },
+      { title: "Sustainability", href: "/en/kurumsal/surdurulebilirlik", text: "Systems that consume less and last longer.", icon: "leaf" },
+    ],
+    band: "A responsibility beyond commercial activity.",
+    ctaLabel: "Get in Touch",
+    ctaHref: "/en/iletisim",
+  },
+  activity: {
+    eyebrow: "OUR FIELDS",
+    titleTop: "We think about climate, energy",
+    titleAccent: "and the building together.",
+    lead: "Air conditioning, heating, cooling, insulation and energy — five core fields brought together under a single engineering discipline.",
+    image: "/assets/climate-orchestration-cgi.png",
+    imageAlt: "A climate system combining heat, air and energy",
+    gridHeadLabel: HUB_CHROME_EN.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME_EN.gridDefaultTitle,
+    items: [
+      { title: "Air Conditioning", href: "/en/faaliyet-alanlari/iklimlendirme", text: "Controlled, healthy and efficient indoor climate.", icon: "wind" },
+      { title: "Heating", href: "/en/faaliyet-alanlari/isitma", text: "Safe, balanced and highly efficient heat management.", icon: "heat" },
+      { title: "Cooling", href: "/en/faaliyet-alanlari/sogutma", text: "Solutions that pair high performance with controlled consumption.", icon: "snow" },
+      { title: "Insulation", href: "/en/faaliyet-alanlari/yalitim", text: "A system approach that cuts energy loss and protects the building.", icon: "layers" },
+      { title: "Energy", href: "/en/faaliyet-alanlari/enerji", text: "Engineering that measures consumption and makes losses visible.", icon: "zap" },
+    ],
+    band: "The right system, the right balance, for every building.",
+    ctaLabel: "Get a Quote",
+    ctaHref: "/en/teklif-al",
+  },
+  solutions: {
+    eyebrow: "OUR SOLUTIONS",
+    titleTop: "We solve not the parts,",
+    titleAccent: "but the whole.",
+    lead: "From analysis to commissioning, from maintenance to automation — we design mechanical systems as one performance whole that works together.",
+    image: "/assets/solution-systems-cgi.png",
+    imageAlt: "System solutions technical visualisation",
+    gridHeadLabel: HUB_CHROME_EN.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME_EN.gridDefaultTitle,
+    items: [
+      { title: "System Solutions", href: "/en/cozumler/sistem-cozumleri", text: "End-to-end engineering: analysis, design, commissioning.", icon: "network" },
+      { title: "Building Automation", href: "/en/cozumler/bina-otomasyonu", text: "Monitor, control and report from one place.", icon: "cpu" },
+      { title: "Energy Efficiency", href: "/en/cozumler/enerji-verimliligi", text: "Measurable improvement that makes losses visible.", icon: "gauge" },
+      { title: "Service & Maintenance", href: "/en/cozumler/servis-bakim", text: "Uninterrupted performance across the system's life.", icon: "wrench" },
+    ],
+    band: "Systems that talk to each other, working toward a single goal.",
+    ctaLabel: "Let's Talk Solutions",
+    ctaHref: "/en/iletisim",
+  },
+};
