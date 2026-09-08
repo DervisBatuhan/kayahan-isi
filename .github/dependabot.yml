@@ -1,0 +1,18 @@
+# Dependabot keeps npm dependencies patched. Weekly check, all updates
+# batched into a single grouped PR to keep the noise down.
+# Docs: https://docs.github.com/code-security/dependabot
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
