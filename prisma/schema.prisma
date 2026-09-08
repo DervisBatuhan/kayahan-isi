@@ -66,6 +66,19 @@ model PortedContent {
   @@unique([family, kind, locale])
 }
 
+/// One row per admin login attempt. Used to throttle brute-force guessing:
+/// too many failures from the same IP inside the window locks that IP out for
+/// a while. Rows are pruned opportunistically on write.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  ip        String
+  email     String   @default("")
+  ok        Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
+}
+
 model Lead {
   id          String   @id @default(cuid())
   type        String   @default("contact") // "contact" | "quote"
