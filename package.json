@@ -18,6 +18,9 @@
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
+  "overrides": {
+    "deepmerge-ts": "^8.0.0"
+  },
   "dependencies": {
     "@libsql/client": "^0.14.0",
     "@marsidev/react-turnstile": "^1.6.1",
