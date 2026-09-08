@@ -5,7 +5,7 @@ import type { NextConfig } from "next";
 // of the policy still adds real defense-in-depth. GA endpoints are allow-listed.
 // React's dev build needs eval() for debugging; production never does.
 const scriptSrc =
-  "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com" +
+  "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com" +
   (process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : "");
 
 const csp = [
@@ -14,7 +14,8 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com",
+  "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

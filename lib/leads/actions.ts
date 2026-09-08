@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import {
   leadSchema,
@@ -10,8 +11,40 @@ import {
 } from "./schema";
 
 /**
- * Public endpoint for the contact + quote forms. Validates with Zod, drops
- * honeypot hits quietly (reports success), and writes a `Lead` row.
+ * Verify a Cloudflare Turnstile token. Returns true when Turnstile is not
+ * configured (e.g. local dev) so the form keeps working without keys.
+ */
+async function verifyTurnstile(token: string | undefined): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true;
+  if (!token) return false;
+
+  let ip = "";
+  try {
+    const h = await headers();
+    ip = (h.get("x-forwarded-for") ?? "").split(",")[0].trim() || h.get("x-real-ip") || "";
+  } catch {
+    /* headers() unavailable — skip remoteip */
+  }
+
+  try {
+    const body = new URLSearchParams({ secret, response: token });
+    if (ip) body.set("remoteip", ip);
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      { method: "POST", body, signal: AbortSignal.timeout(5000) },
+    );
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch (err) {
+    console.error("[turnstile] verify failed:", err);
+    return false;
+  }
+}
+
+/**
+ * Public endpoint for the contact + quote forms. Validates with Zod, verifies
+ * the Turnstile token, drops honeypot / too-fast hits quietly, writes a `Lead`.
  */
 export async function createLead(input: LeadInput): Promise<SubmitLeadResult> {
   const parsed = leadSchema.safeParse(input);
@@ -31,6 +64,16 @@ export async function createLead(input: LeadInput): Promise<SubmitLeadResult> {
     typeof data.startedAt === "number" && Date.now() - data.startedAt < MIN_FILL_MS;
   if ((data.company_url && data.company_url.trim() !== "") || tooFast) {
     return { ok: true, id: "skipped" };
+  }
+
+  if (!(await verifyTurnstile(data.turnstileToken))) {
+    return {
+      ok: false,
+      error:
+        data.locale === "en"
+          ? "Security check failed. Refresh the page and try again."
+          : "Güvenlik doğrulaması başarısız. Sayfayı yenileyip tekrar deneyin.",
+    };
   }
 
   try {

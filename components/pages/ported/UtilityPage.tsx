@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { createLead } from "@/lib/leads/actions";
 import type { LeadFieldErrors } from "@/lib/leads/schema";
+import { useTurnstile } from "./FormTurnstile";
 import "./ported.scss";
 
 type UtilityKind = "references" | "contact" | "quote";
@@ -325,6 +326,7 @@ function ContactPage({
   const [formError, setFormError] = useState<string | null>(null);
   const honeypot = useRef<HTMLInputElement>(null);
   const [startedAt] = useState(() => Date.now());
+  const ts = useTurnstile();
   const telHref = useMemo(() => `tel:${contact.phone.replace(/[^\d+]/g, "")}`, [contact.phone]);
 
   function set<K extends keyof typeof values>(key: K, v: string) {
@@ -360,11 +362,13 @@ function ContactPage({
       locale,
       company_url: honeypot.current?.value ?? "",
       startedAt,
+      turnstileToken: ts.token,
     });
+    ts.reset();
     if (res.ok) {
       setStatus("ok");
     } else {
-      setFormError(t.err.server);
+      setFormError(res.error || t.err.server);
       setStatus("error");
     }
   }
@@ -543,7 +547,12 @@ function ContactPage({
                 <FieldError message={errors.message} />
               </label>
 
-              <button className="up-submit" disabled={status === "submitting"}>
+              {ts.widget}
+
+              <button
+                className="up-submit"
+                disabled={status === "submitting" || !ts.ready}
+              >
                 {status === "submitting" ? t.contact.sending : t.contact.submit} <Send />
               </button>
             </>
@@ -572,6 +581,7 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
   const [formError, setFormError] = useState<string | null>(null);
   const honeypot = useRef<HTMLInputElement>(null);
   const [startedAt] = useState(() => Date.now());
+  const ts = useTurnstile();
 
   function set<K extends keyof typeof values>(key: K, v: string) {
     setValues((s) => ({ ...s, [key]: v }));
@@ -614,11 +624,13 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
       locale,
       company_url: honeypot.current?.value ?? "",
       startedAt,
+      turnstileToken: ts.token,
     });
+    ts.reset();
     if (res.ok) {
       setStatus("ok");
     } else {
-      setFormError(t.err.server);
+      setFormError(res.error || t.err.server);
       setStatus("error");
     }
   }
@@ -828,7 +840,12 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
                 <FieldError message={errors.message} />
               </label>
 
-              <button className="up-submit" disabled={status === "submitting"}>
+              {ts.widget}
+
+              <button
+                className="up-submit"
+                disabled={status === "submitting" || !ts.ready}
+              >
                 {status === "submitting" ? t.quote.sending : t.quote.submit} <ArrowRight />
               </button>
             </>

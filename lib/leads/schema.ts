@@ -46,6 +46,9 @@ const honeypot = z.string().max(200).optional();
 /** Client render timestamp — a submit under `MIN_FILL_MS` is almost certainly a bot. */
 const startedAt = z.number().int().nonnegative().optional();
 
+/** Cloudflare Turnstile token (verified server-side when the secret is configured). */
+const turnstileToken = z.string().max(4096).optional();
+
 export const contactLeadSchema = z.object({
   type: z.literal("contact"),
   name,
@@ -57,6 +60,7 @@ export const contactLeadSchema = z.object({
   locale: z.string().max(8).optional().default("tr"),
   company_url: honeypot,
   startedAt,
+  turnstileToken,
 });
 
 export const quoteLeadSchema = z.object({
@@ -77,6 +81,7 @@ export const quoteLeadSchema = z.object({
   locale: z.string().max(8).optional().default("tr"),
   company_url: honeypot,
   startedAt,
+  turnstileToken,
 });
 
 /** A genuine person needs at least this long to read and fill the form. */

@@ -21,3 +21,5 @@
 .up-checks.is-invalid span{border-color:var(--up-red)}
 .up-submit:disabled{opacity:.6;cursor:progress}
 .up-submit:disabled:hover{background:var(--navy);padding-left:25px}
+.up-turnstile{margin-top:-4px}
+.up-turnstile>div{min-height:65px}
