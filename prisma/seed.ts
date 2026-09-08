@@ -1,10 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { prisma } from "../lib/db";
 import { defaultSiteContent } from "../lib/content/site";
 import { getDefaultPages } from "../lib/content/pages";
 import { locales } from "../lib/i18n/config";
 
-const prisma = new PrismaClient();
+// `../lib/db` is dual-mode: a local SQLite file for dev, or Turso/libSQL when
+// DATABASE_URL is a libsql:// URL — so `npm run db:seed` with the production
+// env vars set seeds the live database.
 
 async function main() {
   // 1) Admin user
