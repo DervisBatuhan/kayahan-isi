@@ -104,6 +104,9 @@ footer>div>b{font-size:11px}
   .hero{height:auto;padding-bottom:56px}
   .hero .building{position:relative;width:100%;height:300px;margin-top:24px}
   .journey{grid-template-columns:1fr}
+  /* the flat `.stats{height:116px}` above is a desktop type-scale value;
+     on the 2-col mobile grid it clips the second row — let it grow */
+  .stats{height:auto}
 }
 
 /* full-bleed dark bands — remove the awkward side insets on stats + CTA */
