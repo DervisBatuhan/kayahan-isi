@@ -39,13 +39,30 @@ export const messageSchema = z.object({
   signatureRole: s.max(120),
 });
 
+/** A certificate is `{ title, fileUrl, fileName, contentType }`. Legacy rows
+ *  stored a bare name string — accept and lift those so nothing breaks on read. */
+const certItem = z.union([
+  s.min(1).max(120).transform((title) => ({
+    title,
+    fileUrl: "",
+    fileName: "",
+    contentType: "",
+  })),
+  z.object({
+    title: req.max(120),
+    fileUrl: s.max(600),
+    fileName: s.max(200),
+    contentType: s.max(120),
+  }),
+]);
+
 export const certificatesSchema = z.object({
   ...heroShape,
   introLabel: s.max(80),
   introHeadingTop: s.max(160),
   introHeadingAccent: s.max(160),
   introBody: s.max(600),
-  items: z.array(req.max(120)).min(1).max(16),
+  items: z.array(certItem).min(0).max(16),
 });
 
 export const gallerySchema = z.object({
@@ -159,7 +176,7 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
       "Enerji Performansı",
       "Mesleki Yeterlilik",
       "Yetkili Servis Belgeleri",
-    ],
+    ].map((title) => ({ title, fileUrl: "", fileName: "", contentType: "" })),
   },
   gallery: {
     heroEyebrow: "GALERİ",
@@ -261,7 +278,7 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
       "Energy Performance",
       "Vocational Qualification",
       "Authorised Service Certificates",
-    ],
+    ].map((title) => ({ title, fileUrl: "", fileName: "", contentType: "" })),
   },
   gallery: {
     heroEyebrow: "GALLERY",

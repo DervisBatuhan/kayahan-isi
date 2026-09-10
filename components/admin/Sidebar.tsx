@@ -62,6 +62,7 @@ const NAV: NavEntry[] = [
   },
   { href: "/admin/pages", label: "Sayfalar", icon: FileText },
   { href: "/admin/design-pages", label: "Tasarım Sayfaları", icon: LayoutTemplate },
+  { href: "/admin/certificates", label: "Sertifikalar", icon: Award },
   { href: "/admin/leads", label: "Talepler", icon: Inbox },
   {
     href: "/admin/settings",

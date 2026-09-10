@@ -1,8 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { upload } from "@vercel/blob/client";
+import { ArrowDown, ArrowUp, ExternalLink, Loader2, Upload, X } from "lucide-react";
 import { savePortedContent, resetPortedContent } from "@/lib/content/ported/actions";
+import { deleteCertificateFile } from "@/lib/content/ported/certificate-actions";
+import {
+  isImageType,
+  normalizeCertItems,
+  type CertItem,
+} from "@/lib/content/ported/certificates-shared";
 import {
   getEditorSpec,
   type FieldSpec,
@@ -183,6 +190,26 @@ function FieldRenderer({
       />
     );
   }
+  if (spec.type === "fileCardList") {
+    const items = normalizeCertItems(value);
+    return (
+      <ReorderableList<CertItem>
+        label={spec.label}
+        hint={spec.hint}
+        itemLabel={spec.itemLabel}
+        items={items}
+        onChange={onChange as (v: CertItem[]) => void}
+        newItem={() => ({ title: "", fileUrl: "", fileName: "", contentType: "" })}
+        beforeRemove={(item) => {
+          if (item.fileUrl) void deleteCertificateFile(item.fileUrl);
+        }}
+        render={(item, update) => (
+          <CertFileRow item={item} accept={spec.accept} onChange={update} />
+        )}
+      />
+    );
+  }
+
   // objectList
   type Row = Record<string, string>;
   const columns = spec.columns;
@@ -230,6 +257,7 @@ function ReorderableList<T>({
   onChange,
   newItem,
   render,
+  beforeRemove,
 }: {
   label: string;
   hint?: string;
@@ -238,6 +266,9 @@ function ReorderableList<T>({
   onChange: (v: T[]) => void;
   newItem: () => T;
   render: (item: T, update: (patch: T) => void) => React.ReactNode;
+  /** Side effect to run for a row that is about to be removed (e.g. delete an
+   *  uploaded file). Fire-and-forget; removal proceeds regardless. */
+  beforeRemove?: (item: T) => void;
 }) {
   // Stable per-row keys so reordering/removing a row keeps focus, IME state and
   // the cursor on the right field instead of index-matching a stale DOM node.
@@ -260,6 +291,8 @@ function ReorderableList<T>({
   }
 
   function removeAt(i: number) {
+    const removed = items[i];
+    if (removed !== undefined) beforeRemove?.(removed);
     setKeys((k) => k.filter((_, idx) => idx !== i));
     onChange(items.filter((_, idx) => idx !== i));
   }
@@ -313,5 +346,119 @@ function ReorderableList<T>({
         <AddButton label={`${itemLabel} ekle`} onClick={addOne} />
       </div>
     </Field>
+  );
+}
+
+/** One certificate row: a title plus an uploaded PDF / image (Vercel Blob). */
+function CertFileRow({
+  item,
+  accept,
+  onChange,
+}: {
+  item: CertItem;
+  accept: string;
+  onChange: (patch: CertItem) => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleFile(file: File) {
+    setBusy(true);
+    setError(null);
+    const previousUrl = item.fileUrl;
+    try {
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/certificate-upload",
+        contentType: file.type || undefined,
+      });
+      onChange({
+        ...item,
+        fileUrl: blob.url,
+        fileName: file.name,
+        contentType: blob.contentType || file.type || "",
+      });
+      if (previousUrl && previousUrl !== blob.url) {
+        void deleteCertificateFile(previousUrl);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Yükleme başarısız.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function clearFile() {
+    const url = item.fileUrl;
+    onChange({ ...item, fileUrl: "", fileName: "", contentType: "" });
+    if (url) void deleteCertificateFile(url);
+  }
+
+  return (
+    <div className="space-y-2">
+      <Field label="Başlık">
+        <TextInput
+          value={item.title}
+          onChange={(e) => onChange({ ...item, title: e.target.value })}
+        />
+      </Field>
+
+      {item.fileUrl ? (
+        <div className="flex items-center gap-3 rounded-[4px] border border-line bg-white p-2">
+          {isImageType(item.contentType) ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.fileUrl}
+              alt=""
+              className="h-12 w-12 shrink-0 rounded-[3px] border border-line object-cover"
+            />
+          ) : (
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[3px] border border-line bg-surface-muted text-[10px] font-bold text-ink-400">
+              PDF
+            </span>
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[12.5px] font-medium text-ink-800">{item.fileName}</p>
+            <a
+              href={item.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-brand-600 hover:underline"
+            >
+              Görüntüle <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+          <button
+            type="button"
+            onClick={clearFile}
+            className="inline-flex items-center gap-1 rounded-[3px] px-2 py-1 text-[11.5px] font-medium text-danger-600 transition-colors hover:bg-danger-500/10"
+          >
+            <X className="h-3.5 w-3.5" /> Kaldır
+          </button>
+        </div>
+      ) : (
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-[4px] border border-dashed border-line-strong bg-white px-3 py-2 text-[12.5px] font-medium text-ink-600 transition-colors hover:border-brand-500 hover:text-brand-600">
+          {busy ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Upload className="h-4 w-4" />
+          )}
+          {busy ? "Yükleniyor…" : "Dosya yükle (PDF / görsel)"}
+          <input
+            type="file"
+            accept={accept}
+            hidden
+            disabled={busy}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (file) void handleFile(file);
+            }}
+          />
+        </label>
+      )}
+
+      {error && <p className="text-[11.5px] font-medium text-danger-600">{error}</p>}
+    </div>
   );
 }
