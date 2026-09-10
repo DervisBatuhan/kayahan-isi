@@ -9,7 +9,7 @@ import { getPortedMeta } from "@/lib/content/ported/meta";
  * absolute URLs even without env config.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.kayahanisi.com.tr"
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.kayahanisi.com"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Kayahan Isı";
