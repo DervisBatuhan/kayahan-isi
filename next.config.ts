@@ -14,7 +14,9 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.public.blob.vercel-storage.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com https://blob.vercel-storage.com https://*.public.blob.vercel-storage.com",
+  // Vercel Blob client uploads: the browser fetches the SDK API at vercel.com,
+  // then reads/writes the file at *.public.blob.vercel-storage.com.
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com https://vercel.com https://blob.vercel-storage.com https://*.public.blob.vercel-storage.com",
   "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
