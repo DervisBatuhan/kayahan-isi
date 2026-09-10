@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { normalizeCertItems } from "@/lib/content/ported/certificates-shared";
 import "./ported.scss";
 
 type Icon = ComponentType<{ className?: string }>;
@@ -135,7 +136,7 @@ function Message({ c }: { c: Record<string, unknown> }) {
 }
 
 function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: string; viewCertAria: (x: string) => string } }) {
-  const items = (c.items as string[]) ?? [];
+  const items = normalizeCertItems(c.items);
   return (
     <>
       <PageHero
@@ -155,13 +156,20 @@ function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: s
         </div>
         <div className="ep-cert-grid">
           {items.map((x, i) => (
-            <article key={`${x}-${i}`}>
+            <article key={`${x.title}-${i}`}>
               <FileBadge2 />
               <span>0{i + 1}</span>
-              <h3>{x}</h3>
-              <button aria-label={ep.viewCertAria(x)}>
-                {ep.viewCert} <Download />
-              </button>
+              <h3>{x.title}</h3>
+              {x.fileUrl && (
+                <a
+                  href={x.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={ep.viewCertAria(x.title)}
+                >
+                  {ep.viewCert} <Download />
+                </a>
+              )}
             </article>
           ))}
         </div>

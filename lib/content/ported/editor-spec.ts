@@ -38,6 +38,15 @@ export type FieldSpec =
       itemLabel: string;
       columns: ObjectListColumn[];
       hint?: string;
+    }
+  | {
+      key: string;
+      label: string;
+      type: "fileCardList";
+      itemLabel: string;
+      /** `accept` attribute for the file input, e.g. ".pdf,image/png". */
+      accept: string;
+      hint?: string;
     };
 
 export type SectionSpec = { title: string; description?: string; fields: FieldSpec[] };
@@ -398,7 +407,14 @@ const expansionCertificates: SectionSpec[] = [
       { key: "introHeadingTop", label: "Başlık — üst satır", type: "text" },
       { key: "introHeadingAccent", label: "Başlık — alt satır", type: "text" },
       { key: "introBody", label: "Metin", type: "textarea" },
-      { key: "items", label: "Belgeler", type: "stringList", itemLabel: "Belge" },
+      {
+        key: "items",
+        label: "Belgeler",
+        type: "fileCardList",
+        itemLabel: "Belge",
+        accept: ".pdf,image/png,image/jpeg,image/webp",
+        hint: "Her belge için bir başlık girin ve PDF ya da görsel yükleyin. Sırayı ok tuşlarıyla değiştirebilirsiniz.",
+      },
     ],
   },
 ];
