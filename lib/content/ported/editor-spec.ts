@@ -445,8 +445,9 @@ const expansionPress: SectionSpec[] = [
   {
     title: "Öne çıkan",
     fields: [
-      { key: "featureImage", label: "Görsel yolu", type: "text" },
-      { key: "featureImageAlt", label: "Görsel alt metni", type: "text" },
+      { key: "newsIndexValue", label: "Büyük sayı", type: "text" },
+      { key: "newsIndexSuffix", label: "Büyük sayı — üst simge (ör. +)", type: "text" },
+      { key: "newsIndexLabel", label: "Büyük sayı altındaki etiket", type: "text" },
       { key: "featureLabel", label: "Üst etiket", type: "text" },
       { key: "featureHeadingTop", label: "Başlık — üst satır", type: "text" },
       { key: "featureHeadingAccent", label: "Başlık — alt satır", type: "text" },
@@ -499,6 +500,33 @@ const expansionCareer: SectionSpec[] = [
   },
 ];
 
+const projectStack: ObjectListColumn[] = [
+  { key: "icon", label: "İkon anahtarı" },
+  { key: "num", label: "No" },
+  { key: "title", label: "Başlık" },
+];
+
+const expansionProjects: SectionSpec[] = [
+  { title: "Hero", fields: expansionHero },
+  {
+    title: "Proje yaklaşımı",
+    fields: [
+      { key: "introLabel", label: "Üst etiket", type: "text" },
+      { key: "introHeadingTop", label: "Başlık — üst satır", type: "text" },
+      { key: "introHeadingAccent", label: "Başlık — alt satır", type: "text" },
+      { key: "introBody", label: "Metin", type: "textarea" },
+      { key: "ctaLabel", label: "Buton metni", type: "text" },
+      { key: "ctaHref", label: "Buton adresi", type: "text" },
+    ],
+  },
+  {
+    title: "Süreç adımları",
+    fields: [
+      { key: "stack", label: "Adımlar", type: "objectList", itemLabel: "Adım", columns: projectStack },
+    ],
+  },
+];
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   activity: activitySpec,
   solution: solutionSpec,
@@ -512,6 +540,7 @@ export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   "expansion:certificates": expansionCertificates,
   "expansion:gallery": expansionGallery,
   "expansion:press": expansionPress,
+  "expansion:projects": expansionProjects,
   "expansion:career": expansionCareer,
 };
 

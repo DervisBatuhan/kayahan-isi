@@ -12,6 +12,7 @@ import {
   Building2,
   Check,
   ChevronDown,
+  ChevronRight,
   CircleGauge,
   FileBadge,
   Flag,
@@ -21,7 +22,6 @@ import {
   Leaf,
   Mail,
   Menu,
-  MessageCircle,
   Newspaper,
   Phone,
   RefreshCw,
@@ -322,10 +322,11 @@ export function HomeDesign({ content }: { content: SiteContent }) {
           );
         })}
         <i />
-        <a href={c.topBar.links[0]?.href}>✦ {c.topBar.links[0]?.label}</a>
-        <a href={c.topBar.links[1]?.href}>
-          <Mail /> {c.topBar.links[1]?.label}
-        </a>
+        {c.topBar.links.map((l) => (
+          <a key={l.href} href={l.href}>
+            {l.label}
+          </a>
+        ))}
         <LangMenu current={c.locale as "tr" | "en"} />
       </div>
 
@@ -351,20 +352,10 @@ export function HomeDesign({ content }: { content: SiteContent }) {
                 {UP(item.label)} {item.children && <ChevronDown />}
               </a>
               {item.children && openMenu === item.label && (
-                <div
-                  className={
-                    open
-                      ? "flex w-full flex-col border-l-2 border-line pl-3"
-                      : "absolute left-0 top-full z-50 min-w-[220px] overflow-hidden rounded-[3px] border border-line bg-white py-2 shadow-card"
-                  }
-                >
+                <div className={open ? "navMenu navMenu--mobile" : "navMenu"}>
                   {item.children.map((child) => (
-                    <a
-                      key={child.href}
-                      href={child.href}
-                      className="block px-4 py-2 text-[12px] font-semibold text-ink-600 hover:bg-surface-blue hover:text-brand-600"
-                    >
-                      {child.label}
+                    <a key={child.href} href={child.href}>
+                      {child.label} <ChevronRight />
                     </a>
                   ))}
                 </div>
@@ -450,7 +441,8 @@ export function HomeDesign({ content }: { content: SiteContent }) {
         <div className="journeyIntro">
           <h2>{UP(c.journey.eyebrow)}</h2>
           <p>{c.journey.paragraph}</p>
-          <a href={c.journey.cta.href}>
+          {/* Decorative, not a link (matches the approved reference). */}
+          <a>
             {UP(c.journey.cta.label)} <ArrowRight />
           </a>
         </div>
@@ -546,18 +538,9 @@ export function HomeDesign({ content }: { content: SiteContent }) {
           <a href={`mailto:${c.footer.contact.email}`}>
             <Mail /> {c.footer.contact.email}
           </a>
-          {c.footer.contact.whatsapp && (
-            <a
-              href={`https://wa.me/${c.footer.contact.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle /> WhatsApp
-            </a>
-          )}
-          <button>
+          <a className="footerContactButton" href={c.footer.contact.cta.href}>
             {UP(c.footer.contact.cta.label)} <ArrowRight />
-          </button>
+          </a>
         </div>
       </footer>
     </main>

@@ -7,5 +7,68 @@
 .ep-press-feature{display:grid;grid-template-columns:1.2fr .8fr;min-height:500px;background:#f2f6f9}.ep-press-feature img{width:100%;height:100%;object-fit:cover}.ep-press-feature>div{padding:60px;display:flex;flex-direction:column;justify-content:center}.ep-press-feature>div>span{font-size:9px;letter-spacing:.2em;color:#00a7d6}.ep-press-feature a,.ep-career a{display:flex;align-items:center;gap:18px;margin-top:25px;font-size:10px;font-weight:800;color:#073678}.ep-press-feature a svg,.ep-career a svg{width:15px}.ep-press-empty{margin-top:22px;padding:40px;border:1px solid #dce5ed;display:grid;grid-template-columns:45px 1fr;column-gap:20px}.ep-press-empty svg{grid-row:1/3;color:#00a7d6}.ep-press-empty span{font-size:10px;letter-spacing:.18em;color:#073678}.ep-press-empty p{margin:8px 0 0}
 .ep-career{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw}.ep-career-values{display:grid;grid-template-columns:1fr 1fr}.ep-career-values article{min-height:220px;padding:32px;border:1px solid #dbe4ec;margin:-1px 0 0 -1px}.ep-career-values svg{width:28px;color:#00a7d6;stroke-width:1.3}.ep-career-values h3{color:#073678;margin-top:42px}.ep-career-values p{font-size:12px;line-height:1.6;color:#68798c}.ep-open{margin:0 max(6vw,42px) 90px;padding:45px;background:#073678;color:#fff;display:flex;gap:30px;align-items:center}.ep-open>svg{width:42px;height:42px;color:#27bddf}.ep-open span{font-size:9px;letter-spacing:.19em;color:#27bddf}.ep-open h2{margin:8px 0;font-size:25px}.ep-open p{font-size:12px;color:#cfdeec}
 @keyframes epOrbit{to{transform:rotate(360deg)}}@keyframes epPulse{50%{opacity:.35;transform:translateY(12px)}}
+
+/* ── v14: route-specific hero signatures (certificates / gallery / press / career / projects) ── */
+.ep-hero:not(.ep-hero-orbit){isolation:isolate;background:#fff}
+.ep-hero-signature{position:absolute;inset:0 0 0 46%;overflow:hidden;z-index:0}
+.ep-hero-signature i{position:absolute;display:block}
+.ep-hero-career{background:linear-gradient(110deg,#fff 0 52%,#053575 52% 100%)!important}
+.ep-hero-career .ep-hero-signature i{height:1px;left:0;right:0;background:linear-gradient(90deg,transparent,#32bedf,transparent);transform:rotate(-14deg)}
+.ep-hero-career .ep-hero-signature i:nth-child(1){top:24%}
+.ep-hero-career .ep-hero-signature i:nth-child(2){top:42%}
+.ep-hero-career .ep-hero-signature i:nth-child(3){top:60%}
+.ep-hero-career .ep-hero-signature i:nth-child(4){top:78%;background:linear-gradient(90deg,transparent,#f47b20,transparent)}
+.ep-hero-certificates{background:linear-gradient(115deg,#fff 0 58%,#f2f7fa 100%)!important}
+.ep-hero-certificates .ep-hero-signature{background:repeating-linear-gradient(90deg,transparent 0 92px,rgba(7,54,120,.08) 93px),repeating-linear-gradient(0deg,transparent 0 92px,rgba(7,54,120,.08) 93px)}
+/* v15: the "CERTIFIED" rotated stamp was removed from the final approved hero */
+.ep-hero-certificates .ep-hero-signature:before{display:none}
+.ep-hero-certificates .ep-hero-signature i{width:8px;height:8px;border-radius:50%;background:#f47b20}
+.ep-hero-certificates .ep-hero-signature i:nth-child(1){left:20%;top:22%}
+.ep-hero-certificates .ep-hero-signature i:nth-child(2){left:48%;top:68%}
+.ep-hero-certificates .ep-hero-signature i:nth-child(3){left:72%;top:28%}
+.ep-hero-gallery{background:linear-gradient(90deg,#fff 0 51%,#073678 51% 100%)!important}
+.ep-hero-gallery .ep-hero-signature{display:grid;grid-template-columns:1.2fr .8fr;grid-template-rows:1fr 1fr;gap:12px;padding:48px}
+.ep-hero-gallery .ep-hero-signature i{position:static;border:1px solid rgba(255,255,255,.42);background:linear-gradient(135deg,rgba(0,167,214,.26),rgba(255,255,255,.03))}
+.ep-hero-gallery .ep-hero-signature i:first-child{grid-row:1/3}
+.ep-hero-gallery .ep-hero-signature i:last-child{display:none}
+.ep-hero-press{background:#f7fafc!important}
+.ep-hero-press:after{content:"BASINDA BİZ  •  KURUMSAL HABERLER  •  KAYAHAN ISI";position:absolute;right:-60px;top:50%;transform:rotate(90deg) translateY(-50%);font-size:9px;letter-spacing:.25em;color:#fff;z-index:2}
+.ep-hero-press .ep-hero-signature{background:#073678}
+.ep-hero-press .ep-hero-signature i{left:8%;right:8%;height:1px;background:linear-gradient(90deg,#00a7d6,#f47b20)}
+.ep-hero-press .ep-hero-signature i:nth-child(1){top:25%}
+.ep-hero-press .ep-hero-signature i:nth-child(2){top:50%}
+.ep-hero-press .ep-hero-signature i:nth-child(3){top:75%}
+.ep-hero-press .ep-hero-signature i:nth-child(4){width:120px;height:120px;right:18%;left:auto;top:calc(50% - 60px);border:1px solid rgba(255,255,255,.3);border-radius:50%;background:transparent}
+.ep-hero-projects{background:linear-gradient(105deg,#fff 0 48%,#edf5f9 48% 100%)!important}
+.ep-hero-projects .ep-hero-signature{background:repeating-linear-gradient(0deg,transparent 0 34px,rgba(7,54,120,.09) 35px),repeating-linear-gradient(90deg,transparent 0 34px,rgba(7,54,120,.09) 35px)}
+.ep-hero-projects .ep-hero-signature:before,.ep-hero-projects .ep-hero-signature:after{content:"";position:absolute;border:1px solid #0c5b92;transform:skewY(-10deg);background:rgba(255,255,255,.45)}
+.ep-hero-projects .ep-hero-signature:before{width:38%;height:48%;left:19%;top:27%}
+.ep-hero-projects .ep-hero-signature:after{width:28%;height:34%;left:51%;top:39%;border-color:#e45531}
+@media(max-width:1000px){.ep-hero-signature{inset:48% 0 0 0}.ep-hero-career{background:linear-gradient(180deg,#fff 0 58%,#053575 58% 100%)!important}.ep-hero-gallery{background:linear-gradient(180deg,#fff 0 55%,#073678 55% 100%)!important}.ep-hero-gallery .ep-hero-signature{padding:24px}}
+@media(max-width:600px){.ep-hero-signature{inset:52% 0 0}.ep-hero-press:after{display:none}}
+
+/* v14 (+ v15/v16 refinements): press is editorial typography, not the repeated homepage CGI */
+.ep-press-typographic{grid-template-columns:.85fr 1.15fr;background:#eef4f8}
+.ep-news-index{background:#073678;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:55px}
+/* higher specificity than the generic `.ep-press-feature>div>span` feature-label
+   rule above, which would otherwise shrink this to 9px */
+.ep-press-typographic .ep-news-index span{display:flex;align-items:flex-start;gap:0;font-size:112px;line-height:.82;font-weight:800;letter-spacing:-.035em;color:#20b9dd}
+.ep-news-index sup{font-size:.34em;line-height:1;margin:3px 0 0 4px;color:#f47b20}
+.ep-news-index small{margin-top:25px;font-size:10px;letter-spacing:.18em}
+@media(max-width:600px){.ep-press-typographic .ep-news-index span{font-size:78px}}
+
+/* v14: Projelerimiz — approach lead + numbered stack (not the repeated homepage CGI) */
+.ep-projects{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:center}
+.ep-project-lead h2{font-size:42px;line-height:1.05;color:#073678;letter-spacing:-.04em}
+.ep-project-lead p{font-size:15px;line-height:1.8;color:#68798c}
+.ep-project-lead a{display:flex;align-items:center;gap:18px;margin-top:26px;font-size:10px;font-weight:800;color:#073678}
+.ep-project-lead a svg{width:15px}
+.ep-project-stack{border:1px solid #dbe5ed}
+.ep-project-stack article{min-height:155px;padding:28px;display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto 1fr;border-bottom:1px solid #dbe5ed}
+.ep-project-stack article:last-child{border:0}
+.ep-project-stack svg{grid-row:1/3;color:#00a7d6;width:28px}
+.ep-project-stack span{justify-self:end;font-size:10px;color:#00a7d6}
+.ep-project-stack h3{margin:auto 0 0;font-size:18px;color:#073678}
+@media(max-width:1000px){.ep-projects{grid-template-columns:1fr}}
 @media(max-width:900px){.ep-hero{grid-template-columns:1fr;min-height:580px}.ep-hero h1{font-size:48px}.ep-orbit{position:absolute;right:-80px;bottom:-60px;opacity:.7}.ep-board,.ep-certs,.ep-career{grid-template-columns:1fr}.ep-governance{grid-template-columns:1fr 1fr}.ep-press-feature{grid-template-columns:1fr}.ep-press-feature img{height:390px}.ep-gallery figure.wide{height:430px}}
 @media(max-width:560px){.ep-section{padding:58px 20px}.ep-hero{padding:58px 20px;min-height:510px}.ep-hero h1{font-size:39px}.ep-orbit{width:290px;height:290px}.ep-board h2,.ep-intro h2,.ep-career h2,.ep-press h2{font-size:32px}.ep-governance{grid-template-columns:1fr}.ep-governance article{min-height:180px;border-right:0;border-bottom:1px solid #ffffff2e}.ep-message{grid-template-columns:1fr}.ep-message>svg{margin-bottom:25px}.ep-message .ep-lead{font-size:21px}.ep-cert-grid,.ep-gallery,.ep-career-values{grid-template-columns:1fr}.ep-cert-grid article{border-right:0!important;border-bottom:1px solid #dce5ed!important}.ep-gallery figure,.ep-gallery figure.wide{grid-column:auto;height:320px}.ep-press-feature>div{padding:35px 25px}.ep-open{margin:0 20px 58px;padding:30px}}

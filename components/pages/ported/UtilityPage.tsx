@@ -386,8 +386,6 @@ function ContactPage({
         </div>
         <div className="up-contact-axis" aria-hidden="true">
           <i />
-          <b>{t.contact.city}</b>
-          <i />
         </div>
       </section>
       <section className="up-contact-layout">

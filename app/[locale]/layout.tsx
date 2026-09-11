@@ -13,6 +13,7 @@ import {
 } from "@/lib/seo";
 import { jsonLdScript, siteGraph } from "@/lib/structured-data";
 import { Analytics } from "@/components/analytics/Analytics";
+import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 
 /** Search-engine ownership tags (set the env vars to enable). */
 const VERIFICATION = {
@@ -95,6 +96,7 @@ export default async function LocaleLayout({
           }}
         />
         {children}
+        <WhatsAppFloat phone={site.footer.contact.whatsapp} />
         <Analytics />
       </body>
     </html>

@@ -6,6 +6,7 @@ import {
   ArrowRight,
   Award,
   BriefcaseBusiness,
+  Building2,
   CheckCircle2,
   Download,
   FileBadge2,
@@ -31,7 +32,8 @@ export type ExpansionKind =
   | "certificates"
   | "gallery"
   | "press"
-  | "career";
+  | "career"
+  | "projects";
 
 const VALUE_ICONS: Record<string, Icon> = {
   users: Users,
@@ -40,20 +42,37 @@ const VALUE_ICONS: Record<string, Icon> = {
   award: Award,
 };
 
+const PROJECT_ICONS: Record<string, Icon> = {
+  building: Building2,
+  check: CheckCircle2,
+  shield: ShieldCheck,
+};
+
 type NumTitleText = { num: string; title: string; text: string };
 type IconTitleText = { icon: string; title: string; text: string };
+type ProjectStackItem = { icon: string; num: string; title: string };
+
+type HeroVariant =
+  | "orbit"
+  | "certificates"
+  | "gallery"
+  | "press"
+  | "career"
+  | "projects";
 
 function PageHero({
   eyebrow,
   title,
   accent,
+  variant = "orbit",
 }: {
   eyebrow: string;
   title: string;
   accent: string;
+  variant?: HeroVariant;
 }) {
   return (
-    <section className="ep-hero">
+    <section className={`ep-hero ep-hero-${variant}`}>
       <div>
         <span>{eyebrow}</span>
         <h1>
@@ -62,11 +81,20 @@ function PageHero({
           <em>{accent}</em>
         </h1>
       </div>
-      <div className="ep-orbit" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </div>
+      {variant === "orbit" ? (
+        <div className="ep-orbit" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+      ) : (
+        <div className="ep-hero-signature" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+          <i />
+        </div>
+      )}
     </section>
   );
 }
@@ -140,6 +168,7 @@ function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: s
   return (
     <>
       <PageHero
+        variant="certificates"
         eyebrow={String(c.heroEyebrow ?? "")}
         title={String(c.heroTitle ?? "")}
         accent={String(c.heroAccent ?? "")}
@@ -183,6 +212,7 @@ function Gallery({ c }: { c: Record<string, unknown> }) {
   return (
     <>
       <PageHero
+        variant="gallery"
         eyebrow={String(c.heroEyebrow ?? "")}
         title={String(c.heroTitle ?? "")}
         accent={String(c.heroAccent ?? "")}
@@ -209,14 +239,20 @@ function Press({ c }: { c: Record<string, unknown> }) {
   return (
     <>
       <PageHero
+        variant="press"
         eyebrow={String(c.heroEyebrow ?? "")}
         title={String(c.heroTitle ?? "")}
         accent={String(c.heroAccent ?? "")}
       />
       <section className="ep-press ep-section">
-        <div className="ep-press-feature">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img loading="lazy" decoding="async" src={String(c.featureImage ?? "")} alt={String(c.featureImageAlt ?? "")} />
+        <div className="ep-press-feature ep-press-typographic">
+          <div className="ep-news-index">
+            <span>
+              {String(c.newsIndexValue ?? "")}
+              <sup>{String(c.newsIndexSuffix ?? "")}</sup>
+            </span>
+            <small>{String(c.newsIndexLabel ?? "")}</small>
+          </div>
           <div>
             <span>{String(c.featureLabel ?? "")}</span>
             <h2>
@@ -245,6 +281,7 @@ function Career({ c }: { c: Record<string, unknown> }) {
   return (
     <>
       <PageHero
+        variant="career"
         eyebrow={String(c.heroEyebrow ?? "")}
         title={String(c.heroTitle ?? "")}
         accent={String(c.heroAccent ?? "")}
@@ -287,6 +324,46 @@ function Career({ c }: { c: Record<string, unknown> }) {
   );
 }
 
+function Projects({ c }: { c: Record<string, unknown> }) {
+  const stack = (c.stack as ProjectStackItem[]) ?? [];
+  return (
+    <>
+      <PageHero
+        variant="projects"
+        eyebrow={String(c.heroEyebrow ?? "")}
+        title={String(c.heroTitle ?? "")}
+        accent={String(c.heroAccent ?? "")}
+      />
+      <section className="ep-projects ep-section">
+        <div className="ep-project-lead">
+          <span className="cp-label">{String(c.introLabel ?? "")}</span>
+          <h2>
+            {String(c.introHeadingTop ?? "")}
+            <br />
+            {String(c.introHeadingAccent ?? "")}
+          </h2>
+          <p>{String(c.introBody ?? "")}</p>
+          <Link href={String(c.ctaHref ?? "/tr/referanslar")}>
+            {String(c.ctaLabel ?? "")} <ArrowRight />
+          </Link>
+        </div>
+        <div className="ep-project-stack">
+          {stack.map((s, i) => {
+            const I = PROJECT_ICONS[s.icon] ?? Building2;
+            return (
+              <article key={`${s.num}-${i}`}>
+                <I />
+                <span>{s.num}</span>
+                <h3>{s.title}</h3>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </>
+  );
+}
+
 export default function ExpansionPage({
   kind,
   content,
@@ -309,6 +386,8 @@ export default function ExpansionPage({
         <Gallery c={content} />
       ) : kind === "press" ? (
         <Press c={content} />
+      ) : kind === "projects" ? (
+        <Projects c={content} />
       ) : (
         <Career c={content} />
       )}

@@ -6,7 +6,8 @@ export type ExpansionKind =
   | "certificates"
   | "gallery"
   | "press"
-  | "career";
+  | "career"
+  | "projects";
 
 const s = z.string().trim();
 const req = s.min(1, "Boş bırakılamaz.");
@@ -75,8 +76,9 @@ export const gallerySchema = z.object({
 
 export const pressSchema = z.object({
   ...heroShape,
-  featureImage: s.max(200),
-  featureImageAlt: s.max(200),
+  newsIndexValue: s.max(10),
+  newsIndexSuffix: s.max(6),
+  newsIndexLabel: s.max(80),
   featureLabel: s.max(80),
   featureHeadingTop: s.max(160),
   featureHeadingAccent: s.max(160),
@@ -101,6 +103,19 @@ export const careerSchema = z.object({
   openBody: s.max(400),
 });
 
+const projectStackItem = z.object({ icon: s.max(40), num: s.max(8), title: req.max(120) });
+
+export const projectsSchema = z.object({
+  ...heroShape,
+  introLabel: s.max(80),
+  introHeadingTop: s.max(160),
+  introHeadingAccent: s.max(160),
+  introBody: s.max(600),
+  ctaLabel: s.max(80),
+  ctaHref: s.max(200),
+  stack: z.array(projectStackItem).min(1).max(8),
+});
+
 export const expansionSchemas: Record<ExpansionKind, z.ZodType> = {
   board: boardSchema,
   message: messageSchema,
@@ -108,6 +123,7 @@ export const expansionSchemas: Record<ExpansionKind, z.ZodType> = {
   gallery: gallerySchema,
   press: pressSchema,
   career: careerSchema,
+  projects: projectsSchema,
 };
 
 export const EXPANSION_KIND_LABEL: Record<ExpansionKind, string> = {
@@ -117,6 +133,7 @@ export const EXPANSION_KIND_LABEL: Record<ExpansionKind, string> = {
   gallery: "Galeri",
   press: "Basında Biz",
   career: "İnsan Kaynakları",
+  projects: "Projelerimiz",
 };
 
 export const EXPANSION_ROUTE: Record<ExpansionKind, string> = {
@@ -126,6 +143,7 @@ export const EXPANSION_ROUTE: Record<ExpansionKind, string> = {
   gallery: "/tr/galeri",
   press: "/tr/basinda-biz",
   career: "/tr/insan-kaynaklari",
+  projects: "/tr/projelerimiz",
 };
 
 export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> = {
@@ -195,8 +213,9 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
     heroEyebrow: "BASINDA BİZ",
     heroTitle: "Kayahan Isı’dan",
     heroAccent: "güncel gelişmeler.",
-    featureImage: "/assets/home-media-cgi.png",
-    featureImageAlt: "Kayahan Isı mühendislik ve teknoloji",
+    newsIndexValue: "45",
+    newsIndexSuffix: "+",
+    newsIndexLabel: "YILLIK KURUMSAL HAFIZA",
     featureLabel: "KURUMSAL HABERLER",
     featureHeadingTop: "45 yıllık ustalık,",
     featureHeadingAccent: "geleceğin teknolojisiyle buluşuyor.",
@@ -227,6 +246,23 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
     openLabel: "AÇIK POZİSYONLAR",
     openHeading: "Yeni ilanlar yakında.",
     openBody: "Özgeçmişinizi genel başvuru üzerinden bizimle paylaşabilirsiniz.",
+  },
+  projects: {
+    heroEyebrow: "PROJELERİMİZ",
+    heroTitle: "Her yapı için",
+    heroAccent: "ölçülebilir performans.",
+    introLabel: "PROJE YAKLAŞIMI",
+    introHeadingTop: "Analizden devreye almaya,",
+    introHeadingAccent: "tek bir mühendislik disiplini.",
+    introBody:
+      "İklimlendirme, ısıtma, soğutma, yalıtım ve enerji çözümlerini yapının gerçek ihtiyacına göre tek bir performans bütünü olarak ele alıyoruz.",
+    ctaLabel: "REFERANSLARI İNCELEYİN",
+    ctaHref: "/tr/referanslar",
+    stack: [
+      { icon: "building", num: "01", title: "Bütünleşik Sistemler" },
+      { icon: "check", num: "02", title: "Uygulama ve Devreye Alma" },
+      { icon: "shield", num: "03", title: "Sürdürülebilir Performans" },
+    ],
   },
 };
 
@@ -297,8 +333,9 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
     heroEyebrow: "IN THE PRESS",
     heroTitle: "Latest developments",
     heroAccent: "from Kayahan Isı.",
-    featureImage: "/assets/home-media-cgi.png",
-    featureImageAlt: "Kayahan Isı engineering and technology",
+    newsIndexValue: "45",
+    newsIndexSuffix: "+",
+    newsIndexLabel: "YEARS OF CORPORATE MEMORY",
     featureLabel: "CORPORATE NEWS",
     featureHeadingTop: "45 years of craftsmanship,",
     featureHeadingAccent: "meeting the technology of the future.",
@@ -329,5 +366,22 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
     openLabel: "OPEN POSITIONS",
     openHeading: "New listings coming soon.",
     openBody: "You can share your CV with us through the general application.",
+  },
+  projects: {
+    heroEyebrow: "OUR PROJECTS",
+    heroTitle: "Measurable performance",
+    heroAccent: "for every building.",
+    introLabel: "PROJECT APPROACH",
+    introHeadingTop: "From analysis to commissioning,",
+    introHeadingAccent: "a single engineering discipline.",
+    introBody:
+      "We treat air conditioning, heating, cooling, insulation and energy solutions as one performance whole, matched to the building's real needs.",
+    ctaLabel: "VIEW REFERENCES",
+    ctaHref: "/en/referanslar",
+    stack: [
+      { icon: "building", num: "01", title: "Integrated Systems" },
+      { icon: "check", num: "02", title: "Implementation & Commissioning" },
+      { icon: "shield", num: "03", title: "Sustainable Performance" },
+    ],
   },
 };

@@ -16,10 +16,7 @@ const tr: SiteContent = {
       "1976'dan Bugüne",
       "Global Yaklaşım, Yerel Güç",
     ],
-    links: [
-      { label: "Kariyer", href: "/tr/insan-kaynaklari" },
-      { label: "İletişim", href: "/tr/iletisim" },
-    ],
+    links: [{ label: "İletişim", href: "/tr/iletisim" }],
   },
   brand: { name: "KAYAHAN", tagline: "ISI" },
   nav: {
@@ -57,8 +54,23 @@ const tr: SiteContent = {
           { label: "Servis & Bakım", href: "/tr/cozumler/servis-bakim" },
         ],
       },
-      { label: "Referanslar", href: "/tr/referanslar" },
-      { label: "İnsan Kaynakları", href: "/tr/insan-kaynaklari" },
+      {
+        label: "Keşfet",
+        href: "/tr/kesfet",
+        children: [
+          { label: "Projelerimiz", href: "/tr/projelerimiz" },
+          { label: "Sertifikalarımız", href: "/tr/kurumsal/sertifikalarimiz" },
+          { label: "Galeri", href: "/tr/galeri" },
+          { label: "Basında Biz", href: "/tr/basinda-biz" },
+        ],
+      },
+      {
+        label: "Kariyer",
+        href: "/tr/insan-kaynaklari",
+        children: [
+          { label: "İnsan Kaynakları", href: "/tr/insan-kaynaklari" },
+        ],
+      },
       { label: "İletişim", href: "/tr/iletisim" },
     ],
     cta: { label: "Teklif Alın", href: "/tr/teklif-al" },
@@ -373,10 +385,7 @@ const en: SiteContent = {
   locale: "en",
   topBar: {
     highlights: ["45+ Years of Experience", "Since 1976", "Global Approach, Local Strength"],
-    links: [
-      { label: "Careers", href: "/en/insan-kaynaklari" },
-      { label: "Contact", href: "/en/iletisim" },
-    ],
+    links: [{ label: "Contact", href: "/en/iletisim" }],
   },
   brand: { name: "KAYAHAN", tagline: "ISI" },
   nav: {
@@ -414,8 +423,23 @@ const en: SiteContent = {
           { label: "Service & Maintenance", href: "/en/cozumler/servis-bakim" },
         ],
       },
-      { label: "References", href: "/en/referanslar" },
-      { label: "Human Resources", href: "/en/insan-kaynaklari" },
+      {
+        label: "Explore",
+        href: "/en/kesfet",
+        children: [
+          { label: "Our Projects", href: "/en/projelerimiz" },
+          { label: "Certifications", href: "/en/kurumsal/sertifikalarimiz" },
+          { label: "Gallery", href: "/en/galeri" },
+          { label: "In the Press", href: "/en/basinda-biz" },
+        ],
+      },
+      {
+        label: "Careers",
+        href: "/en/insan-kaynaklari",
+        children: [
+          { label: "Human Resources", href: "/en/insan-kaynaklari" },
+        ],
+      },
       { label: "Contact", href: "/en/iletisim" },
     ],
     cta: { label: "Get a Quote", href: "/en/teklif-al" },
