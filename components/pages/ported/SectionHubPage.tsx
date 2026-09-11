@@ -2,13 +2,17 @@
 
 import { useEffect, type ComponentType } from "react";
 import {
+  Award,
   ArrowRight,
   Building2,
   Cpu,
   Gauge,
+  Images,
+  LayoutGrid,
   Layers3,
   Leaf,
   Network,
+  Newspaper,
   Quote,
   ShieldCheck,
   Snowflake,
@@ -23,7 +27,7 @@ import { hubChrome } from "@/lib/content/ported/hub";
 import type { HubContent } from "@/lib/content/ported/types";
 import "./ported.scss";
 
-export type HubKind = "corporate" | "activity" | "solutions";
+export type HubKind = "corporate" | "activity" | "solutions" | "explore";
 
 const ICONS: Record<string, ComponentType<{ className?: string }>> = {
   building: Building2,
@@ -41,6 +45,10 @@ const ICONS: Record<string, ComponentType<{ className?: string }>> = {
   cpu: Cpu,
   gauge: Gauge,
   wrench: Wrench,
+  projects: LayoutGrid,
+  certificate: Award,
+  gallery: Images,
+  news: Newspaper,
 };
 
 export default function SectionHubPage({

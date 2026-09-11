@@ -1,6 +1,6 @@
 import type { HubContent } from "./types";
 
-export type HubKind = "corporate" | "activity" | "solutions";
+export type HubKind = "corporate" | "activity" | "solutions" | "explore";
 
 export const HUB_CHROME = {
   gridDefaultLabel: "BAŞLIKLAR",
@@ -79,6 +79,25 @@ export const hubDefaults: Record<HubKind, HubContent> = {
     ctaLabel: "Çözümleri Görüşelim",
     ctaHref: "/tr/iletisim",
   },
+  explore: {
+    eyebrow: "KEŞFET",
+    titleTop: "Sahadan projelere,",
+    titleAccent: "belgelerden basına.",
+    lead: "Kayahan Isı'yı daha yakından tanıyın: tamamladığımız projeler, kurumsal yeterliliğimizi belgeleyen sertifikalar, saha görselleri ve güncel gelişmeler.",
+    image: "/assets/home-media-cgi.png",
+    imageAlt: "Kayahan Isı mühendislik ve teknoloji",
+    gridHeadLabel: HUB_CHROME.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME.gridDefaultTitle,
+    items: [
+      { title: "Projelerimiz", href: "/tr/projelerimiz", text: "Analizden devreye almaya, ölçülebilir performans.", icon: "projects" },
+      { title: "Sertifikalarımız", href: "/tr/kurumsal/sertifikalarimiz", text: "Standartlara bağlı, belgelendirilmiş yeterlilik.", icon: "certificate" },
+      { title: "Galeri", href: "/tr/galeri", text: "Sahadan ve projelerden seçkiler.", icon: "gallery" },
+      { title: "Basında Biz", href: "/tr/basinda-biz", text: "Kayahan Isı'dan güncel gelişmeler.", icon: "news" },
+    ],
+    band: "Kayahan Isı'yı yakından tanıyın.",
+    ctaLabel: "İletişime Geçin",
+    ctaHref: "/tr/iletisim",
+  },
 };
 
 export const hubDefaultsEn: Record<HubKind, HubContent> = {
@@ -140,6 +159,25 @@ export const hubDefaultsEn: Record<HubKind, HubContent> = {
     ],
     band: "Systems that talk to each other, working toward a single goal.",
     ctaLabel: "Let's Talk Solutions",
+    ctaHref: "/en/iletisim",
+  },
+  explore: {
+    eyebrow: "EXPLORE",
+    titleTop: "From the field to projects,",
+    titleAccent: "from certificates to the press.",
+    lead: "Get to know Kayahan Isı more closely: the projects we've completed, the certificates documenting our corporate competence, field imagery and the latest developments.",
+    image: "/assets/home-media-cgi.png",
+    imageAlt: "Kayahan Isı engineering and technology",
+    gridHeadLabel: HUB_CHROME_EN.gridDefaultLabel,
+    gridHeadTitle: HUB_CHROME_EN.gridDefaultTitle,
+    items: [
+      { title: "Our Projects", href: "/en/projelerimiz", text: "From analysis to commissioning, measurable performance.", icon: "projects" },
+      { title: "Certifications", href: "/en/kurumsal/sertifikalarimiz", text: "Standards-based, certified competence.", icon: "certificate" },
+      { title: "Gallery", href: "/en/galeri", text: "A selection from the field and from projects.", icon: "gallery" },
+      { title: "In the Press", href: "/en/basinda-biz", text: "Latest developments from Kayahan Isı.", icon: "news" },
+    ],
+    band: "Get to know Kayahan Isı up close.",
+    ctaLabel: "Get in Touch",
     ctaHref: "/en/iletisim",
   },
 };

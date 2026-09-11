@@ -9,6 +9,19 @@ type Entry = { og: "website" | "article"; tr: Meta; en: Meta };
  * locale-less path.
  */
 export const PORTED_META: Record<string, Entry> = {
+  "/kesfet": {
+    og: "website",
+    tr: {
+      title: "Keşfet",
+      description:
+        "Kayahan Isı'yı daha yakından tanıyın: projelerimiz, sertifikalarımız, galeri ve basında biz.",
+    },
+    en: {
+      title: "Explore",
+      description:
+        "Get to know Kayahan Isı more closely: our projects, certifications, gallery and press coverage.",
+    },
+  },
   "/kurumsal": {
     og: "website",
     tr: {
@@ -265,6 +278,19 @@ export const PORTED_META: Record<string, Entry> = {
     en: {
       title: "Gallery",
       description: "A selection from the field and from projects — the details of engineering.",
+    },
+  },
+  "/projelerimiz": {
+    og: "website",
+    tr: {
+      title: "Projelerimiz",
+      description:
+        "Analizden devreye almaya; iklimlendirme, ısıtma, soğutma, yalıtım ve enerji projelerimize yaklaşımımız.",
+    },
+    en: {
+      title: "Our Projects",
+      description:
+        "From analysis to commissioning — our approach to air conditioning, heating, cooling, insulation and energy projects.",
     },
   },
   "/basinda-biz": {

@@ -25,11 +25,13 @@ const HUB_LABEL: Record<string, string> = {
   corporate: "Kurumsal (hub)",
   activity: "Faaliyet Alanları (hub)",
   solutions: "Çözümler (hub)",
+  explore: "Keşfet (hub)",
 };
 const HUB_ROUTE: Record<string, string> = {
   corporate: "/tr/kurumsal",
   activity: "/tr/faaliyet-alanlari",
   solutions: "/tr/cozumler",
+  explore: "/tr/kesfet",
 };
 
 /**

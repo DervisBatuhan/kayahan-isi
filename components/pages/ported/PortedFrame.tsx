@@ -25,6 +25,7 @@ const EXPANSION_PARENT: Record<string, { seg: string; label: Record<Locale, stri
   gallery: null,
   press: null,
   career: null,
+  projects: null,
 };
 
 /** Strip the leading `/tr` (or `/en`) from a registry route. */
