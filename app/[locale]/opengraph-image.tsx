@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { isLocale, locales } from "@/lib/i18n/config";
 
@@ -24,6 +26,12 @@ const COPY = {
 // segment reads against the navy background): mavi, turkuaz, kırmızı, turuncu, sarı
 const BAR = ["#55A0DD", "#00A9D6", "#D71920", "#F58220", "#FDB913"];
 
+// White "KAYA" variant of the logo (public/brand/kayahan-logo.svg), matted
+// onto a transparent background — the only readable version on this navy card.
+const logoDataUrl = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public/brand/kayahan-logo-footer.png"),
+).toString("base64")}`;
+
 export default async function OpengraphImage({
   params,
 }: {
@@ -47,17 +55,13 @@ export default async function OpengraphImage({
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 30, letterSpacing: 6, color: "#9AC6EC" }}>
-          <span>KAYAHAN ISI</span>
-          <span style={{ opacity: 0.5 }}>·</span>
-          <span>1976</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoDataUrl} width={205} height={81} alt="" />
+          <span style={{ fontSize: 30, letterSpacing: 6, color: "#9AC6EC" }}>· 1976</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ display: "flex", fontSize: 92, fontWeight: 800, lineHeight: 1.05 }}>
-            <span>KAYAHAN</span>
-            <span style={{ color: "#00A9D6" }}>ISI</span>
-          </div>
           <div style={{ fontSize: 40, fontWeight: 600, color: "#EAF2FB" }}>
             {copy.strap}
           </div>

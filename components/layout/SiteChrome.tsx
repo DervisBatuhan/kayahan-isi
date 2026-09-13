@@ -30,8 +30,8 @@ import "./chrome-fixes.scss";
 const upper = (s: string, locale: string) =>
   s.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
-// Logo asset intrinsic size (public/brand/kayahan-logo*.png).
-const LOGO_AR = 837 / 330;
+// Logo asset intrinsic size (public/brand/kayahan-logo*.svg).
+const LOGO_AR = 1232 / 489;
 
 function Logo({
   variant = "header",
@@ -42,8 +42,8 @@ function Logo({
 }) {
   const src =
     variant === "footer"
-      ? "/brand/kayahan-logo-footer.png"
-      : "/brand/kayahan-logo.png";
+      ? "/brand/kayahan-logo-footer.svg"
+      : "/brand/kayahan-logo.svg";
   const height = variant === "footer" ? 46 : 54;
   return (
     <a
@@ -57,6 +57,7 @@ function Logo({
         width={Math.round(height * LOGO_AR)}
         height={height}
         priority={variant === "header"}
+        unoptimized
       />
     </a>
   );
