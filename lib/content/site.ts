@@ -59,9 +59,17 @@ const tr: SiteContent = {
         href: "/tr/kesfet",
         children: [
           { label: "Projelerimiz", href: "/tr/projelerimiz" },
+          { label: "Referanslar", href: "/tr/referanslar" },
           { label: "Sertifikalarımız", href: "/tr/kurumsal/sertifikalarimiz" },
           { label: "Galeri", href: "/tr/galeri" },
           { label: "Basında Biz", href: "/tr/basinda-biz" },
+        ],
+      },
+      {
+        label: "Çözüm Ortaklarımız",
+        href: "/tr/cozum-ortaklarimiz",
+        children: [
+          { label: "Tümünü Gör", href: "/tr/cozum-ortaklarimiz" },
         ],
       },
       {
@@ -69,6 +77,15 @@ const tr: SiteContent = {
         href: "/tr/insan-kaynaklari",
         children: [
           { label: "İnsan Kaynakları", href: "/tr/insan-kaynaklari" },
+        ],
+      },
+      {
+        label: "Bilgi Merkezi",
+        href: "/tr/blog",
+        children: [
+          { label: "Blog", href: "/tr/blog" },
+          { label: "Sıkça Sorulan Sorular", href: "/tr/sikca-sorulan-sorular" },
+          { label: "Müşteri Yorumları", href: "/tr/musteri-yorumlari" },
         ],
       },
       { label: "İletişim", href: "/tr/iletisim" },
@@ -428,9 +445,17 @@ const en: SiteContent = {
         href: "/en/kesfet",
         children: [
           { label: "Our Projects", href: "/en/projelerimiz" },
+          { label: "References", href: "/en/referanslar" },
           { label: "Certifications", href: "/en/kurumsal/sertifikalarimiz" },
           { label: "Gallery", href: "/en/galeri" },
           { label: "In the Press", href: "/en/basinda-biz" },
+        ],
+      },
+      {
+        label: "Solution Partners",
+        href: "/en/cozum-ortaklarimiz",
+        children: [
+          { label: "View All", href: "/en/cozum-ortaklarimiz" },
         ],
       },
       {
@@ -438,6 +463,15 @@ const en: SiteContent = {
         href: "/en/insan-kaynaklari",
         children: [
           { label: "Human Resources", href: "/en/insan-kaynaklari" },
+        ],
+      },
+      {
+        label: "Knowledge Hub",
+        href: "/en/blog",
+        children: [
+          { label: "Blog", href: "/en/blog" },
+          { label: "Frequently Asked Questions", href: "/en/sikca-sorulan-sorular" },
+          { label: "Client Stories", href: "/en/musteri-yorumlari" },
         ],
       },
       { label: "Contact", href: "/en/iletisim" },

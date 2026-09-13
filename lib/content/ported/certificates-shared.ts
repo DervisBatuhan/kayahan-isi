@@ -1,6 +1,9 @@
 /**
  * Certificate item shape + helpers. Pure module — safe to import from both
  * client components and server code. No side effects, no server-only deps.
+ *
+ * Also reused as-is for solution-partner logos (same title/fileUrl shape via
+ * the generic "fileCardList" editor field) — see `PartnerItem` below.
  */
 
 export type CertItem = {
@@ -32,12 +35,13 @@ export function normalizeCertItems(items: unknown): CertItem[] {
   });
 }
 
-export const CERT_ACCEPT = ".pdf,image/png,image/jpeg,image/webp";
+export const CERT_ACCEPT = ".pdf,image/png,image/jpeg,image/webp,image/svg+xml";
 export const CERT_ALLOWED_TYPES = [
   "application/pdf",
   "image/png",
   "image/jpeg",
   "image/webp",
+  "image/svg+xml",
 ] as const;
 export const CERT_MAX_BYTES = 15 * 1024 * 1024;
 
@@ -53,3 +57,7 @@ export function isBlobUrl(url: string): boolean {
     return false;
   }
 }
+
+/** Solution-partner logo item — identical shape to a certificate item. */
+export type PartnerItem = CertItem;
+export const normalizePartnerItems = normalizeCertItems;

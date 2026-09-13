@@ -33,7 +33,17 @@ import {
   X,
 } from "lucide-react";
 import type { SiteContent } from "@/lib/content/types";
+import type { PartnerItem } from "@/lib/content/ported/certificates-shared";
 import "./home.scss";
+
+type PartnersBand = {
+  eyebrow: string;
+  headingTop: string;
+  headingAccent: string;
+  ctaLabel: string;
+  ctaHref: string;
+  items: PartnerItem[];
+};
 
 const upper = (s: string, locale: string) =>
   s.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
@@ -47,8 +57,8 @@ function Sprite({ name }: { name: string }) {
   return <span className={`sprite ${name}`} aria-hidden="true" />;
 }
 
-// Logo asset intrinsic size (public/brand/kayahan-logo*.png).
-const LOGO_AR = 837 / 330;
+// Logo asset intrinsic size (public/brand/kayahan-logo*.svg).
+const LOGO_AR = 1232 / 489;
 
 function Logo({ variant = "header" }: { variant?: "header" | "footer" }) {
   // A plain fixed-size <Image>, on its own `.brandLogo` class — NOT the old
@@ -58,7 +68,7 @@ function Logo({ variant = "header" }: { variant?: "header" | "footer" }) {
   // collapsed with it and the logo vanished. An intrinsically-sized image
   // can't be stretched or clipped by an ambient rule.
   const src =
-    variant === "footer" ? "/brand/kayahan-logo-footer.png" : "/brand/kayahan-logo.png";
+    variant === "footer" ? "/brand/kayahan-logo-footer.svg" : "/brand/kayahan-logo.svg";
   const height = variant === "footer" ? 46 : 54;
   return (
     <a className={`brandLogo brandLogo--${variant}`} href="#top" aria-label="Kayahan Isı">
@@ -68,6 +78,7 @@ function Logo({ variant = "header" }: { variant?: "header" | "footer" }) {
         width={Math.round(height * LOGO_AR)}
         height={height}
         priority={variant === "header"}
+        unoptimized
       />
     </a>
   );
@@ -286,7 +297,60 @@ function HomeEditorial({
   );
 }
 
-export function HomeDesign({ content }: { content: SiteContent }) {
+// The home rail is a teaser, not the full directory — cap it at 10 (admin
+// controls which ones by reordering the list in the panel) and send everyone
+// else to the dedicated, paginated page via the "Tümünü Gör" link.
+const HOME_PARTNER_MAX = 10;
+const HOME_PARTNER_GHOST_COUNT = 10;
+
+function HomePartners({ band }: { band: PartnersBand }) {
+  const shown = band.items.slice(0, HOME_PARTNER_MAX);
+  const hasReal = shown.length > 0;
+  return (
+    <section className="homePartnerMarquee reveal" aria-labelledby="home-partners-title">
+      <div className="homePartnerMarqueeHead">
+        <div>
+          <span>{band.eyebrow}</span>
+          <h2 id="home-partners-title">
+            {band.headingTop} {band.headingAccent}
+          </h2>
+        </div>
+        <a href={band.ctaHref}>
+          {band.ctaLabel} <ArrowRight />
+        </a>
+      </div>
+      <div className="homePartnerViewport" aria-hidden={!hasReal}>
+        <div className="homePartnerTrack">
+          {[0, 1].map((group) => (
+            <div className="homePartnerGroup" key={group}>
+              {hasReal
+                ? shown.map((p, i) => (
+                    <span className="homePartnerLogo" key={`${p.title}-${i}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.fileUrl} alt={p.title} loading="lazy" decoding="async" />
+                    </span>
+                  ))
+                : Array.from({ length: HOME_PARTNER_GHOST_COUNT }, (_, i) => (
+                    <span className="homePartnerGhost" key={i}>
+                      <i />
+                      <b />
+                    </span>
+                  ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function HomeDesign({
+  content,
+  partners,
+}: {
+  content: SiteContent;
+  partners: PartnersBand;
+}) {
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
@@ -506,6 +570,8 @@ export function HomeDesign({ content }: { content: SiteContent }) {
       </section>
 
       <HomeEditorial certificates={c.homeBands.certificates} media={c.homeBands.media} />
+
+      <HomePartners band={partners} />
 
       {/* Big CTA */}
       <section className="bigCta">

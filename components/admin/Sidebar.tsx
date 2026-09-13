@@ -5,17 +5,21 @@ import { usePathname, useSearchParams } from "next/navigation";
 import {
   Award,
   BarChart3,
+  BookOpen,
   ChevronDown,
   FileText,
+  Handshake,
   House,
   Inbox,
   LayoutDashboard,
   LayoutGrid,
   LayoutTemplate,
   Megaphone,
+  MessageCircle,
   Menu,
   PanelBottom,
   PanelTop,
+  Quote,
   Route,
   Settings,
   ShieldCheck,
@@ -26,7 +30,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-type NavChild = { section: string; label: string; icon: LucideIcon };
+/** A child is either a `section` (query-param jump within the parent's own
+ *  page, e.g. "Ana Sayfa İçeriği") or a direct `href` to a different admin
+ *  route (e.g. each Bilgi Merkezi sub-page's own design-page editor). */
+type NavChild = { section?: string; href?: string; label: string; icon: LucideIcon };
 type NavEntry = {
   href: string;
   label: string;
@@ -63,6 +70,25 @@ const NAV: NavEntry[] = [
   { href: "/admin/pages", label: "Sayfalar", icon: FileText },
   { href: "/admin/design-pages", label: "Tasarım Sayfaları", icon: LayoutTemplate },
   { href: "/admin/certificates", label: "Sertifikalar", icon: Award },
+  { href: "/admin/partners", label: "Çözüm Ortakları", icon: Handshake },
+  {
+    href: "/admin/design-pages/knowledge",
+    label: "Bilgi Merkezi",
+    icon: BookOpen,
+    children: [
+      { href: "/admin/design-pages/knowledge/blog", label: "Blog", icon: BookOpen },
+      {
+        href: "/admin/design-pages/knowledge/faq",
+        label: "Sıkça Sorulan Sorular",
+        icon: MessageCircle,
+      },
+      {
+        href: "/admin/design-pages/knowledge/reviews",
+        label: "Müşteri Yorumları",
+        icon: Quote,
+      },
+    ],
+  },
   { href: "/admin/leads", label: "Talepler", icon: Inbox },
   {
     href: "/admin/settings",
@@ -127,16 +153,24 @@ export function Sidebar() {
             <div className="mt-0.5 ml-3 space-y-0.5 border-l border-line pl-3">
               {item.children.map((child, i) => {
                 const ChildIcon = child.icon;
-                const query = new URLSearchParams();
-                query.set("section", child.section);
-                if (locale) query.set("locale", locale);
-                const childActive =
-                  active &&
-                  (currentSection === child.section || (!currentSection && i === 0));
+                let childHref: string;
+                let childActive: boolean;
+                if (child.href) {
+                  childHref = child.href;
+                  childActive = pathname.startsWith(child.href);
+                } else {
+                  const section = child.section ?? "";
+                  const query = new URLSearchParams();
+                  query.set("section", section);
+                  if (locale) query.set("locale", locale);
+                  childHref = `${item.href}?${query.toString()}`;
+                  childActive =
+                    active && (currentSection === section || (!currentSection && i === 0));
+                }
                 return (
                   <Link
-                    key={child.section}
-                    href={`${item.href}?${query.toString()}`}
+                    key={child.href ?? child.section ?? i}
+                    href={childHref}
                     aria-current={childActive ? "page" : undefined}
                     className={`flex items-center gap-2 rounded-[4px] px-2 py-1.5 text-[12px] font-medium transition-colors ${
                       childActive

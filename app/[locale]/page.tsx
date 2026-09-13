@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { HomeDesign } from "./_home/HomeDesign";
 import { getSiteContent } from "@/lib/content/site.server";
+import { getExpansionContent } from "@/lib/content/ported/index.server";
+import { normalizePartnerItems } from "@/lib/content/ported/certificates-shared";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { SITE_URL, buildAlternates, ogLocale } from "@/lib/seo";
 
@@ -45,5 +47,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   if (!isLocale(locale)) notFound();
 
   const content = await getSiteContent(locale);
-  return <HomeDesign content={content} />;
+  const pc = await getExpansionContent<Record<string, unknown>>("partners", locale);
+  const partners = {
+    eyebrow: String(pc.heroEyebrow ?? ""),
+    headingTop: String(pc.introHeadingTop ?? ""),
+    headingAccent: String(pc.introHeadingAccent ?? ""),
+    ctaLabel: locale === "en" ? "View All" : "Tümünü Gör",
+    ctaHref: `/${locale}/cozum-ortaklarimiz`,
+    items: normalizePartnerItems(pc.items).filter((x) => x.fileUrl),
+  };
+  return <HomeDesign content={content} partners={partners} />;
 }

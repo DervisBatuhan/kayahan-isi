@@ -1,8 +1,9 @@
 "use client";
 
-import type { ComponentType } from "react";
+import { useState, type ComponentType } from "react";
 import Link from "next/link";
 import {
+  ArrowLeft,
   ArrowRight,
   Award,
   BriefcaseBusiness,
@@ -16,14 +17,24 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { normalizeCertItems } from "@/lib/content/ported/certificates-shared";
+import { normalizeCertItems, normalizePartnerItems } from "@/lib/content/ported/certificates-shared";
 import "./ported.scss";
 
 type Icon = ComponentType<{ className?: string }>;
 
 const EP_CHROME = {
-  tr: { viewCert: "BELGEYİ GÖRÜNTÜLE", viewCertAria: (x: string) => `${x} belgesini görüntüle` },
-  en: { viewCert: "VIEW CERTIFICATE", viewCertAria: (x: string) => `View the ${x} certificate` },
+  tr: {
+    viewCert: "BELGEYİ GÖRÜNTÜLE",
+    viewCertAria: (x: string) => `${x} belgesini görüntüle`,
+    partnerFallback: "Çözüm Ortağı",
+    logoAreaLabel: "LOGO ALANI",
+  },
+  en: {
+    viewCert: "VIEW CERTIFICATE",
+    viewCertAria: (x: string) => `View the ${x} certificate`,
+    partnerFallback: "Solution Partner",
+    logoAreaLabel: "LOGO SPACE",
+  },
 };
 
 export type ExpansionKind =
@@ -33,7 +44,8 @@ export type ExpansionKind =
   | "gallery"
   | "press"
   | "career"
-  | "projects";
+  | "projects"
+  | "partners";
 
 const VALUE_ICONS: Record<string, Icon> = {
   users: Users,
@@ -58,7 +70,8 @@ type HeroVariant =
   | "gallery"
   | "press"
   | "career"
-  | "projects";
+  | "projects"
+  | "partners";
 
 function PageHero({
   eyebrow,
@@ -201,6 +214,101 @@ function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: s
               )}
             </article>
           ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+const PARTNERS_PAGE_SIZE = 12;
+
+function Partners({
+  c,
+  ep,
+}: {
+  c: Record<string, unknown>;
+  ep: { partnerFallback: string; logoAreaLabel: string };
+}) {
+  // Rows come straight from the panel now — including logo-less slots an
+  // admin added and hasn't uploaded to yet — so no synthetic placeholders.
+  const items = normalizePartnerItems(c.items);
+  const pageCount = Math.ceil(items.length / PARTNERS_PAGE_SIZE);
+  const [page, setPage] = useState(0);
+  const start = page * PARTNERS_PAGE_SIZE;
+  const pageItems = items.slice(start, start + PARTNERS_PAGE_SIZE);
+
+  return (
+    <>
+      <PageHero
+        variant="partners"
+        eyebrow={String(c.heroEyebrow ?? "")}
+        title={String(c.heroTitle ?? "")}
+        accent={String(c.heroAccent ?? "")}
+      />
+      <section className="ep-partners ep-section">
+        <div className="ep-partners-heading">
+          <div>
+            <span className="cp-label">{String(c.introLabel ?? "")}</span>
+            <h2>
+              {String(c.introHeadingTop ?? "")}
+              <br />
+              {String(c.introHeadingAccent ?? "")}
+            </h2>
+          </div>
+          <p>{String(c.introBody ?? "")}</p>
+        </div>
+        <div>
+          <div className="ep-partner-grid">
+            {pageItems.map((x, i) => (
+              <article className="ep-partner-card" key={`${x.title}-${start + i}`}>
+                {x.fileUrl ? (
+                  <div className="ep-partner-logo">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={x.fileUrl} alt={x.title} loading="lazy" decoding="async" />
+                  </div>
+                ) : (
+                  <div className="ep-partner-logo ep-partner-logo--empty">
+                    <span>{ep.logoAreaLabel}</span>
+                  </div>
+                )}
+                <div className="ep-partner-meta">
+                  <span>{String(start + i + 1).padStart(2, "0")}</span>
+                  <p>{x.title || ep.partnerFallback}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          {pageCount > 1 && (
+            <nav className="ep-pagination" aria-label="Sayfalar">
+              <button
+                type="button"
+                onClick={() => setPage((p) => Math.max(0, p - 1))}
+                disabled={page === 0}
+                aria-label="Önceki sayfa"
+              >
+                <ArrowLeft />
+              </button>
+              {Array.from({ length: pageCount }, (_, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className={i === page ? "active" : ""}
+                  onClick={() => setPage(i)}
+                  aria-current={i === page ? "page" : undefined}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+                disabled={page === pageCount - 1}
+                aria-label="Sonraki sayfa"
+              >
+                <ArrowRight />
+              </button>
+            </nav>
+          )}
         </div>
       </section>
     </>
@@ -388,6 +496,8 @@ export default function ExpansionPage({
         <Press c={content} />
       ) : kind === "projects" ? (
         <Projects c={content} />
+      ) : kind === "partners" ? (
+        <Partners c={content} ep={ep} />
       ) : (
         <Career c={content} />
       )}

@@ -17,6 +17,14 @@ import {
   EXPANSION_ROUTE,
   type ExpansionKind,
 } from "./expansion";
+import {
+  knowledgeDefaults,
+  knowledgeDefaultsEn,
+  knowledgeSchemas,
+  KNOWLEDGE_KIND_LABEL,
+  KNOWLEDGE_ROUTE,
+  type KnowledgeKind,
+} from "./knowledge";
 import { activityContentSchema, hubContentSchema, solutionContentSchema } from "./schema";
 import type { Locale } from "@/lib/i18n/config";
 import type { z } from "zod";
@@ -105,10 +113,22 @@ const expansionEntries: PortedEntry[] = (
   family: "expansion",
   kind,
   label: EXPANSION_KIND_LABEL[kind],
-  group: "Kurumsal / Diğer",
+  group: kind === "partners" ? "Çözüm Ortakları" : "Kurumsal / Diğer",
   route: EXPANSION_ROUTE[kind],
   schema: expansionSchemas[kind],
   defaults: { tr: expansionDefaults[kind], en: expansionDefaultsEn[kind] },
+}));
+
+const knowledgeEntries: PortedEntry[] = (
+  Object.keys(knowledgeDefaults) as KnowledgeKind[]
+).map((kind) => ({
+  family: "knowledge",
+  kind,
+  label: KNOWLEDGE_KIND_LABEL[kind],
+  group: "Bilgi Merkezi",
+  route: KNOWLEDGE_ROUTE[kind],
+  schema: knowledgeSchemas[kind],
+  defaults: { tr: knowledgeDefaults[kind], en: knowledgeDefaultsEn[kind] },
 }));
 
 export const PORTED_ENTRIES: PortedEntry[] = [
@@ -117,6 +137,7 @@ export const PORTED_ENTRIES: PortedEntry[] = [
   ...expansionEntries,
   ...activityEntries,
   ...solutionEntries,
+  ...knowledgeEntries,
 ];
 
 export function getPortedEntry(family: string, kind: string): PortedEntry | undefined {

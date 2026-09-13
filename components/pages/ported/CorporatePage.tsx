@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { corpChrome } from "@/lib/content/ported/corporate";
 import type {
@@ -97,6 +97,90 @@ function LineIcon({ type }: { type: string }) {
   );
 }
 
+// Draggable "today vs. future" balance: dragging the center handle shifts the
+// boundary, so the side you drag away from visually gains ground — and the
+// arrow flips to keep pointing at whichever side is currently winning.
+const HORIZON_MIN = 18;
+const HORIZON_MAX = 82;
+
+function HorizonSlider({ ch }: { ch: ReturnType<typeof corpChrome> }) {
+  const [pct, setPct] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
+
+  const updateFromClientX = useCallback((clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const raw = ((clientX - rect.left) / rect.width) * 100;
+    setPct(Math.min(HORIZON_MAX, Math.max(HORIZON_MIN, raw)));
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    updateFromClientX(e.clientX);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    updateFromClientX(e.clientX);
+  };
+  const stopDragging = () => {
+    draggingRef.current = false;
+  };
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft") setPct((p) => Math.max(HORIZON_MIN, p - 4));
+    if (e.key === "ArrowRight") setPct((p) => Math.min(HORIZON_MAX, p + 4));
+  };
+
+  const pointsLeft = pct > 50;
+
+  return (
+    <div
+      className="cp-horizon-art"
+      ref={containerRef}
+      style={{ gridTemplateColumns: `${pct}% ${100 - pct}%` }}
+    >
+      <div className="cp-horizon-half cp-horizon-now">
+        <span>{ch.missionLabel}</span>
+        <b>
+          {ch.missionArt[0]}
+          <br />
+          {ch.missionArt[1]}
+        </b>
+      </div>
+      <div
+        className="cp-horizon-axis"
+        style={{ left: `${pct}%` }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={stopDragging}
+        onPointerCancel={stopDragging}
+        onKeyDown={onKeyDown}
+        role="slider"
+        aria-label={`${ch.missionLabel} / ${ch.visionLabel}`}
+        aria-valuenow={Math.round(pct)}
+        aria-valuemin={HORIZON_MIN}
+        aria-valuemax={HORIZON_MAX}
+        tabIndex={0}
+      >
+        <i />
+        <strong style={{ transform: `translate(-50%,-50%) rotate(${pointsLeft ? 180 : 0}deg)` }}>
+          →
+        </strong>
+      </div>
+      <div className="cp-horizon-half cp-horizon-next">
+        <span>{ch.visionLabel}</span>
+        <b>
+          {ch.visionArt[0]}
+          <br />
+          {ch.visionArt[1]}
+        </b>
+      </div>
+    </div>
+  );
+}
+
 function HeroVisual({ kind, ch }: { kind: CorporateKind; ch: ReturnType<typeof corpChrome> }) {
   if (kind === "about")
     return (
@@ -110,31 +194,7 @@ function HeroVisual({ kind, ch }: { kind: CorporateKind; ch: ReturnType<typeof c
         </div>
       </div>
     );
-  if (kind === "mission")
-    return (
-      <div className="cp-horizon-art">
-        <div className="cp-horizon-half cp-horizon-now">
-          <span>{ch.missionLabel}</span>
-          <b>
-            {ch.missionArt[0]}
-            <br />
-            {ch.missionArt[1]}
-          </b>
-        </div>
-        <div className="cp-horizon-axis">
-          <i />
-          <strong>→</strong>
-        </div>
-        <div className="cp-horizon-half cp-horizon-next">
-          <span>{ch.visionLabel}</span>
-          <b>
-            {ch.visionArt[0]}
-            <br />
-            {ch.visionArt[1]}
-          </b>
-        </div>
-      </div>
-    );
+  if (kind === "mission") return <HorizonSlider ch={ch} />;
   if (kind === "quality")
     return (
       <div className="cp-calibration-art">

@@ -293,6 +293,56 @@ export const PORTED_META: Record<string, Entry> = {
         "From analysis to commissioning — our approach to air conditioning, heating, cooling, insulation and energy projects.",
     },
   },
+  "/blog": {
+    og: "website",
+    tr: {
+      title: "Blog",
+      description:
+        "Sahadan gelen teknik deneyimi, güncel teknolojileri ve mühendislik bakış açısını bir araya getiren yazılar.",
+    },
+    en: {
+      title: "Insights",
+      description:
+        "Articles bringing together field expertise, current technologies and an engineering perspective.",
+    },
+  },
+  "/sikca-sorulan-sorular": {
+    og: "website",
+    tr: {
+      title: "Sıkça Sorulan Sorular",
+      description:
+        "Proje, uygulama ve hizmet süreçlerine ilişkin merak edilenler tek yerde.",
+    },
+    en: {
+      title: "Frequently Asked Questions",
+      description: "Common questions about our projects, implementation and services in one place.",
+    },
+  },
+  "/musteri-yorumlari": {
+    og: "website",
+    tr: {
+      title: "Müşteri Yorumları",
+      description:
+        "Birlikte tamamladığımız projelerin gerçek deneyimleri, şeffaf ve yalın biçimde.",
+    },
+    en: {
+      title: "Client Stories",
+      description: "Authentic experiences from completed projects, shared with clarity and transparency.",
+    },
+  },
+  "/cozum-ortaklarimiz": {
+    og: "website",
+    tr: {
+      title: "Çözüm Ortaklarımız",
+      description:
+        "Teknik yetkinliği, güvenilirliği ve uzun vadeli değer üretme yaklaşımını paylaşan iş ortaklarımız.",
+    },
+    en: {
+      title: "Solution Partners",
+      description:
+        "The partner brands that share our commitment to technical expertise, reliability and long-term value.",
+    },
+  },
   "/basinda-biz": {
     og: "website",
     tr: {

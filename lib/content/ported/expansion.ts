@@ -7,7 +7,8 @@ export type ExpansionKind =
   | "gallery"
   | "press"
   | "career"
-  | "projects";
+  | "projects"
+  | "partners";
 
 const s = z.string().trim();
 const req = s.min(1, "Boş bırakılamaz.");
@@ -64,6 +65,25 @@ export const certificatesSchema = z.object({
   introHeadingAccent: s.max(160),
   introBody: s.max(600),
   items: z.array(certItem).min(0).max(16),
+});
+
+/** A partner is logo-only — no name field in the editor, so `title` (kept
+ *  only for shape-compatibility with the shared fileCardList/CertItem type)
+ *  is allowed to stay empty, unlike a certificate's required title. */
+const partnerItem = z.object({
+  title: s.max(120),
+  fileUrl: s.max(600),
+  fileName: s.max(200),
+  contentType: s.max(120),
+});
+
+export const partnersSchema = z.object({
+  ...heroShape,
+  introLabel: s.max(80),
+  introHeadingTop: s.max(160),
+  introHeadingAccent: s.max(160),
+  introBody: s.max(600),
+  items: z.array(partnerItem).min(0).max(40),
 });
 
 export const gallerySchema = z.object({
@@ -124,6 +144,7 @@ export const expansionSchemas: Record<ExpansionKind, z.ZodType> = {
   press: pressSchema,
   career: careerSchema,
   projects: projectsSchema,
+  partners: partnersSchema,
 };
 
 export const EXPANSION_KIND_LABEL: Record<ExpansionKind, string> = {
@@ -134,6 +155,7 @@ export const EXPANSION_KIND_LABEL: Record<ExpansionKind, string> = {
   press: "Basında Biz",
   career: "İnsan Kaynakları",
   projects: "Projelerimiz",
+  partners: "Çözüm Ortaklarımız",
 };
 
 export const EXPANSION_ROUTE: Record<ExpansionKind, string> = {
@@ -144,6 +166,7 @@ export const EXPANSION_ROUTE: Record<ExpansionKind, string> = {
   press: "/tr/basinda-biz",
   career: "/tr/insan-kaynaklari",
   projects: "/tr/projelerimiz",
+  partners: "/tr/cozum-ortaklarimiz",
 };
 
 export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> = {
@@ -264,6 +287,17 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
       { icon: "shield", num: "03", title: "Sürdürülebilir Performans" },
     ],
   },
+  partners: {
+    heroEyebrow: "ÇÖZÜM ORTAKLARIMIZ",
+    heroTitle: "Güçlü iş birlikleri.",
+    heroAccent: "Ortak çözümler.",
+    introLabel: "İŞ ORTAKLARI",
+    introHeadingTop: "Birlikte değer",
+    introHeadingAccent: "üretiyoruz.",
+    introBody:
+      "Teknik yetkinliği, güvenilirliği ve uzun vadeli değer üretme yaklaşımını paylaşan markalarla birlikte çalışıyoruz.",
+    items: [],
+  },
 };
 
 export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>> = {
@@ -383,5 +417,16 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
       { icon: "check", num: "02", title: "Implementation & Commissioning" },
       { icon: "shield", num: "03", title: "Sustainable Performance" },
     ],
+  },
+  partners: {
+    heroEyebrow: "SOLUTION PARTNERS",
+    heroTitle: "Strong partnerships.",
+    heroAccent: "Shared solutions.",
+    introLabel: "PARTNER NETWORK",
+    introHeadingTop: "Creating value",
+    introHeadingAccent: "together.",
+    introBody:
+      "We work with brands that share our commitment to technical expertise, reliability and long-term value.",
+    items: [],
   },
 };

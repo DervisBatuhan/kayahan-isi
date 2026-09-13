@@ -47,6 +47,8 @@ export type FieldSpec =
       /** `accept` attribute for the file input, e.g. ".pdf,image/png". */
       accept: string;
       hint?: string;
+      /** Logo-only lists (e.g. partners) skip the per-row title input. */
+      hideTitle?: boolean;
     };
 
 export type SectionSpec = { title: string; description?: string; fields: FieldSpec[] };
@@ -527,6 +529,65 @@ const expansionProjects: SectionSpec[] = [
   },
 ];
 
+const expansionPartners: SectionSpec[] = [
+  { title: "Hero", fields: expansionHero },
+  {
+    title: "İş ortakları",
+    fields: [
+      { key: "introLabel", label: "Üst etiket", type: "text" },
+      { key: "introHeadingTop", label: "Başlık — üst satır", type: "text" },
+      { key: "introHeadingAccent", label: "Başlık — alt satır", type: "text" },
+      { key: "introBody", label: "Metin", type: "textarea" },
+      {
+        key: "items",
+        label: "Markalar",
+        type: "fileCardList",
+        itemLabel: "Marka",
+        accept: ".png,.jpg,.jpeg,.webp,.svg",
+        hideTitle: true,
+        hint: "Her marka için sadece bir logo görseli yükleyin. Sırayı ok tuşlarıyla değiştirebilirsiniz.",
+      },
+    ],
+  },
+];
+
+const knowledgeSpec: SectionSpec[] = [
+  {
+    title: "Hero",
+    fields: [
+      { key: "heroIndex", label: "Numara / etiket", type: "text", hint: "ör. 01 / BİLGİ MERKEZİ" },
+      { key: "heroTitleTop", label: "Başlık — üst satır", type: "text" },
+      { key: "heroTitleAccent", label: "Başlık — vurgulu satır", type: "text" },
+      { key: "heroLead", label: "Giriş metni", type: "textarea" },
+    ],
+  },
+  {
+    title: "İçerik",
+    fields: [
+      { key: "contentEyebrow", label: "Üst etiket", type: "text" },
+      {
+        key: "items",
+        label: "Kartlar (kaydırmalı)",
+        type: "objectList",
+        itemLabel: "Kart",
+        columns: [
+          { key: "title", label: "Başlık" },
+          { key: "text", label: "Metin", kind: "textarea" },
+        ],
+        hint: "Sırayı ok tuşlarıyla değiştirebilirsiniz. Liste boşsa aşağıdaki yer tutucu mesaj gösterilir.",
+      },
+    ],
+  },
+  {
+    title: "Boş durum mesajı",
+    description: "Kart listesi boş olduğunda gösterilen mesaj.",
+    fields: [
+      { key: "emptyHeading", label: "Başlık", type: "text" },
+      { key: "emptyBody", label: "Metin", type: "textarea" },
+    ],
+  },
+];
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   activity: activitySpec,
   solution: solutionSpec,
@@ -542,6 +603,8 @@ export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   "expansion:press": expansionPress,
   "expansion:projects": expansionProjects,
   "expansion:career": expansionCareer,
+  "expansion:partners": expansionPartners,
+  knowledge: knowledgeSpec,
 };
 
 export function getEditorSpec(family: string, kind: string): SectionSpec[] {

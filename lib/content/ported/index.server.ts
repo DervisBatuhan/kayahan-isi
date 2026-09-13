@@ -63,6 +63,9 @@ export function getCorporateContent<T = Record<string, unknown>>(kind: string, l
 export function getExpansionContent<T = Record<string, unknown>>(kind: string, locale = "tr") {
   return getPorted<T>("expansion", kind, locale);
 }
+export function getKnowledgeContent<T = Record<string, unknown>>(kind: string, locale = "tr") {
+  return getPorted<T>("knowledge", kind, locale);
+}
 
 /** Raw current content for the admin editor (default when no row yet). */
 export async function getPortedForEdit(family: string, kind: string, locale = "tr") {

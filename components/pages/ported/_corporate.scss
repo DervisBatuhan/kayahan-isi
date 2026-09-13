@@ -34,19 +34,20 @@
 /* 02 — two horizons: not an image, a directional narrative surface */
 .cp-mission .cp-hero{background:#061d3a}
 .cp-mission .cp-hero-copy{background:#fff}
-.cp-horizon-art{display:grid!important;grid-template-columns:1fr 1fr;background:#061d3a;color:#fff}
+.cp-horizon-art{display:grid!important;grid-template-columns:1fr 1fr;background:#061d3a;color:#fff;user-select:none}
 .cp-horizon-half{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 9% 10%;overflow:hidden}
 .cp-horizon-half:before{content:"";position:absolute;inset:0;opacity:.9;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-.cp-horizon-now:before{background:radial-gradient(circle at 100% 50%,#10a8d8 0,transparent 33%),linear-gradient(145deg,#0a4d8f,#072c5b);transform-origin:right}
-.cp-horizon-next:before{background:radial-gradient(circle at 0 50%,#ff8b32 0,transparent 31%),linear-gradient(215deg,#bb2633,#6d172d 58%,#112143);transform-origin:left}
+.cp-horizon-now:before{background:radial-gradient(circle at 100% 50%,#10a8d8 0,transparent 32%),linear-gradient(145deg,#0a4d8f,#072c5b);transform-origin:right}
+.cp-horizon-next:before{background:radial-gradient(circle at 0 50%,#ff8b32 0,transparent 32%),linear-gradient(215deg,#bb2633,#6d172d 58%,#112143);transform-origin:left}
 .cp-horizon-art:hover .cp-horizon-half:before{transform:scale(1.045)}
 .cp-horizon-half span,.cp-horizon-half b{position:relative;z-index:2}
 .cp-horizon-half span{font-size:10px;letter-spacing:.28em;margin-bottom:18px;color:#c6eaf4}
 .cp-horizon-next span{color:#ffd8bb}
 .cp-horizon-half b{font-size:clamp(31px,3.2vw,48px);line-height:1.02;letter-spacing:-.045em;font-weight:500}
-.cp-horizon-axis{position:absolute!important;left:50%;top:0;bottom:0;width:1px;z-index:4;background:linear-gradient(transparent,#fff 25% 75%,transparent)}
-.cp-horizon-axis i{position:absolute;left:50%;top:49%;width:78px;height:78px;border:1px solid #ffffff85;border-radius:50%;transform:translate(-50%,-50%);background:#08274a99;backdrop-filter:blur(8px)}
-.cp-horizon-axis strong{position:absolute;top:49%;left:50%;transform:translate(-50%,-50%);font-size:25px;font-weight:300}
+.cp-horizon-axis{position:absolute!important;left:50%;top:0;bottom:0;width:1px;z-index:4;background:linear-gradient(transparent,#fff 25% 75%,transparent);touch-action:none;cursor:ew-resize;outline:none}
+.cp-horizon-axis i{position:absolute;left:50%;top:49%;width:78px;height:78px;border:1px solid #ffffff85;border-radius:50%;transform:translate(-50%,-50%);background:#08274a99;backdrop-filter:blur(8px);transition:box-shadow .2s}
+.cp-horizon-axis:hover i,.cp-horizon-axis:focus-visible i{box-shadow:0 0 0 6px #ffffff1f}
+.cp-horizon-axis strong{position:absolute;top:49%;left:50%;transform:translate(-50%,-50%);font-size:25px;font-weight:300;transition:transform .3s cubic-bezier(.2,.7,.2,1);pointer-events:none}
 .cp-body-mission .cp-dual{padding:45px max(5vw,54px) 95px;gap:1px;background:#eef3f7}
 .cp-body-mission .cp-dual article{min-height:460px}
 .cp-horizon-beam{position:absolute;left:0;right:0;top:50%;height:1px;background:#28b7de;box-shadow:0 0 30px 7px #1caedb66}

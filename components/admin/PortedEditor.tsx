@@ -204,7 +204,12 @@ function FieldRenderer({
           if (item.fileUrl) void deleteCertificateFile(item.fileUrl);
         }}
         render={(item, update) => (
-          <CertFileRow item={item} accept={spec.accept} onChange={update} />
+          <CertFileRow
+            item={item}
+            accept={spec.accept}
+            hideTitle={spec.hideTitle}
+            onChange={update}
+          />
         )}
       />
     );
@@ -353,10 +358,12 @@ function ReorderableList<T>({
 function CertFileRow({
   item,
   accept,
+  hideTitle,
   onChange,
 }: {
   item: CertItem;
   accept: string;
+  hideTitle?: boolean;
   onChange: (patch: CertItem) => void;
 }) {
   const [busy, setBusy] = useState(false);
@@ -396,12 +403,14 @@ function CertFileRow({
 
   return (
     <div className="space-y-2">
-      <Field label="Başlık">
-        <TextInput
-          value={item.title}
-          onChange={(e) => onChange({ ...item, title: e.target.value })}
-        />
-      </Field>
+      {!hideTitle && (
+        <Field label="Başlık">
+          <TextInput
+            value={item.title}
+            onChange={(e) => onChange({ ...item, title: e.target.value })}
+          />
+        </Field>
+      )}
 
       {item.fileUrl ? (
         <div className="flex items-center gap-3 rounded-[4px] border border-line bg-white p-2">
