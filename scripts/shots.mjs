@@ -46,6 +46,20 @@ for (const [wtag, w, h] of WIDTHS) {
     try {
       await page.goto(BASE + path, { waitUntil: "networkidle", timeout: 30000 });
       await page.waitForTimeout(400);
+      // Walk the page top-to-bottom first so native loading="lazy" images
+      // actually fetch before the full-page screenshot stitches them in —
+      // otherwise below-the-fold images show up as blank boxes below the
+      // one screen height that was ever actually visible.
+      await page.evaluate(async () => {
+        const step = Math.max(200, window.innerHeight - 100);
+        const total = document.documentElement.scrollHeight;
+        for (let y = 0; y < total; y += step) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 60));
+        }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(200);
       const bleed = await page.evaluate(() => {
         const de = document.documentElement;
         const over = de.scrollWidth - de.clientWidth;
