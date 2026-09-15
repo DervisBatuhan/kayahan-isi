@@ -869,3 +869,332 @@ export const districtDefaults = Object.fromEntries(
 export const districtDefaultsEn = Object.fromEntries(
   DISTRICT_KINDS.map((k) => [k, districtLanding(k, "en")]),
 ) as Record<DistrictKind, ServiceLanding>;
+
+// ------------------------------------------------------------------ brands ----
+
+/**
+ * Brand-specific boiler-service pages under /kombi-servisi/<brand>. The
+ * business spent decades as DemirDöküm and Vaillant *authorised* service and
+ * now serves every brand independently — every page says so explicitly, so
+ * nothing reads as a claim of current authorisation.
+ */
+export type BrandKind = "demirdokum" | "vaillant" | "baymak" | "protherm";
+
+export const BRAND_NAME: Record<BrandKind, string> = {
+  demirdokum: "DemirDöküm",
+  vaillant: "Vaillant",
+  baymak: "Baymak",
+  protherm: "Protherm",
+};
+export const BRAND_KINDS = Object.keys(BRAND_NAME) as BrandKind[];
+export const BRAND_ROUTE = (b: BrandKind) => `/tr/kombi-servisi/${b}`;
+
+const INDEPENDENT_TR = (brand: string) =>
+  `> **Bağımsız servis bilgisi:** Kayahan Isı, ${brand} markasının yetkili servisi değildir; 45 yıllık yetkili servis deneyimine sahip **bağımsız bir teknik servistir**. Garanti süresi devam eden cihazlarda garanti işlemleri için üreticinin yetkili servisine başvurmanız gerekir; garanti dışı her türlü arıza, bakım ve montaj için hizmet veriyoruz.`;
+
+const INDEPENDENT_EN = (brand: string) =>
+  `> **Independent-service notice:** Kayahan Isı is not ${brand}'s authorised service; we are an **independent technical service** with 45 years of authorised-service experience. For in-warranty work contact the manufacturer's authorised service; we handle every out-of-warranty fault, maintenance and installation.`;
+
+type BrandCopy = { lead: string; heading: string; body: string; faq: { title: string; text: string }[] };
+
+const BRAND_TR: Record<BrandKind, BrandCopy> = {
+  demirdokum: {
+    lead: "1994'ten itibaren uzun yıllar DemirDöküm Bahçelievler Yetkili Servisi olarak çalıştık. Bugün bağımsız servis olarak Nitromix, Atromix, Atron, Vintage, Nepto ve Adamix serilerinde arıza, bakım ve montaj hizmeti veriyoruz.",
+    heading: "DemirDöküm kombileri en iyi tanıyan ekiplerden biri: yıllarca yetkili servisiydik.",
+    body: `${INDEPENDENT_TR("DemirDöküm")}
+
+Kurucumuz İlhan Kaya'nın 1976'da DemirDöküm servisinde çırak olarak başlayan yolculuğu, 1994'ten itibaren **DemirDöküm Bahçelievler Yetkili Servisi** olarak 25 kişilik bir ekibe dönüştü. On binlerce DemirDöküm cihazına girdik; bu markanın her serisinin karakteristik arızasını, parça yapısını ve ayarlarını teknisyen düzeyinde biliyoruz.
+
+# Servis verdiğimiz DemirDöküm serileri
+
+- **Nitromix** (yoğuşmalı) — en yaygın seri; eşanjör temizliği, gaz-hava ayarı ve yoğuşma sifonu bakımı
+- **Atromix / Atron** — yoğuşmalı ve konvansiyonel modeller
+- **Vintage** — hermetik konvansiyonel; eşanjör ve fan arızaları
+- **Nepto, Adamix** ve eski nesil **Isımax** modelleri
+
+# DemirDöküm'de sık karşılaştığımız arızalar
+
+- **F.28 / F.29** — ateşleme ve alev kaybı: elektrot mesafesi, iyonizasyon, gaz valfi
+- **F.22** — düşük su basıncı; sık tekrarlıyorsa genleşme tankı ya da tesisat kaçağı
+- **F.75** — pompa/basınç sensörü: sensör kirliliği, pompa sıkışması
+- **F.61 / F.62** — gaz valfi kontrolü; kesinlikle servis
+- Nitromix'te **yoğuşma sifonu tıkanması** ve buna bağlı kapanmalar
+- Eski hermetik modellerde **fan ve presostat** arızaları, baca sızdırmazlığı
+
+Arıza kodlarının anlamlarını [kombi arıza kodları](/tr/blog/kombi-ariza-kodlari-ne-anlama-gelir) yazımızda ayrıntılı bulabilirsiniz.
+
+# Orijinal parça ve garanti
+
+DemirDöküm cihazlarda yalnızca **orijinal yedek parça** kullanıyoruz: pompa, fan, gaz valfi, eşanjör, üç yollu vana, NTC sensör ve elektronik kart. Taktığımız parça ve işçilik yazılı garanti kapsamındadır; parçanın kutusu ve belgesi size teslim edilir.
+
+# Bakım ve dönüşüm
+
+Yıllık bakımda Nitromix ve Atromix'te baca gazı analizörüyle CO₂ ölçümü yaparak yanma ayarını fabrika değerine getiriyoruz; bu, faturayı doğrudan etkileyen adımdır. Eski konvansiyonel DemirDöküm'ünüzü **yoğuşmalı modele dönüştürmek** istiyorsanız keşif, baca ve tesisat uygunluğunu birlikte planlıyoruz.`,
+    faq: [
+      { title: "DemirDöküm yetkili servisi misiniz?", text: "Hayır. Uzun yıllar DemirDöküm yetkili servisi olarak çalıştık; bugün bağımsız servisiz. Garanti kapsamındaki işlemler için üreticinin yetkili servisine başvurmalısınız; garanti dışı tüm işlemleri biz yapıyoruz." },
+      { title: "Nitromix kombim F.28 veriyor, ne yapmalıyım?", text: "Gaz vanası ve sayacı kontrol edip bir kez resetleyin. Kod sürüyorsa ateşleme elektrodu, iyonizasyon ya da gaz valfi kaynaklıdır; ısrarla resetlemeyin, servis çağırın." },
+      { title: "DemirDöküm için orijinal parça bulabiliyor musunuz?", text: "Evet. Yaygın modellerin parçalarını stokta tutuyor, diğerlerini kısa sürede temin ediyoruz." },
+    ],
+  },
+  vaillant: {
+    lead: "Vaillant yetkili servisi olarak edindiğimiz deneyimle ecoTEC plus, ecoTEC pro, ecoTEC pure, turboTEC ve atmoTEC serilerinde bağımsız arıza, bakım ve montaj hizmeti.",
+    heading: "Vaillant'ın hassas ayar isteyen cihazlarında ölçümle çalışan bir servis.",
+    body: `${INDEPENDENT_TR("Vaillant")}
+
+Vaillant kombiler yüksek verimli ama ayar ve parça kalitesine duyarlı cihazlardır: gaz-hava oranı analizörsüz "kulaktan" ayarlanırsa verim düşer, muadil parça kullanılırsa kart hata verir. Yıllarca Vaillant yetkili servisi olarak çalışan ekibimiz bu cihazları fabrika prosedürüyle onarır.
+
+# Servis verdiğimiz Vaillant serileri
+
+- **ecoTEC plus / ecoTEC pro / ecoTEC pure** — yoğuşmalı; en yaygın seriler
+- **ecoTEC exclusive** — üst segment yoğuşmalı
+- **turboTEC pro / plus** — hermetik konvansiyonel
+- **atmoTEC** — bacalı konvansiyonel (dönüşüm önerimizdir)
+- **aroTHERM** ısı pompaları — bakım ve arıza; kurulum için [ısı pompası](/tr/blog/isi-pompasi-nedir-nasil-calisir) yazımıza bakın
+
+# Vaillant'ta sık karşılaştığımız arızalar
+
+- **F.28 / F.29** — ateşleme başarısız / alev kaybı
+- **F.22** — düşük su basıncı; **F.23/F.24** — dolaşım sorunu (pompa, hava, kapalı vana)
+- **F.75** — pompa çalışırken basınç değişimi algılanmıyor
+- **F.61–F.64** — gaz valfi ve kart elektroniği
+- **F.27** — yanlış alev sinyali (elektrot/iyonizasyon)
+- ecoTEC'te **yoğuşma sifonu ve baca sensörü** kaynaklı kapanmalar
+
+# Kalibrasyon ve parça
+
+Vaillant'ta bakımın kalbi **baca gazı analizi**dir: CO₂ değerini serinin belirttiği aralığa getirmeden yapılan bakım eksiktir. Parçada yalnızca orijinal Vaillant yedek parçası kullanıyoruz; kart, gaz valfi ve pompa gibi elektronik bileşenlerde muadil parça cihazın ömrünü kısaltır.`,
+    faq: [
+      { title: "Vaillant yetkili servisi misiniz?", text: "Hayır; uzun yıllar Vaillant yetkili servisi olarak çalıştık, bugün bağımsız servisiz. Garanti işlemleri için üreticinin yetkili servisine başvurmalısınız." },
+      { title: "ecoTEC kombim sık sık F.22 veriyor.", text: "Basıncı 1–1,5 bar'a getirin. Birkaç günde tekrar düşüyorsa genleşme tankı ya da tesisatta kaçak vardır; sürekli su basmak kireçlenmeyi artırır, servis çağırın." },
+      { title: "Vaillant bakımında baca gazı ölçümü yapıyor musunuz?", text: "Evet; her bakımda analizörle CO₂ ölçümü yapılır ve rapora yazılır." },
+    ],
+  },
+  baymak: {
+    lead: "Baymak Lectus, Lectus Plus, Iridium ve Idee serilerinde arıza, bakım, orijinal parça ve montaj — İstanbul Avrupa Yakası'nda aynı gün.",
+    heading: "Türkiye'nin en yaygın kombisi için hızlı, parça stoklu servis.",
+    body: `${INDEPENDENT_TR("Baymak")}
+
+Baymak, hizmet bölgemizde en çok karşılaştığımız markalardan biri. Yaygınlığı sayesinde parçalarını stokta tutuyor, çoğu arızayı tek ziyarette çözüyoruz.
+
+# Servis verdiğimiz Baymak serileri
+
+- **Lectus / Lectus Plus** — yoğuşmalı; en yaygın seri
+- **Iridium** — yoğuşmalı üst segment
+- **Idee** — kompakt yoğuşmalı
+- **Brötje** serisi ve eski nesil hermetik modeller
+
+# Baymak'ta sık karşılaştığımız arızalar
+
+- **E01** — alev oluşmadı: gaz, elektrot, ateşleme trafosu
+- **E02** — aşırı ısınma: pompa, eşanjör kireci, dolaşım
+- **E03** — fan / baca / presostat
+- **E10** — düşük su basıncı
+- Lectus'ta **yoğuşma sifonu** ve **NTC sensör** kaynaklı kapanmalar
+- Eski modellerde **üç yollu vana motoru** ve sıcak su dalgalanması
+
+Kodların ayrıntısı için [kombi arıza kodları](/tr/blog/kombi-ariza-kodlari-ne-anlama-gelir) yazımıza bakın.
+
+# Bakım ve parça
+
+Yıllık bakımda eşanjör temizliği, gaz-hava ayarı, baca sızdırmazlık ve emniyet testleri yapılır; ölçümler raporlanır. Değişen her parça orijinal Baymak yedek parçasıdır ve yazılı garantilidir.`,
+    faq: [
+      { title: "Baymak yetkili servisi misiniz?", text: "Hayır, bağımsız servisiz. Garanti kapsamındaki cihazlar için Baymak yetkili servisine başvurun; garanti dışı tüm işlemleri yapıyoruz." },
+      { title: "Lectus kombim E01 veriyor.", text: "Gaz vanası ve sayacı kontrol edip bir kez resetleyin. Sürüyorsa elektrot ya da gaz valfi kaynaklıdır; servis çağırın." },
+      { title: "Baymak parçası ne kadar sürede gelir?", text: "Yaygın parçalar stokta; çoğu onarım aynı ziyarette tamamlanır." },
+    ],
+  },
+  protherm: {
+    lead: "Protherm Lynx, Panther, Gepard ve Jaguar serilerinde arıza, bakım ve montaj. Vaillant grubu cihazlarda uzman ekip.",
+    heading: "Protherm: Vaillant grubunun ekonomik serisi, aynı titizlikle.",
+    body: `${INDEPENDENT_TR("Protherm")}
+
+Protherm, Vaillant grubunun markasıdır; kod yapısı, parça mimarisi ve ayar prosedürleri Vaillant'la büyük ölçüde ortaktır. Vaillant yetkili servisi olarak edindiğimiz bilgi Protherm cihazlarda doğrudan işimize yarar.
+
+# Servis verdiğimiz Protherm serileri
+
+- **Lynx Condens** — yoğuşmalı; en yaygın seri
+- **Panther Condens / Panther** — yoğuşmalı ve konvansiyonel
+- **Gepard** — hermetik konvansiyonel
+- **Jaguar** — kompakt hermetik
+
+# Protherm'de sık karşılaştığımız arızalar
+
+- **F.28 / F.29** — ateşleme ve alev kaybı
+- **F.22** — düşük su basıncı; **F.23/F.24** — dolaşım
+- **F.75** — pompa / basınç sensörü
+- **F.61–F.63** — gaz valfi ve kart
+- Lynx'te **yoğuşma sifonu** tıkanması, **NTC sensör** hataları
+- Gepard/Jaguar'da **fan ve presostat** arızaları
+
+# Bakım ve parça
+
+Yoğuşmalı Protherm modellerinde baca gazı analiziyle CO₂ ayarı yapıyor, konvansiyonel modellerde baca çekiş ve sızdırmazlık testini atlamıyoruz. Parçada orijinal Protherm/Vaillant grubu yedek parçası kullanılır; yazılı garanti verilir.`,
+    faq: [
+      { title: "Protherm yetkili servisi misiniz?", text: "Hayır, bağımsız servisiz. Garanti işlemleri için Protherm yetkili servisine başvurun; garanti dışı tüm arıza, bakım ve montajı yapıyoruz." },
+      { title: "Protherm ile Vaillant parçaları aynı mı?", text: "Birçok bileşen aynı gruptan gelir ancak model bazında farklılık vardır; cihazınızın seri numarasına göre doğru parça temin edilir." },
+      { title: "Lynx kombim F.75 veriyor, parça değişir mi?", text: "Çoğu zaman basınç sensörü temizliği ya da tesisattaki havanın alınmasıyla çözülür; pompa arızası varsa onayınızla değiştirilir." },
+    ],
+  },
+};
+
+const BRAND_EN: Record<BrandKind, BrandCopy> = {
+  demirdokum: {
+    lead: "For many years from 1994 we were the DemirDöküm Bahçelievler authorised service. Today, as an independent service, we repair, maintain and install the Nitromix, Atromix, Atron, Vintage, Nepto and Adamix ranges.",
+    heading: "One of the teams that knows DemirDöküm boilers best: we were their authorised service for years.",
+    body: `${INDEPENDENT_EN("DemirDöküm")}
+
+Our founder began as a DemirDöküm apprentice in 1976 and from 1994 ran the **DemirDöküm Bahçelievler authorised service** with a 25-person team. We know each range's characteristic faults, parts and settings at technician level.
+
+# Ranges we service
+
+- **Nitromix** (condensing) — exchanger cleaning, gas/air setting, condensate-trap maintenance
+- **Atromix / Atron** — condensing and conventional
+- **Vintage** — room-sealed conventional; exchanger and fan faults
+- **Nepto, Adamix** and older **Isımax** models
+
+# Frequent faults
+
+- **F.28 / F.29** ignition and flame loss · **F.22** low pressure · **F.75** pump/pressure sensor · **F.61 / F.62** gas valve
+- Condensate-trap blockages on Nitromix; fan and pressure-switch faults on older room-sealed models
+
+# Genuine parts and guarantee
+
+Only genuine DemirDöküm parts — pump, fan, gas valve, exchanger, diverter valve, NTC, PCB — with written guarantee and the part's box handed over. Annual maintenance includes flue-gas CO₂ analysis to restore factory combustion settings.`,
+    faq: [
+      { title: "Are you DemirDöküm's authorised service?", text: "No. We were for many years; today we are independent. For in-warranty work contact the manufacturer's authorised service; we handle everything out of warranty." },
+    ],
+  },
+  vaillant: {
+    lead: "With experience gained as Vaillant authorised service, independent repair, maintenance and installation for ecoTEC plus, ecoTEC pro, ecoTEC pure, turboTEC and atmoTEC.",
+    heading: "A measurement-driven service for Vaillant's precision-tuned boilers.",
+    body: `${INDEPENDENT_EN("Vaillant")}
+
+Vaillant boilers are efficient but sensitive to settings and part quality. Our team, formerly Vaillant authorised service, repairs them to factory procedure.
+
+# Ranges we service
+
+- **ecoTEC plus / pro / pure / exclusive** — condensing
+- **turboTEC pro / plus** — room-sealed conventional
+- **atmoTEC** — open-flue conventional (conversion recommended)
+- **aroTHERM** heat pumps — maintenance and faults
+
+# Frequent faults
+
+- **F.28 / F.29** ignition and flame loss · **F.22** low pressure · **F.23 / F.24** circulation · **F.75** pressure sensor · **F.61–F.64** gas valve and PCB · **F.27** false flame signal
+- Condensate-trap and flue-sensor shutdowns on ecoTEC
+
+# Calibration and parts
+
+Flue-gas analysis is the heart of a Vaillant service: CO₂ must be set to the range's specification. Only genuine Vaillant parts are used.`,
+    faq: [
+      { title: "Are you Vaillant's authorised service?", text: "No — we were for many years; today we are independent. In-warranty work goes to the manufacturer's authorised service." },
+    ],
+  },
+  baymak: {
+    lead: "Repair, maintenance, genuine parts and installation for Baymak Lectus, Lectus Plus, Iridium and Idee — same day on Istanbul's European side.",
+    heading: "Fast, parts-in-stock service for Turkey's most common boiler.",
+    body: `${INDEPENDENT_EN("Baymak")}
+
+Baymak is one of the most common brands in our area; we keep its parts in stock and resolve most faults in one visit.
+
+# Ranges we service
+
+- **Lectus / Lectus Plus** — condensing · **Iridium** — premium condensing · **Idee** — compact condensing · **Brötje** and older room-sealed models
+
+# Frequent faults
+
+- **E01** no flame · **E02** overheat · **E03** fan / flue / pressure switch · **E10** low pressure
+- Condensate-trap and NTC shutdowns on Lectus; diverter-valve motor faults on older models
+
+# Maintenance and parts
+
+Annual maintenance covers exchanger cleaning, gas/air setting, flue and safety tests with a measurement report. Only genuine Baymak parts, with written guarantee.`,
+    faq: [
+      { title: "Are you Baymak's authorised service?", text: "No, we are an independent service. For in-warranty appliances contact Baymak's authorised service." },
+    ],
+  },
+  protherm: {
+    lead: "Repair, maintenance and installation for Protherm Lynx, Panther, Gepard and Jaguar — by a team expert in Vaillant-group appliances.",
+    heading: "Protherm: the Vaillant group's value range, serviced with the same care.",
+    body: `${INDEPENDENT_EN("Protherm")}
+
+Protherm is a Vaillant-group brand; its codes, parts and procedures largely match Vaillant's, so our Vaillant experience applies directly.
+
+# Ranges we service
+
+- **Lynx Condens** · **Panther Condens / Panther** · **Gepard** · **Jaguar**
+
+# Frequent faults
+
+- **F.28 / F.29** ignition and flame loss · **F.22** low pressure · **F.23 / F.24** circulation · **F.75** pressure sensor · **F.61–F.63** gas valve and PCB
+- Condensate-trap and NTC faults on Lynx; fan and pressure-switch faults on Gepard/Jaguar
+
+# Maintenance and parts
+
+CO₂ set by flue-gas analysis on condensing models; draught and leak tests on conventional ones. Genuine Protherm/Vaillant-group parts with written guarantee.`,
+    faq: [
+      { title: "Are you Protherm's authorised service?", text: "No, we are independent. In-warranty work goes to Protherm's authorised service." },
+    ],
+  },
+};
+
+const BRAND_SERVICES_TR = [
+  { title: "Arıza tespiti ve onarım", text: "Arıza kodu ve ölçümle kök neden analizi; çoğu onarım tek ziyarette." },
+  { title: "Yıllık bakım", text: "Eşanjör ve brülör temizliği, baca gazı analizi, emniyet testleri, ölçüm raporu." },
+  { title: "Orijinal yedek parça", text: "Markanın orijinal parçası, kutu ve belge teslimi, yazılı garanti." },
+  { title: "Montaj ve dönüşüm", text: "Kapasite ve baca uygunluğu, yoğuşmalıya geçiş, ilk çalıştırma ve eğitim." },
+  { title: "Petek ve tesisat temizliği", text: "Isınmayan petekler için makineyle tesisat yıkama." },
+  { title: "7/24 acil servis", text: "Gece, hafta sonu ve bayramda ulaşılabilir hat." },
+];
+const BRAND_SERVICES_EN = [
+  { title: "Diagnosis and repair", text: "Code and measurement-based root cause; most repairs in one visit." },
+  { title: "Annual maintenance", text: "Exchanger and burner cleaning, flue-gas analysis, safety tests, report." },
+  { title: "Genuine spare parts", text: "Manufacturer parts, box and documents handed over, written guarantee." },
+  { title: "Installation and conversion", text: "Capacity and flue suitability, condensing conversion, commissioning." },
+  { title: "Radiator and system flush", text: "Power-flushing for cold radiators." },
+  { title: "24/7 emergency service", text: "Reachable nights, weekends and holidays." },
+];
+
+function brandLanding(kind: BrandKind, locale: "tr" | "en"): ServiceLanding {
+  const name = BRAND_NAME[kind];
+  const c = (locale === "tr" ? BRAND_TR : BRAND_EN)[kind];
+  if (locale === "tr") {
+    return {
+      heroEyebrow: `${name.toLocaleUpperCase("tr")} KOMBİ SERVİSİ · BAĞIMSIZ SERVİS`,
+      heroTitle: `${name} kombi servisi.`,
+      heroAccent: "Arıza, bakım, orijinal parça, montaj.",
+      heroLead: c.lead,
+      introLabel: `${name.toLocaleUpperCase("tr")} VE KAYAHAN`,
+      introHeading: c.heading,
+      body: c.body,
+      servicesLabel: `${name.toLocaleUpperCase("tr")} HİZMETLERİMİZ`,
+      servicesHeading: "Garanti dışı her ihtiyaç için.",
+      services: BRAND_SERVICES_TR,
+      faqLabel: "SIK SORULAN SORULAR",
+      faqHeading: `${name} servisi hakkında.`,
+      faq: [...c.faq, ...COMMON_FAQ_TR.slice(0, 2), COMMON_FAQ_TR[3]],
+      ...AREAS_TR,
+      ctaHeading: `${name} kombiniz için servis talebi oluşturun.`,
+    };
+  }
+  return {
+    heroEyebrow: `${name.toUpperCase()} BOILER SERVICE · INDEPENDENT`,
+    heroTitle: `${name} boiler service.`,
+    heroAccent: "Repair, maintenance, genuine parts, installation.",
+    heroLead: c.lead,
+    introLabel: `${name.toUpperCase()} AND KAYAHAN`,
+    introHeading: c.heading,
+    body: c.body,
+    servicesLabel: `OUR ${name.toUpperCase()} SERVICES`,
+    servicesHeading: "For every out-of-warranty need.",
+    services: BRAND_SERVICES_EN,
+    faqLabel: "FAQ",
+    faqHeading: `About ${name} service.`,
+    faq: [...c.faq, ...COMMON_FAQ_EN.slice(0, 2), COMMON_FAQ_EN[3]],
+    ...AREAS_EN,
+    ctaHeading: `Book a service visit for your ${name} boiler.`,
+  };
+}
+
+export const brandDefaults = Object.fromEntries(BRAND_KINDS.map((k) => [k, brandLanding(k, "tr")])) as Record<BrandKind, ServiceLanding>;
+export const brandDefaultsEn = Object.fromEntries(BRAND_KINDS.map((k) => [k, brandLanding(k, "en")])) as Record<BrandKind, ServiceLanding>;

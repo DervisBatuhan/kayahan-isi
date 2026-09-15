@@ -669,6 +669,7 @@ const serviceLandingSpec: SectionSpec[] = [
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   service: serviceLandingSpec,
   district: serviceLandingSpec,
+  brand: serviceLandingSpec,
   "knowledge:blog": knowledgeBlogSpec,
   activity: activitySpec,
   solution: solutionSpec,

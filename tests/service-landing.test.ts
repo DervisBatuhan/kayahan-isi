@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
 import {
+  BRAND_KINDS,
+  brandDefaults,
+  brandDefaultsEn,
   DISTRICT_KINDS,
   DISTRICT_NAME,
   districtDefaults,
@@ -18,6 +21,8 @@ const all = [
   ...Object.entries(serviceDefaultsEn),
   ...Object.entries(districtDefaults),
   ...Object.entries(districtDefaultsEn),
+  ...Object.entries(brandDefaults),
+  ...Object.entries(brandDefaultsEn),
 ];
 
 describe("lib/content/ported/service — defaults", () => {
@@ -52,7 +57,11 @@ describe("lib/content/ported/service — defaults", () => {
   });
 
   it("every service/district page has a meta entry with a description ≤ 160 chars + title ≤ 70", () => {
-    const paths = ["/kombi-servisi", "/klima-servisi", "/sofben-servisi", ...DISTRICT_KINDS.map((k) => `/servis/${k}`)];
+    const paths = [
+      "/kombi-servisi", "/klima-servisi", "/sofben-servisi",
+      ...DISTRICT_KINDS.map((k) => `/servis/${k}`),
+      ...BRAND_KINDS.map((k) => `/kombi-servisi/${k}`),
+    ];
     for (const p of paths) {
       const m = PORTED_META[p];
       expect(m, p).toBeTruthy();
@@ -67,6 +76,16 @@ describe("lib/content/ported/service — defaults", () => {
     const keys = new Set(getEditorSpec("service", "kombi").flatMap((s) => s.fields.map((f) => f.key)));
     for (const k of Object.keys(serviceLandingSchema.shape)) expect(keys.has(k), k).toBe(true);
     expect(getEditorSpec("district", "bahcelievler")).toEqual(getEditorSpec("service", "kombi"));
+  });
+});
+
+describe("lib/content/ported/service — brand pages", () => {
+  it("every brand page states independent (non-authorised) status in both locales", () => {
+    for (const k of BRAND_KINDS) {
+      expect(brandDefaults[k].body).toMatch(/yetkili servisi değildir/);
+      expect(brandDefaultsEn[k].body).toMatch(/is not .* authorised service/);
+      expect(brandDefaults[k].faq[0].text).toMatch(/bağımsız/i);
+    }
   });
 });
 

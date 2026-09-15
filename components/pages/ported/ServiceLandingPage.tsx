@@ -3,19 +3,22 @@ import { ArrowRight, Phone, MessageCircle, MapPin, Wrench } from "lucide-react";
 import type { Locale } from "@/lib/i18n/config";
 import type { ServiceLanding } from "@/lib/content/ported/service";
 import {
+  BRAND_KINDS,
+  BRAND_NAME,
   DISTRICT_KINDS,
   DISTRICT_NAME,
   SERVICE_LABEL,
   SERVICE_ROUTE,
+  type BrandKind,
   type DistrictKind,
   type ServiceKind,
 } from "@/lib/content/ported/service";
 import { Markdown } from "@/components/blog/Markdown";
 import "./ported.scss";
 
-const UI: Record<Locale, { call: string; whatsapp: string; otherServices: string; districtsAria: string }> = {
-  tr: { call: "Hemen ara", whatsapp: "WhatsApp", otherServices: "DİĞER SERVİSLERİMİZ", districtsAria: "Hizmet verdiğimiz ilçeler" },
-  en: { call: "Call now", whatsapp: "WhatsApp", otherServices: "OTHER SERVICES", districtsAria: "Districts we serve" },
+const UI: Record<Locale, { call: string; whatsapp: string; otherServices: string; districtsAria: string; brands: string; allBrands: string }> = {
+  tr: { call: "Hemen ara", whatsapp: "WhatsApp", otherServices: "DİĞER SERVİSLERİMİZ", districtsAria: "Hizmet verdiğimiz ilçeler", brands: "MARKAYA GÖRE KOMBİ SERVİSİ", allBrands: "Tüm markalar" },
+  en: { call: "Call now", whatsapp: "WhatsApp", otherServices: "OTHER SERVICES", districtsAria: "Districts we serve", brands: "BOILER SERVICE BY BRAND", allBrands: "All brands" },
 };
 
 /**
@@ -34,7 +37,7 @@ export default function ServiceLandingPage({
   locale: Locale;
   phone: string;
   whatsapp?: string;
-  current: { service?: ServiceKind; district?: DistrictKind };
+  current: { service?: ServiceKind; district?: DistrictKind; brand?: BrandKind };
 }) {
   const c = content;
   const ui = UI[locale];
@@ -139,6 +142,27 @@ export default function ServiceLandingPage({
             ),
           )}
         </ul>
+        {(current.service === "kombi" || current.brand) && (
+          <div className="sv-other">
+            <span className="cp-label">{ui.brands}</span>
+            <ul>
+              {current.brand && (
+                <li>
+                  <Link href={`/${locale}/kombi-servisi`}>
+                    {ui.allBrands} <ArrowRight />
+                  </Link>
+                </li>
+              )}
+              {BRAND_KINDS.filter((b) => b !== current.brand).map((b) => (
+                <li key={b}>
+                  <Link href={`/${locale}/kombi-servisi/${b}`}>
+                    {BRAND_NAME[b]} <ArrowRight />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="sv-other">
           <span className="cp-label">{ui.otherServices}</span>
           <ul>

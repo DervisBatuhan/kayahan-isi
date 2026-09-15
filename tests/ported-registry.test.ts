@@ -2,14 +2,14 @@ import { describe, it, expect } from "vitest";
 import { PORTED_ENTRIES, getPortedEntry } from "@/lib/content/ported/registry";
 
 describe("lib/content/ported/registry", () => {
-  it("registers exactly 39 design pages (28 + 3 service + 8 district)", () => {
-    expect(PORTED_ENTRIES).toHaveLength(39);
+  it("registers exactly 43 design pages (28 + 3 service + 8 district + 4 brand)", () => {
+    expect(PORTED_ENTRIES).toHaveLength(43);
   });
 
-  it("covers the eight families", () => {
+  it("covers the nine families", () => {
     const families = new Set(PORTED_ENTRIES.map((e) => e.family));
     expect(families).toEqual(
-      new Set(["hub", "corporate", "expansion", "activity", "solution", "knowledge", "service", "district"]),
+      new Set(["hub", "corporate", "expansion", "activity", "solution", "knowledge", "service", "district", "brand"]),
     );
   });
 

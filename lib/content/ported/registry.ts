@@ -26,6 +26,11 @@ import {
   type KnowledgeKind,
 } from "./knowledge";
 import {
+  BRAND_KINDS,
+  BRAND_NAME,
+  BRAND_ROUTE,
+  brandDefaults,
+  brandDefaultsEn,
   DISTRICT_KINDS,
   DISTRICT_NAME,
   DISTRICT_ROUTE,
@@ -166,6 +171,16 @@ const districtEntries: PortedEntry[] = DISTRICT_KINDS.map((kind) => ({
   defaults: { tr: districtDefaults[kind], en: districtDefaultsEn[kind] },
 }));
 
+const brandEntries: PortedEntry[] = BRAND_KINDS.map((kind) => ({
+  family: "brand",
+  kind,
+  label: `${BRAND_NAME[kind]} Kombi Servisi`,
+  group: "Servis / Markalar",
+  route: BRAND_ROUTE(kind),
+  schema: serviceLandingSchema,
+  defaults: { tr: brandDefaults[kind], en: brandDefaultsEn[kind] },
+}));
+
 export const PORTED_ENTRIES: PortedEntry[] = [
   ...hubEntries,
   ...corporateEntries,
@@ -174,6 +189,7 @@ export const PORTED_ENTRIES: PortedEntry[] = [
   ...solutionEntries,
   ...serviceEntries,
   ...districtEntries,
+  ...brandEntries,
   ...knowledgeEntries,
 ];
 

@@ -525,6 +525,58 @@ export const PORTED_META: Record<string, Entry> = {
         "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Küçükçekmece. Certified technicians, genuine parts, written guarantee, 24/7 line.",
     },
   },
+  "/kombi-servisi/demirdokum": {
+    og: "website",
+    tr: {
+      title: "DemirDöküm Kombi Servisi İstanbul Avrupa Yakası — Bağımsız Servis",
+      description:
+        "DemirDöküm kombilerde arıza, yıllık bakım, orijinal parça ve montaj. 45 yıllık yetkili servis deneyimiyle bağımsız teknik servis; Bahçelievler, Bakırköy, Bağcılar ve çevresinde aynı gün.",
+    },
+    en: {
+      title: "DemirDöküm Boiler Service, Istanbul — Independent Service",
+      description:
+        "Repair, annual maintenance, genuine parts and installation for DemirDöküm boilers by an independent service with 45 years of authorised-service experience. Same day on Istanbul's European side.",
+    },
+  },
+  "/kombi-servisi/vaillant": {
+    og: "website",
+    tr: {
+      title: "Vaillant Kombi Servisi İstanbul Avrupa Yakası — Bağımsız Servis",
+      description:
+        "Vaillant kombilerde arıza, yıllık bakım, orijinal parça ve montaj. 45 yıllık yetkili servis deneyimiyle bağımsız teknik servis; Bahçelievler, Bakırköy, Bağcılar ve çevresinde aynı gün.",
+    },
+    en: {
+      title: "Vaillant Boiler Service, Istanbul — Independent Service",
+      description:
+        "Repair, annual maintenance, genuine parts and installation for Vaillant boilers by an independent service with 45 years of authorised-service experience. Same day on Istanbul's European side.",
+    },
+  },
+  "/kombi-servisi/baymak": {
+    og: "website",
+    tr: {
+      title: "Baymak Kombi Servisi İstanbul Avrupa Yakası — Bağımsız Servis",
+      description:
+        "Baymak kombilerde arıza, yıllık bakım, orijinal parça ve montaj. 45 yıllık yetkili servis deneyimiyle bağımsız teknik servis; Bahçelievler, Bakırköy, Bağcılar ve çevresinde aynı gün.",
+    },
+    en: {
+      title: "Baymak Boiler Service, Istanbul — Independent Service",
+      description:
+        "Repair, annual maintenance, genuine parts and installation for Baymak boilers by an independent service with 45 years of authorised-service experience. Same day on Istanbul's European side.",
+    },
+  },
+  "/kombi-servisi/protherm": {
+    og: "website",
+    tr: {
+      title: "Protherm Kombi Servisi İstanbul Avrupa Yakası — Bağımsız Servis",
+      description:
+        "Protherm kombilerde arıza, yıllık bakım, orijinal parça ve montaj. 45 yıllık yetkili servis deneyimiyle bağımsız teknik servis; Bahçelievler, Bakırköy, Bağcılar ve çevresinde aynı gün.",
+    },
+    en: {
+      title: "Protherm Boiler Service, Istanbul — Independent Service",
+      description:
+        "Repair, annual maintenance, genuine parts and installation for Protherm boilers by an independent service with 45 years of authorised-service experience. Same day on Istanbul's European side.",
+    },
+  },
   "/iletisim": {
     og: "website",
     tr: {
