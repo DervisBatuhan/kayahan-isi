@@ -17,7 +17,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { normalizeCertItems, normalizePartnerItems } from "@/lib/content/ported/certificates-shared";
+import { isImageType, normalizeCertItems, normalizePartnerItems } from "@/lib/content/ported/certificates-shared";
 import "./ported.scss";
 
 type Icon = ComponentType<{ className?: string }>;
@@ -199,8 +199,21 @@ function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: s
         <div className="ep-cert-grid">
           {items.map((x, i) => (
             <article key={`${x.title}-${i}`}>
-              <FileBadge2 />
-              <span>0{i + 1}</span>
+              {x.fileUrl && isImageType(x.contentType) ? (
+                <a
+                  className="ep-cert-thumb"
+                  href={x.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={ep.viewCertAria(x.title)}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={x.fileUrl} alt={x.title} loading="lazy" decoding="async" />
+                </a>
+              ) : (
+                <FileBadge2 />
+              )}
+              <span>{String(i + 1).padStart(2, "0")}</span>
               <h3>{x.title}</h3>
               {x.fileUrl && (
                 <a
@@ -403,7 +416,7 @@ function Career({ c }: { c: Record<string, unknown> }) {
             {String(c.introHeadingAccent ?? "")}
           </h2>
           <p>{String(c.introBody ?? "")}</p>
-          <a href={String(c.applyHref ?? "mailto:info@kayahanisi.com.tr")}>
+          <a href={String(c.applyHref ?? "mailto:info@kayahanisi.com")}>
             {String(c.applyLabel ?? "")} <Mail />
           </a>
         </div>

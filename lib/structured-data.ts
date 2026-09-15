@@ -13,6 +13,55 @@ export function jsonLdScript(data: unknown): string {
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+const FOUNDER_ID = `${SITE_URL}/#ilhan-kaya`;
+
+/** Registered company name (from the trade registry / award plaques). */
+export const LEGAL_NAME = "Kayahan Isıtma Sistemleri Teknik Bakım Onarım İnş. San. Tic. Ltd. Şti.";
+
+/** Alternate trade names the business has operated under (helps entity matching). */
+export const ALTERNATE_NAMES = ["Kayahan Isı", "Kayahan VİP Kurumsal Servis"];
+
+/**
+ * European-side Istanbul districts the service teams cover. Keep in sync with
+ * the "Hizmet Noktalarımız" list on the district pages.
+ */
+export const SERVICE_DISTRICTS = [
+  "Bahçelievler",
+  "Bağcılar",
+  "Bakırköy",
+  "Güngören",
+  "Zeytinburnu",
+  "Esenler",
+  "Bayrampaşa",
+  "Küçükçekmece",
+] as const;
+
+/** Founder / lead engineer entity — referenced from the Organization node. */
+export function founderNode(locale: Locale) {
+  return {
+    "@type": "Person",
+    "@id": FOUNDER_ID,
+    name: "İlhan Kaya",
+    jobTitle: locale === "tr" ? "Kurucu, Teknik Eğitmen ve Bilirkişi" : "Founder, Technical Trainer and Expert Witness",
+    worksFor: { "@id": ORG_ID },
+    knowsAbout:
+      locale === "tr"
+        ? ["Kombi servisi", "Klima servisi", "Şofben servisi", "Doğal gaz ısıtma sistemleri", "Soğutma ve iklimlendirme"]
+        : ["Boiler service", "Air-conditioner service", "Water-heater service", "Natural-gas heating systems", "Refrigeration and HVAC"],
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "MYK Mesleki Yeterlilik Belgesi — Doğal Gaz Isıtma ve Gaz Yakıcı Cihaz Servis Personeli (Seviye 4)",
+        credentialCategory: "certificate",
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "MEB Usta Öğreticilik Belgesi — Soğutma ve İklimlendirme",
+        credentialCategory: "certificate",
+      },
+    ],
+  };
+}
 
 /**
  * Site-wide entity graph: Organization + LocalBusiness (HVACBusiness) + WebSite.
@@ -41,11 +90,24 @@ export function siteGraph(locale: Locale, site: SiteContent) {
         "@type": ["Organization", "HVACBusiness"],
         "@id": ORG_ID,
         name: SITE_NAME,
+        legalName: LEGAL_NAME,
+        alternateName: ALTERNATE_NAMES,
         url: `${SITE_URL}/${locale}`,
         logo: absoluteUrl("/brand/kayahan-logo.png"),
         image: absoluteUrl("/brand/kayahan-logo.png"),
         description: site.footer.description,
         foundingDate: "1976",
+        founder: { "@id": FOUNDER_ID },
+        // Emergency service line answers around the clock.
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            opens: "00:00",
+            closes: "23:59",
+          },
+        ],
+        priceRange: "₺₺",
         ...(sameAs.length ? { sameAs } : {}),
         address: {
           "@type": "PostalAddress",
@@ -76,17 +138,13 @@ export function siteGraph(locale: Locale, site: SiteContent) {
               ]
             : []),
         ],
-        areaServed: [
-          "Bahçelievler",
-          "Bağcılar",
-          "Bakırköy",
-          "Güngören",
-          "Zeytinburnu",
-          "Esenler",
-          "Bayrampaşa",
-          "Küçükçekmece",
-        ].map((name) => ({ "@type": "City", name })),
+        areaServed: SERVICE_DISTRICTS.map((name) => ({
+          "@type": "AdministrativeArea",
+          name,
+          containedInPlace: { "@type": "City", name: "İstanbul" },
+        })),
       },
+      founderNode(locale),
       {
         "@type": "WebSite",
         "@id": WEBSITE_ID,

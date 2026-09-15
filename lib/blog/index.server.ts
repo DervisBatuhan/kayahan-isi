@@ -20,6 +20,20 @@ type Row = {
   updatedAt: Date;
 };
 
+/**
+ * Run a read and degrade to `fallback` on any failure — including a
+ * synchronous throw (e.g. a Prisma client generated before the BlogPost
+ * migration, where `prisma.blogPost` is undefined), which a trailing
+ * `.catch()` on the query would miss.
+ */
+async function safely<T>(run: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await run();
+  } catch {
+    return fallback;
+  }
+}
+
 function rowToView(r: Row): BlogPostView {
   return {
     ...r,
@@ -32,12 +46,14 @@ function rowToView(r: Row): BlogPostView {
 /** Published posts for one locale, newest first — the public list page. */
 export const getPublishedPosts = unstable_cache(
   async (locale: Locale): Promise<BlogPostView[]> => {
-    const rows = await prisma.blogPost
-      .findMany({
-        where: { locale, published: true },
-        orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
-      })
-      .catch(() => [] as Row[]);
+    const rows = await safely(
+      () =>
+        prisma.blogPost.findMany({
+          where: { locale, published: true },
+          orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+        }),
+      [] as Row[],
+    );
     return rows.map(rowToView);
   },
   ["blog-published"],
@@ -47,9 +63,10 @@ export const getPublishedPosts = unstable_cache(
 /** One published post by locale + slug, or null (draft or missing). */
 export const getPublishedPost = unstable_cache(
   async (locale: Locale, slug: string): Promise<BlogPostView | null> => {
-    const row = await prisma.blogPost
-      .findUnique({ where: { locale_slug: { locale, slug } } })
-      .catch(() => null);
+    const row = await safely(
+      () => prisma.blogPost.findUnique({ where: { locale_slug: { locale, slug } } }),
+      null,
+    );
     if (!row || !row.published) return null;
     return rowToView(row);
   },
@@ -63,13 +80,14 @@ export const getPublishedPost = unstable_cache(
  */
 export const getTranslation = unstable_cache(
   async (pairKey: string, locale: Locale): Promise<{ slug: string } | null> => {
-    const row = await prisma.blogPost
-      .findFirst({
-        where: { pairKey, locale, published: true },
-        select: { slug: true },
-      })
-      .catch(() => null);
-    return row;
+    return safely(
+      () =>
+        prisma.blogPost.findFirst({
+          where: { pairKey, locale, published: true },
+          select: { slug: true },
+        }),
+      null,
+    );
   },
   ["blog-translation"],
   { tags: [BLOG_TAG], revalidate: 60 },
@@ -84,17 +102,24 @@ export const getTranslation = unstable_cache(
  */
 export const resolveSwitchedLocale = unstable_cache(
   async (locale: Locale, slug: string, from: Locale): Promise<string | null> => {
-    const source = await prisma.blogPost
-      .findUnique({
-        where: { locale_slug: { locale: from, slug } },
-        select: { pairKey: true, published: true },
-      })
-      .catch(() => null);
+    const source = await safely(
+      () =>
+        prisma.blogPost.findUnique({
+          where: { locale_slug: { locale: from, slug } },
+          select: { pairKey: true, published: true },
+        }),
+      null,
+    );
     if (!source?.published) return null;
     if (source.pairKey) {
-      const t = await prisma.blogPost
-        .findFirst({ where: { pairKey: source.pairKey, locale, published: true }, select: { slug: true } })
-        .catch(() => null);
+      const t = await safely(
+        () =>
+          prisma.blogPost.findFirst({
+            where: { pairKey: source.pairKey, locale, published: true },
+            select: { slug: true },
+          }),
+        null,
+      );
       if (t) return `/${locale}/blog/${t.slug}`;
     }
     return `/${locale}/blog`;
@@ -107,12 +132,14 @@ export const resolveSwitchedLocale = unstable_cache(
 export async function getAllPublishedForSitemap(): Promise<
   { locale: string; slug: string; pairKey: string | null; updatedAt: Date }[]
 > {
-  return prisma.blogPost
-    .findMany({
-      where: { published: true },
-      select: { locale: true, slug: true, pairKey: true, updatedAt: true },
-    })
-    .catch(() => []);
+  return safely(
+    () =>
+      prisma.blogPost.findMany({
+        where: { published: true },
+        select: { locale: true, slug: true, pairKey: true, updatedAt: true },
+      }),
+    [],
+  );
 }
 
 /** Admin list — all posts incl. drafts. Uncached. */

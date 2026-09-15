@@ -169,6 +169,31 @@ export const EXPANSION_ROUTE: Record<ExpansionKind, string> = {
   partners: "/tr/cozum-ortaklarimiz",
 };
 
+/** Certificate images shipped in `public/certificates/` (recovered from the
+ *  previous site). `[file-stem, title]` — order is display order. */
+const CERTIFICATE_FILES: [string, string][] = [
+  ["myk-mesleki-yeterlilik-seviye-4-2021", "MYK Mesleki Yeterlilik Belgesi — Doğal Gaz Isıtma ve Gaz Yakıcı Cihaz Servis Personeli (Seviye 4)"],
+  ["meb-usta-ogreticilik-sogutma-iklimlendirme-2009", "MEB Usta Öğreticilik Belgesi — Soğutma ve İklimlendirme"],
+  ["igdas-dogalgaz-bina-ic-tesisati-1997", "İGDAŞ Doğal Gaz Bina İç Tesisatı Kursu Başarı Belgesi"],
+  ["demirdokum-meb-kombi-montaj-kursu-1994", "Demirdöküm / MEB Kombi Montaj ve Tesisat Meslek Kursu Belgesi"],
+  ["istanbul-ticaret-universitesi-bilirkisilik-egitimi-2025", "İstanbul Ticaret Üniversitesi — Bilirkişilik Temel Eğitimi Katılım Belgesi"],
+  ["ito-tesekkur-belgesi-meslek-standardi-2011", "İstanbul Ticaret Odası — Isıtma Tesisatı Bakım Onarım ve Servis Uzmanı Meslek Standardı Teşekkür Belgesi"],
+  ["shd-ustun-hizmet-belgesi", "SHD (Satış Sonrası Hizmetler Derneği) Üstün Hizmet Belgesi"],
+  ["imep-katilim-belgesi-2023", "İMEP — Mesleki Eğitim Programı Katılım Belgesi (TESK / MEB)"],
+  ["ab-kombi-servisciligi-projesi-plaketi-bagcilar-mtal", "AB Destekli Kombi Servisçiliği Kursları Projesi — Bağcılar MTAL Teşekkür Plaketi"],
+];
+const CERTIFICATE_FILES_EN: [string, string][] = [
+  ["myk-mesleki-yeterlilik-seviye-4-2021", "MYK Vocational Qualification Certificate — Natural-Gas Heating and Gas-Burning Appliance Service Personnel (Level 4)"],
+  ["meb-usta-ogreticilik-sogutma-iklimlendirme-2009", "Ministry of Education Master-Trainer Certificate — Refrigeration and Air Conditioning"],
+  ["igdas-dogalgaz-bina-ic-tesisati-1997", "İGDAŞ Natural-Gas Building Installation Course Certificate"],
+  ["demirdokum-meb-kombi-montaj-kursu-1994", "Demirdöküm / Ministry of Education Boiler Installation Vocational Course Certificate"],
+  ["istanbul-ticaret-universitesi-bilirkisilik-egitimi-2025", "Istanbul Commerce University — Expert Witness Foundation Training Certificate"],
+  ["ito-tesekkur-belgesi-meslek-standardi-2011", "Istanbul Chamber of Commerce — Heating Installation Service Expert Occupational Standard, Certificate of Appreciation"],
+  ["shd-ustun-hizmet-belgesi", "SHD (After-Sales Services Association) Outstanding Service Certificate"],
+  ["imep-katilim-belgesi-2023", "İMEP — Vocational Education Programme Participation Certificate (TESK / MoNE)"],
+  ["ab-kombi-servisciligi-projesi-plaketi-bagcilar-mtal", "EU-Funded Boiler Service Vocational Courses Project — Bağcılar Vocational High School Plaque"],
+];
+
 export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> = {
   board: {
     heroEyebrow: "YÖNETİM",
@@ -209,27 +234,30 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
     introHeadingTop: "Standartlara bağlı,",
     introHeadingAccent: "ölçülebilir hizmet.",
     introBody:
-      "Kurumsal ve teknik belgelerimiz güncel dokümanlar eklendikçe bu alanda yayınlanacaktır.",
-    items: [
-      "Kalite Yönetim Sistemi",
-      "Teknik Yetkinlik Belgeleri",
-      "İş Sağlığı ve Güvenliği",
-      "Enerji Performansı",
-      "Mesleki Yeterlilik",
-      "Yetkili Servis Belgeleri",
-    ].map((title) => ({ title, fileUrl: "", fileName: "", contentType: "" })),
+      "Kurucumuz İlhan Kaya’nın ve ekibimizin mesleki yeterlilik, usta öğreticilik, yetkili servis eğitimi ve sektörel katkı belgeleri. Her belge görüntülenebilir.",
+    items: CERTIFICATE_FILES.map(([file, title]) => ({
+      title,
+      fileUrl: `/certificates/${file}.webp`,
+      fileName: `${file}.webp`,
+      contentType: "image/webp",
+    })),
   },
   gallery: {
     heroEyebrow: "GALERİ",
-    heroTitle: "Mühendisliğin",
-    heroAccent: "detayları.",
+    heroTitle: "Sahadan ve",
+    heroAccent: "ekranlardan kareler.",
     items: [
-      { src: "/assets/activity-climate-cgi.png", title: "İklimlendirme", caption: "Hava akışı ve konfor" },
-      { src: "/assets/activity-heating-cgi.png", title: "Isıtma", caption: "Güvenli enerji dağıtımı" },
-      { src: "/assets/activity-cooling-cgi.png", title: "Soğutma", caption: "Yüksek performans" },
-      { src: "/assets/activity-insulation-cgi.png", title: "Yalıtım", caption: "Yapı kabuğu çözümleri" },
-      { src: "/assets/solution-automation-cgi.png", title: "Otomasyon", caption: "Akıllı kontrol" },
-      { src: "/assets/solution-service-cgi.png", title: "Servis", caption: "Sürekli performans" },
+      { src: "/gallery/cnn-turk-roportaj-ilhan-kaya.webp", title: "CNN Türk röportajı", caption: "İlhan Kaya, yetkili servis bilirkişisi olarak klima güvenliği üzerine" },
+      { src: "/gallery/business-turk-channel-ilhan-kaya.webp", title: "Business Türk Channel", caption: "Sektör değerlendirmesi için stüdyoda" },
+      { src: "/gallery/vip-kurumsal-servis-araci.webp", title: "Kurumsal servis aracı", caption: "Kombi · Klima · Şofben — İstanbul Avrupa Yakası" },
+      { src: "/gallery/kombi-servisi-teknisyen-1.webp", title: "Kombi servisi", caption: "Yetki belgeli teknisyenimiz sahada" },
+      { src: "/gallery/kombi-servisi-teknisyen-2.webp", title: "Kombi bakımı", caption: "Periyodik bakım ve kontrol" },
+      { src: "/gallery/ab-destekli-kombi-servisciligi-kursu-afisi.webp", title: "AB destekli meslek kursu", caption: "Kombi servisçiliği kursları — eğitmen İlhan Kaya" },
+      { src: "/gallery/meslek-egitimi-sertifika-toreni.webp", title: "Sertifika töreni", caption: "Mesleki eğitim programı mezunları" },
+      { src: "/gallery/ofis-ilhan-kaya.webp", title: "Merkez ofis", caption: "Kurucumuz İlhan Kaya" },
+      { src: "/gallery/ofis-sertifika-duvari-1.webp", title: "Belge duvarı", caption: "45 yılın yetkinlik belgeleri" },
+      { src: "/gallery/ofis-sertifika-duvari-2.webp", title: "Belge duvarı", caption: "Mesleki yeterlilik ve eğitim sertifikaları" },
+      { src: "/gallery/business-turk-channel-studyo.webp", title: "Stüdyo çekimi", caption: "Business Türk Channel" },
     ],
   },
   press: {
@@ -259,7 +287,7 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
     introBody:
       "Teknik bilgiyi önemseyen, sorumluluk alan ve birlikte gelişmeye inanan çalışma arkadaşlarıyla geleceğin sistemlerini kuruyoruz.",
     applyLabel: "GENEL BAŞVURU",
-    applyHref: "mailto:info@kayahanisi.com.tr",
+    applyHref: "mailto:info@kayahanisi.com",
     values: [
       { icon: "users", title: "Ekip ruhu", text: "Bilgi paylaşımı ve ortak sorumluluk." },
       { icon: "briefcase", title: "Gelişim", text: "Saha deneyimi ve sürekli öğrenme." },
@@ -340,27 +368,30 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
     introHeadingTop: "Standards-based,",
     introHeadingAccent: "measurable service.",
     introBody:
-      "Our corporate and technical documents will be published in this area as up-to-date documents are added.",
-    items: [
-      "Quality Management System",
-      "Technical Competence Certificates",
-      "Occupational Health and Safety",
-      "Energy Performance",
-      "Vocational Qualification",
-      "Authorised Service Certificates",
-    ].map((title) => ({ title, fileUrl: "", fileName: "", contentType: "" })),
+      "Vocational qualification, master-trainer, authorised-service training and industry-contribution certificates of our founder İlhan Kaya and our team. Every document can be viewed.",
+    items: CERTIFICATE_FILES_EN.map(([file, title]) => ({
+      title,
+      fileUrl: `/certificates/${file}.webp`,
+      fileName: `${file}.webp`,
+      contentType: "image/webp",
+    })),
   },
   gallery: {
     heroEyebrow: "GALLERY",
-    heroTitle: "The details",
-    heroAccent: "of engineering.",
+    heroTitle: "Moments from the field",
+    heroAccent: "and the screen.",
     items: [
-      { src: "/assets/activity-climate-cgi.png", title: "Air Conditioning", caption: "Airflow and comfort" },
-      { src: "/assets/activity-heating-cgi.png", title: "Heating", caption: "Safe energy distribution" },
-      { src: "/assets/activity-cooling-cgi.png", title: "Cooling", caption: "High performance" },
-      { src: "/assets/activity-insulation-cgi.png", title: "Insulation", caption: "Building-envelope solutions" },
-      { src: "/assets/solution-automation-cgi.png", title: "Automation", caption: "Smart control" },
-      { src: "/assets/solution-service-cgi.png", title: "Service", caption: "Continuous performance" },
+      { src: "/gallery/cnn-turk-roportaj-ilhan-kaya.webp", title: "CNN Türk interview", caption: "İlhan Kaya on air-conditioner safety as an authorised-service expert witness" },
+      { src: "/gallery/business-turk-channel-ilhan-kaya.webp", title: "Business Türk Channel", caption: "In the studio for an industry review" },
+      { src: "/gallery/vip-kurumsal-servis-araci.webp", title: "Corporate service van", caption: "Boiler · AC · Water heater — Istanbul European side" },
+      { src: "/gallery/kombi-servisi-teknisyen-1.webp", title: "Boiler service", caption: "Our certified technician on site" },
+      { src: "/gallery/kombi-servisi-teknisyen-2.webp", title: "Boiler maintenance", caption: "Periodic maintenance and inspection" },
+      { src: "/gallery/ab-destekli-kombi-servisciligi-kursu-afisi.webp", title: "EU-funded vocational course", caption: "Boiler service courses — trainer İlhan Kaya" },
+      { src: "/gallery/meslek-egitimi-sertifika-toreni.webp", title: "Certificate ceremony", caption: "Vocational programme graduates" },
+      { src: "/gallery/ofis-ilhan-kaya.webp", title: "Head office", caption: "Our founder İlhan Kaya" },
+      { src: "/gallery/ofis-sertifika-duvari-1.webp", title: "Certificate wall", caption: "45 years of credentials" },
+      { src: "/gallery/ofis-sertifika-duvari-2.webp", title: "Certificate wall", caption: "Vocational qualification and training certificates" },
+      { src: "/gallery/business-turk-channel-studyo.webp", title: "Studio recording", caption: "Business Türk Channel" },
     ],
   },
   press: {
@@ -390,7 +421,7 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
     introBody:
       "We build the systems of the future with colleagues who value technical knowledge, take responsibility and believe in growing together.",
     applyLabel: "GENERAL APPLICATION",
-    applyHref: "mailto:info@kayahanisi.com.tr",
+    applyHref: "mailto:info@kayahanisi.com",
     values: [
       { icon: "users", title: "Team spirit", text: "Knowledge sharing and shared responsibility." },
       { icon: "briefcase", title: "Development", text: "Field experience and continuous learning." },
