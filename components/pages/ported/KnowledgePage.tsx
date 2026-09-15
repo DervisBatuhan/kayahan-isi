@@ -105,10 +105,14 @@ export default function KnowledgePage({
   kind,
   content,
   contactHref,
+  children,
 }: {
   kind: KnowledgeKind;
   content: Record<string, unknown>;
   contactHref: string;
+  /** Replaces the card slider (the blog passes its real post list here);
+   *  pass `null` to force the empty-state message instead of the slider. */
+  children?: React.ReactNode;
 }) {
   const Icon = KIND_ICON[kind];
   const c = content;
@@ -137,7 +141,9 @@ export default function KnowledgePage({
           <span className="cp-label">{String(c.contentEyebrow ?? "")}</span>
           <Icon strokeWidth={1.2} />
         </div>
-        {items.length > 0 ? (
+        {children !== undefined && children !== null ? (
+          children
+        ) : children === undefined && items.length > 0 ? (
           <KnowledgeSlider items={items} />
         ) : (
           <div className="knowledge-empty">

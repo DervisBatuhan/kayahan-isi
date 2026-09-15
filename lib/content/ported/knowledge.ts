@@ -38,19 +38,38 @@ export const KNOWLEDGE_ROUTE: Record<KnowledgeKind, string> = {
   reviews: "/tr/musteri-yorumlari",
 };
 
+const PLACEHOLDER_TEXT_TR = "İçerik metni burada yer alacak.";
+const PLACEHOLDER_TEXT_EN = "Content text will appear here.";
+
 /** Six numbered placeholder cards — generic, not fabricated content — until
  *  real posts/questions/reviews are added from the panel. */
 function sixDummyCards(labelTr: string): { title: string; text: string }[] {
   return Array.from({ length: 6 }, (_, i) => ({
     title: `${labelTr} ${String(i + 1).padStart(2, "0")}`,
-    text: "İçerik metni burada yer alacak.",
+    text: PLACEHOLDER_TEXT_TR,
   }));
 }
 function sixDummyCardsEn(labelEn: string): { title: string; text: string }[] {
   return Array.from({ length: 6 }, (_, i) => ({
     title: `${labelEn} ${String(i + 1).padStart(2, "0")}`,
-    text: "Content text will appear here.",
+    text: PLACEHOLDER_TEXT_EN,
   }));
+}
+
+/** True for the seeded placeholder cards — they must never reach structured data. */
+export function isPlaceholderCard(card: { title?: unknown; text?: unknown }): boolean {
+  const text = typeof card.text === "string" ? card.text.trim() : "";
+  return !text || text === PLACEHOLDER_TEXT_TR || text === PLACEHOLDER_TEXT_EN;
+}
+
+/** Real (non-placeholder) cards from a knowledge page's `items`. */
+export function realCards(items: unknown): { title: string; text: string }[] {
+  if (!Array.isArray(items)) return [];
+  return items
+    .filter((x): x is { title: string; text: string } =>
+      !!x && typeof x === "object" && typeof (x as { title?: unknown }).title === "string" && typeof (x as { text?: unknown }).text === "string",
+    )
+    .filter((x) => !isPlaceholderCard(x));
 }
 
 export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> = {

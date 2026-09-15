@@ -76,7 +76,7 @@ const NAV: NavEntry[] = [
     label: "Bilgi Merkezi",
     icon: BookOpen,
     children: [
-      { href: "/admin/design-pages/knowledge/blog", label: "Blog", icon: BookOpen },
+      { href: "/admin/blog", label: "Blog Yazıları", icon: BookOpen },
       {
         href: "/admin/design-pages/knowledge/faq",
         label: "Sıkça Sorulan Sorular",

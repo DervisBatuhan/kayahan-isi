@@ -99,6 +99,84 @@ export function siteGraph(locale: Locale, site: SiteContent) {
   };
 }
 
+type PostLike = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  coverUrl: string;
+  tags: string[];
+  /** ISO 8601 */
+  publishedAt: string;
+  updatedAt: string;
+};
+
+/** `Blog` node listing the published posts — rendered on /<locale>/blog. */
+export function blogGraph(locale: Locale, posts: PostLike[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${SITE_URL}/${locale}/blog#blog`,
+    url: `${SITE_URL}/${locale}/blog`,
+    name: `${SITE_NAME} Blog`,
+    inLanguage: locale,
+    publisher: { "@id": ORG_ID },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${SITE_URL}/${locale}/blog/${p.slug}#post`,
+      headline: p.title,
+      url: `${SITE_URL}/${locale}/blog/${p.slug}`,
+      datePublished: p.publishedAt,
+      ...(p.coverUrl ? { image: p.coverUrl } : {}),
+    })),
+  };
+}
+
+/**
+ * `BlogPosting` for one article. `wordCount`/`articleBody` are passed in as
+ * plain text (from the Markdown) so the graph never carries markup.
+ */
+export function blogPostingGraph(
+  locale: Locale,
+  post: PostLike,
+  extra: { wordCount: number; bodyText: string },
+) {
+  const url = `${SITE_URL}/${locale}/blog/${post.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#post`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    headline: post.title,
+    description: post.excerpt || undefined,
+    inLanguage: locale,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    ...(post.coverUrl ? { image: [post.coverUrl] } : {}),
+    ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
+    wordCount: extra.wordCount,
+    articleBody: extra.bodyText,
+    author: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": `${SITE_URL}/${locale}/blog#blog` },
+  };
+}
+
+/** `FAQPage` rich-result markup from the FAQ page's question/answer cards. */
+export function faqGraph(items: { title: string; text: string }[]) {
+  const qa = items.filter((i) => i.title.trim() && i.text.trim());
+  if (!qa.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: qa.map((i) => ({
+      "@type": "Question",
+      name: i.title.trim(),
+      acceptedAnswer: { "@type": "Answer", text: i.text.trim() },
+    })),
+  };
+}
+
 /** BreadcrumbList from the crumb trail already built for the page UI. */
 export function breadcrumbGraph(crumbs: { label: string; href: string }[]) {
   return {

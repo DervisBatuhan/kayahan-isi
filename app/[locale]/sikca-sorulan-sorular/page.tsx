@@ -6,6 +6,8 @@ import { getSiteContent } from "@/lib/content/site.server";
 import { buildPortedMetadata } from "@/lib/seo";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { getKnowledgeContent } from "@/lib/content/ported/index.server";
+import { realCards } from "@/lib/content/ported/knowledge";
+import { faqGraph, jsonLdScript } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -27,8 +29,16 @@ export default async function Page({
   if (!isLocale(locale)) notFound();
   const site = await getSiteContent(locale);
   const content = await getKnowledgeContent("faq", locale);
+  // FAQPage rich-result markup — only from real Q&A, never the seeded placeholders.
+  const faq = faqGraph(realCards(content.items));
   return (
     <PortedFrame site={site} family="knowledge" kind="faq">
+      {faq && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(faq) }}
+        />
+      )}
       <KnowledgePage kind="faq" content={content} contactHref={`/${locale}/iletisim`} />
     </PortedFrame>
   );

@@ -588,7 +588,18 @@ const knowledgeSpec: SectionSpec[] = [
   },
 ];
 
+/** The blog page lists real posts (admin → Blog Yazıları), so its card list
+ *  field is dropped here; only the hero + empty-state copy stay editable. */
+const knowledgeBlogSpec: SectionSpec[] = knowledgeSpec.map((section) =>
+  section.title === "İçerik"
+    ? { ...section, fields: section.fields.filter((f) => f.key !== "items") }
+    : section.title === "Boş durum mesajı"
+      ? { ...section, description: "Henüz yayınlanmış yazı yokken gösterilen mesaj." }
+      : section,
+);
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
+  "knowledge:blog": knowledgeBlogSpec,
   activity: activitySpec,
   solution: solutionSpec,
   hub: hubSpec,

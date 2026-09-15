@@ -68,6 +68,31 @@ model PortedContent {
   @@unique([family, kind, locale])
 }
 
+/// A blog post. Each row is one locale; a TR post and its EN translation share
+/// a `pairKey` so the article pages can cross-link with hreflang. `content` is
+/// Markdown (rendered by `lib/blog/markdown.ts`, never raw HTML). `publishedAt`
+/// is the editorial date shown on the page and in `datePublished`.
+model BlogPost {
+  id          String    @id @default(cuid())
+  locale      String    @default("tr")
+  slug        String // URL segment after /<locale>/blog/
+  title       String
+  excerpt     String    @default("") // list card + meta description
+  content     String    @default("") // Markdown
+  coverUrl    String    @default("") // Vercel Blob public URL or ""
+  coverAlt    String    @default("")
+  tags        String    @default("[]") // JSON string[]
+  pairKey     String? // shared between a post and its translation
+  published   Boolean   @default(false)
+  publishedAt DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  updatedBy   String?
+
+  @@unique([locale, slug])
+  @@index([locale, published, publishedAt])
+}
+
 /// One row per admin login attempt. Used to throttle brute-force guessing:
 /// too many failures from the same IP inside the window locks that IP out for
 /// a while. Rows are pruned opportunistically on write.

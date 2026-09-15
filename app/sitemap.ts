@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { getAllPageParams } from "@/lib/content/pages.server";
 import { isPlaceholderPage } from "@/lib/content/pages";
 import { PORTED_ENTRIES } from "@/lib/content/ported/registry";
+import { getAllPublishedForSitemap } from "@/lib/blog/index.server";
 import { locales } from "@/lib/i18n/config";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -59,6 +60,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (doneSubPaths.has(sub)) continue;
     doneSubPaths.add(sub);
     addAll(sub, slug.length > 1 ? 0.6 : 0.8, "monthly", pageAt.get(`${locale}/${slugPath}`) ?? buildDate);
+  }
+
+  // Blog posts: one entry per locale row, cross-linked with its translation
+  // (matched by pairKey) so hreflang never points at a slug that doesn't exist.
+  const posts = await getAllPublishedForSitemap();
+  const byPair = new Map<string, Map<string, string>>();
+  for (const p of posts) {
+    if (!p.pairKey) continue;
+    const m = byPair.get(p.pairKey) ?? new Map<string, string>();
+    m.set(p.locale, absoluteUrl(`/${p.locale}/blog/${p.slug}`));
+    byPair.set(p.pairKey, m);
+  }
+  for (const p of posts) {
+    const url = absoluteUrl(`/${p.locale}/blog/${p.slug}`);
+    if (seen.has(url)) continue;
+    seen.add(url);
+    const pair = p.pairKey ? byPair.get(p.pairKey) : undefined;
+    const languages: Record<string, string> = pair && pair.size > 1 ? Object.fromEntries(pair) : { [p.locale]: url };
+    languages["x-default"] = languages.tr ?? url;
+    entries.push({ url, lastModified: p.updatedAt, changeFrequency: "monthly", priority: 0.6, alternates: { languages } });
   }
 
   return entries;
