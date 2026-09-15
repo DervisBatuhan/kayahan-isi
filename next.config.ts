@@ -42,10 +42,49 @@ const securityHeaders = [
   },
 ];
 
+/**
+ * The previous site (kombiservisdemirdokum.com) is being retired. Once that
+ * domain is attached to this Vercel project every old URL 301s to its closest
+ * equivalent here, so existing rankings, bookmarks and backlinks carry over.
+ * Host-matched, so the rules are inert for kayahanisi.com itself.
+ */
+const OLD_HOST = { type: "host" as const, value: "(www\\.)?kombiservisdemirdokum\\.com" };
+const OLD_SITE_MAP: [string, string][] = [
+  ["/", "/tr/kombi-servisi"],
+  ["/hakkimizda", "/tr/kurumsal/hakkimizda"],
+  ["/sayfa/hakkimizda", "/tr/kurumsal/hakkimizda"],
+  ["/hizmetler", "/tr/kombi-servisi"],
+  ["/hizmet/kombi-hizmetlerimiz", "/tr/kombi-servisi"],
+  ["/hizmet/klima-hizmetlerimiz", "/tr/klima-servisi"],
+  ["/hizmet/sofben-hizmetlerimiz", "/tr/sofben-servisi"],
+  ["/hizmet-noktalarimiz", "/tr/servis/bahcelievler"],
+  ["/galeriler", "/tr/galeri"],
+  ["/galeri", "/tr/galeri"],
+  ["/galeri/bizden-kareler", "/tr/galeri"],
+  ["/galeri/sertifikalarimiz", "/tr/kurumsal/sertifikalarimiz"],
+  ["/iletisim", "/tr/iletisim"],
+  ["/cerez-politikasi", "/tr"],
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  async redirects() {
+    const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://www.kayahanisi.com";
+    // Trailing-slash variants need no rules: Next normalises them first.
+    const exact = OLD_SITE_MAP.map(([from, to]) => ({
+      source: from,
+      has: [OLD_HOST],
+      destination: `${base}${to}`,
+      permanent: true,
+    }));
+    return [
+      ...exact,
+      // Anything else on the old host → Turkish home.
+      { source: "/:path*", has: [OLD_HOST], destination: `${base}/tr`, permanent: true },
+    ];
   },
 };
 
