@@ -92,10 +92,15 @@ describe("lib/structured-data — faqGraph", () => {
 });
 
 describe("lib/content/ported/knowledge — placeholder guard", () => {
-  it("treats the seeded dummy cards as placeholders so they never reach FAQ schema", () => {
-    const seeded = knowledgeDefaults.faq.items as { title: string; text: string }[];
-    expect(seeded.every(isPlaceholderCard)).toBe(true);
-    expect(realCards(seeded)).toEqual([]);
+  it("FAQ defaults are real Q&A (schema-eligible); review samples stay guarded", () => {
+    const faq = knowledgeDefaults.faq.items as { title: string; text: string }[];
+    expect(faq.length).toBeGreaterThanOrEqual(10);
+    expect(realCards(faq)).toHaveLength(faq.length);
+    const reviews = knowledgeDefaults.reviews.items as { title: string; text: string }[];
+    expect(reviews.every(isPlaceholderCard)).toBe(true);
+    expect(realCards(reviews)).toEqual([]);
+    // Blog placeholders (unused by the list page now) remain placeholders.
+    expect(realCards(knowledgeDefaults.blog.items)).toEqual([]);
   });
   it("keeps real cards", () => {
     expect(realCards([{ title: "Q", text: "A" }, "junk", { title: "x", text: "" }])).toEqual([

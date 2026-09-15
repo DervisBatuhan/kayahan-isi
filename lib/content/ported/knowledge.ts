@@ -40,6 +40,8 @@ export const KNOWLEDGE_ROUTE: Record<KnowledgeKind, string> = {
 
 const PLACEHOLDER_TEXT_TR = "İçerik metni burada yer alacak.";
 const PLACEHOLDER_TEXT_EN = "Content text will appear here.";
+const PLACEHOLDER_REVIEW_TR = "Bu alanda onaylı müşteri yorumu yer alacak. Gerçek yorumlar panelden eklendiğinde bu örnek kart kaldırılır.";
+const PLACEHOLDER_REVIEW_EN = "An approved customer review will appear here. This sample card is removed once real reviews are added from the panel.";
 
 /** Six numbered placeholder cards — generic, not fabricated content — until
  *  real posts/questions/reviews are added from the panel. */
@@ -59,7 +61,13 @@ function sixDummyCardsEn(labelEn: string): { title: string; text: string }[] {
 /** True for the seeded placeholder cards — they must never reach structured data. */
 export function isPlaceholderCard(card: { title?: unknown; text?: unknown }): boolean {
   const text = typeof card.text === "string" ? card.text.trim() : "";
-  return !text || text === PLACEHOLDER_TEXT_TR || text === PLACEHOLDER_TEXT_EN;
+  return (
+    !text ||
+    text === PLACEHOLDER_TEXT_TR ||
+    text === PLACEHOLDER_TEXT_EN ||
+    text === PLACEHOLDER_REVIEW_TR ||
+    text === PLACEHOLDER_REVIEW_EN
+  );
 }
 
 /** Real (non-placeholder) cards from a knowledge page's `items`. */
@@ -94,7 +102,20 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
     emptyHeading: "Yanıtlar hazırlanıyor.",
     emptyBody:
       "Sık sorulan sorular, uzman ekibimizin onayladığı yanıtlarla bu alanda yayınlanacak.",
-    items: sixDummyCards("Soru"),
+    items: [
+      { title: "Kombi bakımı ne zaman yaptırılmalı?", text: "En doğru zaman ısıtma sezonu başlamadan önce, eylül–ekim aylarıdır. Yılda bir kez aksatılmaması önemlidir; bakımlı kombi daha az gaz yakar, daha az arıza yapar ve üretici garantisi çoğu markada bakım şartına bağlıdır." },
+      { title: "Hangi ilçelere hizmet veriyorsunuz?", text: "İstanbul Avrupa Yakası'nda Bahçelievler, Bağcılar, Bakırköy, Güngören, Zeytinburnu, Esenler, Bayrampaşa ve Küçükçekmece ilçelerinin tamamına aynı gün servis veriyoruz. Komşu ilçeler için lütfen arayın." },
+      { title: "Hangi markalara servis veriyorsunuz?", text: "DemirDöküm, Vaillant, Baymak, Protherm, Bosch, Buderus, E.C.A., Airfel, Ferroli, Viessmann başta olmak üzere tüm kombi, klima ve şofben markalarına. 45 yıl DemirDöküm ve Vaillant yetkili servisi olarak çalıştık; bugün bağımsız servisiz." },
+      { title: "Yetkili servis misiniz?", text: "Hayır. Uzun yıllar DemirDöküm ve Vaillant yetkili servisi olarak çalıştık; bugün tüm markalara hizmet veren bağımsız bir teknik servisiz. Garanti kapsamındaki cihazlar için üreticinin yetkili servisine başvurmanız gerekir; garanti dışı tüm işlemleri yapıyoruz." },
+      { title: "Servis ücreti nasıl belirleniyor?", text: "Arıza tespiti sonrası yapılacak işlem ve gerekiyorsa parça bedeli, işe başlamadan önce net olarak bildirilir. Onayınız olmadan işlem yapılmaz; taktığımız parçalar orijinaldir ve yazılı garantilidir." },
+      { title: "Kombim basınç düşürüyor, ne yapmalıyım?", text: "Basınç 1–1,5 bar aralığında olmalıdır. Su doldurup resetleyebilirsiniz; sık tekrarlıyorsa genleşme tankında ya da tesisatta kaçak vardır. Sürekli su basmak kireçlenmeyi artırır, kaynağın tespiti için servis çağırın." },
+      { title: "Klima gazı ne zaman doldurulur?", text: "Sızdırmaz bir klimada gaz azalmaz; azalıyorsa kaçak vardır. Doğru işlem kaçağın azot testiyle bulunup giderilmesi, sistemin vakumlanması ve etiketteki miktarda tartılı dolum yapılmasıdır. Her yıl gaz basmak bir bakım rutini değildir." },
+      { title: "Petek ısınmıyor, sorun kombide mi?", text: "Çoğunlukla hayır. Peteğin üstü sıcak altı soğuksa tesisatta tortu vardır ve makineyle tesisat temizliği gerekir; üstü soğuk altı sıcaksa petekte hava vardır ve pürjörden alınır. Teknisyenimiz tek ziyarette kombiyi ve tesisatı birlikte kontrol eder." },
+      { title: "Bacalı şofbenim banyoda, güvenli mi?", text: "Bacalı şofbenler banyo ve yatak odasına takılamaz; karbonmonoksit riski taşır. Hermetik (kapalı yanma odalı) modele geçiş hem güvenlik hem verim için önerimizdir; keşifte baca ve havalandırma uygunluğu kontrol edilir." },
+      { title: "Gece veya hafta sonu arıza olursa ne yapmalıyım?", text: "Telefon ve WhatsApp hattımız 7/24 açıktır; bölgenizdeki teknisyen yönlendirilir. Gaz kokusu alırsanız önce vanayı kapatın, pencereleri açın, elektrik anahtarına dokunmayın ve dışarıdan arayın." },
+      { title: "Site veya işletme için bakım anlaşması yapıyor musunuz?", text: "Evet. Site yönetimleri, ofisler ve mağazalar için sezon öncesi planlı bakım takvimi, sabit fiyat, tek rapor ve öncelikli arıza hattı içeren yıllık sözleşmeler yapıyoruz." },
+      { title: "Teknisyenleriniz belgeli mi?", text: "Evet. Ekibimiz MYK Mesleki Yeterlilik ve MEB belgeli teknisyenlerden oluşur; yeni teknisyenler kurucumuz İlhan Kaya'nın eğitmenlik yaptığı AB destekli meslek kurslarından yetişir." },
+    ],
   },
   reviews: {
     heroIndex: "01 / MÜŞTERİ YORUMLARI",
@@ -105,7 +126,12 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
     contentEyebrow: "MÜŞTERİ DENEYİMLERİ",
     emptyHeading: "Gerçek hikâyeler yakında.",
     emptyBody: "Onaylı müşteri görüşleri, proje bilgileriyle birlikte bu alanda yer alacak.",
-    items: sixDummyCards("Yorum"),
+    items: [
+      { title: "Örnek yorum — Kombi bakımı, Bahçelievler", text: "Bu alanda onaylı müşteri yorumu yer alacak. Gerçek yorumlar panelden eklendiğinde bu örnek kart kaldırılır." },
+      { title: "Örnek yorum — Klima montajı, Bakırköy", text: "Bu alanda onaylı müşteri yorumu yer alacak. Gerçek yorumlar panelden eklendiğinde bu örnek kart kaldırılır." },
+      { title: "Örnek yorum — Şofben arızası, Bağcılar", text: "Bu alanda onaylı müşteri yorumu yer alacak. Gerçek yorumlar panelden eklendiğinde bu örnek kart kaldırılır." },
+      { title: "Örnek yorum — Site bakım anlaşması, Küçükçekmece", text: "Bu alanda onaylı müşteri yorumu yer alacak. Gerçek yorumlar panelden eklendiğinde bu örnek kart kaldırılır." },
+    ],
   },
 };
 
@@ -131,7 +157,20 @@ export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>>
     emptyHeading: "Answers are being prepared.",
     emptyBody:
       "Frequently asked questions will be published here with answers approved by our expert team.",
-    items: sixDummyCardsEn("Question"),
+    items: [
+      { title: "When should the boiler be serviced?", text: "Ideally before the heating season, in September–October, and once every year. A maintained boiler burns less gas, fails less, and most manufacturer warranties require annual service." },
+      { title: "Which districts do you cover?", text: "Same-day service across Bahçelievler, Bağcılar, Bakırköy, Güngören, Zeytinburnu, Esenler, Bayrampaşa and Küçükçekmece on Istanbul's European side. Call us for neighbouring districts." },
+      { title: "Which brands do you service?", text: "Every boiler, AC and water-heater brand — DemirDöküm, Vaillant, Baymak, Protherm, Bosch, Buderus, E.C.A., Airfel, Ferroli, Viessmann and more. We spent 45 years as DemirDöküm and Vaillant authorised service; today we are independent." },
+      { title: "Are you an authorised service?", text: "No. We were DemirDöküm and Vaillant authorised service for many years; today we are an independent technical service for every brand. In-warranty work goes to the manufacturer's authorised service; we handle everything out of warranty." },
+      { title: "How is the service fee set?", text: "After diagnosis, the work and any part cost are quoted clearly before we start. Nothing is done without your approval; parts are genuine and covered by a written guarantee." },
+      { title: "My boiler keeps losing pressure — what now?", text: "Pressure should sit at 1–1.5 bar. Top up and reset; if it keeps dropping there is a leak in the expansion vessel or pipework. Constant topping-up increases scaling, so book a visit." },
+      { title: "When does an AC need refrigerant?", text: "A sealed system never loses refrigerant; if it is low there is a leak. The right job is a nitrogen leak test, repair, vacuum and a weighed charge to the label amount. Yearly 'top-ups' are not maintenance." },
+      { title: "Radiators are cold — is it the boiler?", text: "Usually not. Hot top and cold bottom means sludge in the system (power-flush); cold top and hot bottom means air (bleed). Our technician checks boiler and system together in one visit." },
+      { title: "My open-flue water heater is in the bathroom — is that safe?", text: "Open-flue units may not be installed in bathrooms or bedrooms; they carry a carbon-monoxide risk. Switching to a room-sealed model is our recommendation; flue and ventilation are checked on site." },
+      { title: "What if a fault happens at night or on the weekend?", text: "Our phone and WhatsApp line is open 24/7 and the nearest technician is dispatched. If you smell gas: close the valve, open windows, do not touch switches, call from outside." },
+      { title: "Do you offer maintenance contracts?", text: "Yes — annual contracts for site managements, offices and shops with a pre-season calendar, fixed price, single report and priority fault line." },
+      { title: "Are your technicians certified?", text: "Yes. The team holds MYK vocational-qualification and Ministry of Education certificates; new technicians come through the EU-funded vocational course our founder İlhan Kaya teaches." },
+    ],
   },
   reviews: {
     heroIndex: "01 / CLIENT STORIES",
@@ -142,6 +181,11 @@ export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>>
     contentEyebrow: "CLIENT EXPERIENCES",
     emptyHeading: "Authentic stories coming soon.",
     emptyBody: "Approved client feedback will appear here alongside project details.",
-    items: sixDummyCardsEn("Review"),
+    items: [
+      { title: "Sample review — Boiler maintenance, Bahçelievler", text: "An approved customer review will appear here. This sample card is removed once real reviews are added from the panel." },
+      { title: "Sample review — AC installation, Bakırköy", text: "An approved customer review will appear here. This sample card is removed once real reviews are added from the panel." },
+      { title: "Sample review — Water-heater fault, Bağcılar", text: "An approved customer review will appear here. This sample card is removed once real reviews are added from the panel." },
+      { title: "Sample review — Site maintenance contract, Küçükçekmece", text: "An approved customer review will appear here. This sample card is removed once real reviews are added from the panel." },
+    ],
   },
 };
