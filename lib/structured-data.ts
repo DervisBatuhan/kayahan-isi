@@ -220,6 +220,44 @@ export function blogPostingGraph(
   };
 }
 
+/**
+ * `Service` node for a local-service landing page (kombi/klima/şofben or a
+ * district page). `districts` narrows areaServed for district pages.
+ */
+export function serviceGraph(
+  locale: Locale,
+  input: { path: string; name: string; description: string; serviceType: string; districts?: readonly string[] },
+) {
+  const url = `${SITE_URL}/${locale}${input.path}`;
+  const areas = input.districts ?? SERVICE_DISTRICTS;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    url,
+    name: input.name,
+    description: input.description,
+    serviceType: input.serviceType,
+    provider: { "@id": ORG_ID },
+    areaServed: areas.map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+      containedInPlace: { "@type": "City", name: "İstanbul" },
+    })),
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `${SITE_URL}/${locale}/teklif-al`,
+      availableLanguage: ["tr", "en"],
+    },
+    hoursAvailable: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  };
+}
+
 /** `FAQPage` rich-result markup from the FAQ page's question/answer cards. */
 export function faqGraph(items: { title: string; text: string }[]) {
   const qa = items.filter((i) => i.title.trim() && i.text.trim());

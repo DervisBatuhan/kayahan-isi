@@ -1,4 +1,5 @@
 import "server-only";
+import type { ServiceLanding } from "./service";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getPortedEntry } from "./registry";
@@ -62,6 +63,12 @@ export function getCorporateContent<T = Record<string, unknown>>(kind: string, l
 }
 export function getExpansionContent<T = Record<string, unknown>>(kind: string, locale = "tr") {
   return getPorted<T>("expansion", kind, locale);
+}
+export function getServiceContent(kind: string, locale = "tr") {
+  return getPorted<ServiceLanding>("service", kind, locale);
+}
+export function getDistrictContent(kind: string, locale = "tr") {
+  return getPorted<ServiceLanding>("district", kind, locale);
 }
 export function getKnowledgeContent<T = Record<string, unknown>>(kind: string, locale = "tr") {
   return getPorted<T>("knowledge", kind, locale);

@@ -25,6 +25,19 @@ import {
   KNOWLEDGE_ROUTE,
   type KnowledgeKind,
 } from "./knowledge";
+import {
+  DISTRICT_KINDS,
+  DISTRICT_NAME,
+  DISTRICT_ROUTE,
+  SERVICE_LABEL,
+  SERVICE_ROUTE,
+  districtDefaults,
+  districtDefaultsEn,
+  serviceDefaults,
+  serviceDefaultsEn,
+  serviceLandingSchema,
+  type ServiceKind,
+} from "./service";
 import { activityContentSchema, hubContentSchema, solutionContentSchema } from "./schema";
 import type { Locale } from "@/lib/i18n/config";
 import type { z } from "zod";
@@ -131,12 +144,36 @@ const knowledgeEntries: PortedEntry[] = (
   defaults: { tr: knowledgeDefaults[kind], en: knowledgeDefaultsEn[kind] },
 }));
 
+const serviceEntries: PortedEntry[] = (
+  Object.keys(serviceDefaults) as ServiceKind[]
+).map((kind) => ({
+  family: "service",
+  kind,
+  label: SERVICE_LABEL[kind].tr,
+  group: "Servis",
+  route: SERVICE_ROUTE[kind],
+  schema: serviceLandingSchema,
+  defaults: { tr: serviceDefaults[kind], en: serviceDefaultsEn[kind] },
+}));
+
+const districtEntries: PortedEntry[] = DISTRICT_KINDS.map((kind) => ({
+  family: "district",
+  kind,
+  label: `${DISTRICT_NAME[kind]} Servis`,
+  group: "Servis / İlçeler",
+  route: DISTRICT_ROUTE(kind),
+  schema: serviceLandingSchema,
+  defaults: { tr: districtDefaults[kind], en: districtDefaultsEn[kind] },
+}));
+
 export const PORTED_ENTRIES: PortedEntry[] = [
   ...hubEntries,
   ...corporateEntries,
   ...expansionEntries,
   ...activityEntries,
   ...solutionEntries,
+  ...serviceEntries,
+  ...districtEntries,
   ...knowledgeEntries,
 ];
 

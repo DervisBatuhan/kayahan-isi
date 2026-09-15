@@ -598,7 +598,77 @@ const knowledgeBlogSpec: SectionSpec[] = knowledgeSpec.map((section) =>
       : section,
 );
 
+/** Kombi/klima/şofben service pages and the district pages share one shape. */
+const serviceLandingSpec: SectionSpec[] = [
+  {
+    title: "Hero",
+    fields: [
+      { key: "heroEyebrow", label: "Üst etiket", type: "text" },
+      { key: "heroTitle", label: "Başlık", type: "text" },
+      { key: "heroAccent", label: "Başlık — vurgulu satır", type: "text" },
+      { key: "heroLead", label: "Giriş metni", type: "textarea" },
+    ],
+  },
+  {
+    title: "Ana metin",
+    description: "Markdown: # başlık, - liste, **kalın**, [metin](/tr/…) bağlantı.",
+    fields: [
+      { key: "introLabel", label: "Üst etiket", type: "text" },
+      { key: "introHeading", label: "Başlık", type: "text" },
+      { key: "body", label: "Gövde (Markdown)", type: "textarea" },
+    ],
+  },
+  {
+    title: "Hizmet kartları",
+    fields: [
+      { key: "servicesLabel", label: "Üst etiket", type: "text" },
+      { key: "servicesHeading", label: "Başlık", type: "text" },
+      {
+        key: "services",
+        label: "Kartlar",
+        type: "objectList",
+        itemLabel: "Hizmet",
+        columns: [
+          { key: "title", label: "Başlık" },
+          { key: "text", label: "Açıklama", kind: "textarea" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Sık sorulan sorular",
+    description: "Google'da açılır soru-cevap (FAQ) sonucu olarak görünür.",
+    fields: [
+      { key: "faqLabel", label: "Üst etiket", type: "text" },
+      { key: "faqHeading", label: "Başlık", type: "text" },
+      {
+        key: "faq",
+        label: "Sorular",
+        type: "objectList",
+        itemLabel: "Soru",
+        columns: [
+          { key: "title", label: "Soru" },
+          { key: "text", label: "Cevap", kind: "textarea" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Hizmet bölgeleri ve çağrı",
+    fields: [
+      { key: "areasLabel", label: "Bölgeler — üst etiket", type: "text" },
+      { key: "areasHeading", label: "Bölgeler — başlık", type: "text" },
+      { key: "areasText", label: "Bölgeler — metin", type: "textarea" },
+      { key: "ctaHeading", label: "Çağrı — başlık", type: "text" },
+      { key: "ctaText", label: "Çağrı — metin", type: "textarea" },
+      { key: "ctaLabel", label: "Çağrı — buton", type: "text" },
+    ],
+  },
+];
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
+  service: serviceLandingSpec,
+  district: serviceLandingSpec,
   "knowledge:blog": knowledgeBlogSpec,
   activity: activitySpec,
   solution: solutionSpec,

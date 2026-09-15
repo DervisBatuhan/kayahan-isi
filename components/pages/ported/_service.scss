@@ -1,0 +1,139 @@
+// Local-service landing pages (kombi / klima / şofben + district pages).
+// Palette matches the expansion/knowledge family (navy #073678, cyan #00a7d6,
+// hairline #dce5ed). Scoped under .sv-* only.
+
+$navy: #073678;
+$navy-deep: #032a65;
+$cyan: #00a7d6;
+$cyan-deep: #087da9;
+$ink: #123055;
+$muted: #687b91;
+$line: #dce5ed;
+$wash: #f2f7fa;
+
+.sv-page { background: #fff; }
+
+// -------------------------------------------------------------- hero ----
+.sv-hero {
+  display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px;
+  min-height: 460px; padding: 86px max(6vw, 42px);
+  background: linear-gradient(115deg, #f8fbfd 0%, #fff 52%, #eaf5fa 100%);
+  h1 { margin: 22px 0 0; color: $navy; font-size: clamp(38px, 4.6vw, 58px); font-weight: 500; letter-spacing: -.05em; line-height: .98; }
+  h1 em { display: block; color: $cyan; font-style: normal; font-weight: 400; }
+  > div:first-child > p { max-width: 640px; margin: 26px 0 0; color: $muted; font-size: 16px; line-height: 1.75; }
+}
+.sv-hero-art {
+  position: relative; display: grid; place-items: center; aspect-ratio: 1; max-width: 360px; margin-left: auto;
+  border-radius: 50%; border: 1px solid rgba(7, 54, 120, .12);
+  background: radial-gradient(circle at 30% 30%, rgba(0, 167, 214, .16), transparent 60%);
+  svg { width: 34%; height: auto; color: $navy; stroke-width: 1; }
+  &:before { content: ""; position: absolute; inset: 14%; border: 1px solid rgba(0, 167, 214, .3); border-radius: 50%; }
+}
+.sv-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
+.sv-page a.sv-btn, .sv-btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px;
+  border: 1px solid $navy; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  transition: background .2s, color .2s, border-color .2s;
+  svg { width: 16px; height: 16px; }
+}
+// `.cp-page a { color: inherit }` would otherwise win over the variants.
+.sv-page a.sv-btn--primary { background: $navy; color: #fff; &:hover { background: $navy-deep; } }
+.sv-page a.sv-btn--ghost { background: #fff; color: $navy; &:hover { background: $navy; color: #fff; } }
+.sv-page a.sv-btn--light { background: #fff; color: $navy; border-color: #fff; &:hover { background: $wash; } }
+.sv-page a.sv-btn--outline { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .6); &:hover { background: #fff; color: $navy; } }
+
+// -------------------------------------------------------------- body ----
+.sv-body { max-width: 1040px; margin: 0 auto; }
+.sv-body-head { max-width: 760px; margin-bottom: 40px; h2 { margin: 16px 0 0; color: $navy; font-size: clamp(26px, 3vw, 38px); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; } }
+.sv-section-head {
+  margin-bottom: 36px;
+  h2 { margin: 16px 0 0; color: $navy; font-size: clamp(26px, 3vw, 38px); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; }
+  p { max-width: 640px; margin: 14px 0 0; color: $muted; font-size: 15px; line-height: 1.7; }
+}
+
+.sv-prose {
+  max-width: 760px; color: $ink; font-size: 16.5px; line-height: 1.8;
+  > * + * { margin-top: 1.1em; }
+  h2, h3, h4 { color: $navy; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; scroll-margin-top: 90px; }
+  h2 { margin-top: 2em; font-size: 25px; }
+  h3 { margin-top: 1.6em; font-size: 20px; }
+  p { margin: 0; }
+  a { color: $cyan-deep; text-decoration: underline; text-underline-offset: 3px; &:hover { color: $navy; } }
+  strong { color: $navy; font-weight: 600; }
+  ul, ol { padding-left: 1.4em; }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  li + li { margin-top: .35em; }
+  blockquote { margin: 0; padding: 4px 0 4px 20px; border-left: 3px solid $cyan; color: $muted; font-style: italic; }
+  hr { margin: 2em 0; border: 0; border-top: 1px solid $line; }
+  img { max-width: 100%; height: auto; border: 1px solid $line; }
+}
+
+// ---------------------------------------------------------- services ----
+.sv-services { background: $wash; }
+.sv-service-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid $line; background: #fff;
+  article { display: flex; flex-direction: column; min-height: 210px; padding: 26px 24px; border-right: 1px solid $line; border-bottom: 1px solid $line; }
+  article:nth-child(4n) { border-right: 0; }
+  article:nth-last-child(-n + 4) { border-bottom: 0; }
+  span { color: $cyan; font-size: 10px; font-weight: 800; letter-spacing: .2em; }
+  h3 { margin: 18px 0 8px; color: $navy; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
+  p { margin: 0; color: $muted; font-size: 13.5px; line-height: 1.65; }
+}
+
+// --------------------------------------------------------------- faq ----
+.sv-faq-list {
+  max-width: 860px; border-top: 1px solid $line;
+  details { border-bottom: 1px solid $line; }
+  summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 4px; cursor: pointer; list-style: none;
+    color: $navy; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em;
+    &::-webkit-details-marker { display: none; }
+    i { position: relative; flex: 0 0 22px; height: 22px; border: 1px solid $line; border-radius: 50%; transition: transform .25s; }
+    i:before, i:after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.5px; background: $navy; transform: translate(-50%, -50%); }
+    i:after { transform: translate(-50%, -50%) rotate(90deg); }
+  }
+  details[open] summary i { transform: rotate(45deg); }
+  p { margin: 0; padding: 0 44px 22px 4px; color: $ink; font-size: 15px; line-height: 1.75; }
+}
+
+// ------------------------------------------------------------- areas ----
+.sv-chips {
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none;
+  li, a { display: inline-flex; align-items: center; gap: 8px; }
+  a, .is-current { padding: 10px 16px; border: 1px solid $line; color: $navy; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .2s, color .2s; }
+  a:hover { background: $navy; color: #fff; border-color: $navy; }
+  .is-current { background: $navy; color: #fff; border-color: $navy; }
+  .sv-page & a:hover { color: #fff; }
+  svg { width: 14px; height: 14px; }
+}
+.sv-other {
+  margin-top: 44px;
+  ul { display: flex; flex-wrap: wrap; gap: 26px; margin: 14px 0 0; padding: 0; list-style: none; }
+  a { display: inline-flex; align-items: center; gap: 8px; color: $navy; font-size: 14px; font-weight: 700; text-decoration: none; &:hover { color: $cyan; } }
+  svg { width: 15px; height: 15px; }
+}
+
+// --------------------------------------------------------------- cta ----
+.sv-cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 30px;
+  padding: 64px max(6vw, 42px); background: linear-gradient(110deg, $navy-deep, $navy 60%, #0a4d8f); color: #fff;
+  h2 { margin: 0; font-size: clamp(24px, 2.8vw, 34px); font-weight: 500; letter-spacing: -.03em; }
+  p { max-width: 560px; margin: 12px 0 0; color: rgba(255, 255, 255, .78); font-size: 15px; line-height: 1.7; }
+  .sv-hero-actions { margin-top: 0; }
+}
+
+// -------------------------------------------------------- responsive ----
+@media (max-width: 1000px) {
+  .sv-hero { grid-template-columns: 1fr; min-height: 0; padding: 64px 28px; }
+  .sv-hero-art { display: none; }
+  .sv-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); article:nth-child(4n) { border-right: 1px solid $line; } article:nth-child(2n) { border-right: 0; } article:nth-last-child(-n + 4) { border-bottom: 1px solid $line; } article:nth-last-child(-n + 2) { border-bottom: 0; } }
+}
+@media (max-width: 600px) {
+  .sv-hero { padding: 52px 22px; }
+  .sv-service-grid { grid-template-columns: 1fr; article { border-right: 0 !important; border-bottom: 1px solid $line !important; } article:last-child { border-bottom: 0 !important; } }
+  .sv-prose { font-size: 16px; }
+  .sv-cta { padding: 48px 22px; }
+  .sv-btn { width: 100%; justify-content: center; }
+}

@@ -382,6 +382,149 @@ export const PORTED_META: Record<string, Entry> = {
         "From housing to healthcare, from industry to tourism — projects completed since 1976 and the trust we sustain.",
     },
   },
+  "/kombi-servisi": {
+    og: "website",
+    tr: {
+      title: "Kombi Servisi İstanbul Avrupa Yakası — Arıza, Bakım, Montaj",
+      description:
+        "45 yıl DemirDöküm ve Vaillant yetkili servisi deneyimiyle tüm markalara kombi arıza, yıllık bakım, orijinal parça ve montaj. Bahçelievler, Bakırköy, Bağcılar ve çevresinde 7/24.",
+    },
+    en: {
+      title: "Boiler Service, Istanbul — Repair, Maintenance, Installation",
+      description:
+        "Boiler repair, annual maintenance, genuine parts and installation for every brand — 45 years of DemirDöküm and Vaillant authorised-service experience. 24/7 on Istanbul's European side.",
+    },
+  },
+  "/klima-servisi": {
+    og: "website",
+    tr: {
+      title: "Klima Servisi İstanbul Avrupa Yakası — Bakım, Gaz Dolumu, Montaj",
+      description:
+        "Split, multi-split ve VRF klimalarda bakım, gaz dolumu, kaçak tespiti, arıza ve montaj. MEB belgeli teknisyenler; Bahçelievler, Bakırköy, Bağcılar ve çevre ilçelerde aynı gün.",
+    },
+    en: {
+      title: "AC Service, Istanbul — Maintenance, Refrigerant, Installation",
+      description:
+        "Maintenance, refrigerant charging, leak detection, repair and installation for split, multi-split and VRF systems by certified technicians. Same day on Istanbul's European side.",
+    },
+  },
+  "/sofben-servisi": {
+    og: "website",
+    tr: {
+      title: "Şofben Servisi İstanbul Avrupa Yakası — Arıza, Bakım, Montaj",
+      description:
+        "Gazlı ve elektrikli şofbenlerde arıza, yıllık bakım, orijinal parça ve mevzuata uygun montaj. MYK belgeli teknisyenler, gaz güvenliği önce. Avrupa Yakası'nda 7/24.",
+    },
+    en: {
+      title: "Water-Heater Service, Istanbul — Repair, Maintenance, Installation",
+      description:
+        "Repair, annual maintenance, genuine parts and code-compliant installation for gas and electric water heaters by MYK-certified technicians. 24/7 on Istanbul's European side.",
+    },
+  },
+  "/servis/bahcelievler": {
+    og: "website",
+    tr: {
+      title: "Bahçelievler Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Bahçelievler'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Bahçelievler Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Bahçelievler. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/bagcilar": {
+    og: "website",
+    tr: {
+      title: "Bağcılar Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Bağcılar'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Bağcılar Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Bağcılar. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/bakirkoy": {
+    og: "website",
+    tr: {
+      title: "Bakırköy Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Bakırköy'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Bakırköy Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Bakırköy. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/gungoren": {
+    og: "website",
+    tr: {
+      title: "Güngören Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Güngören'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Güngören Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Güngören. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/zeytinburnu": {
+    og: "website",
+    tr: {
+      title: "Zeytinburnu Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Zeytinburnu'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Zeytinburnu Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Zeytinburnu. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/esenler": {
+    og: "website",
+    tr: {
+      title: "Esenler Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Esenler'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Esenler Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Esenler. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/bayrampasa": {
+    og: "website",
+    tr: {
+      title: "Bayrampaşa Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Bayrampaşa'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Bayrampaşa Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Bayrampaşa. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
+  "/servis/kucukcekmece": {
+    og: "website",
+    tr: {
+      title: "Küçükçekmece Kombi Servisi, Klima ve Şofben Servisi — Aynı Gün",
+      description:
+        "Küçükçekmece'de kombi arıza, bakım ve montaj; klima bakım ve gaz dolumu; şofben servisi. Belgeli teknisyen, orijinal parça, yazılı garanti. 45 yıllık yetkili servis deneyimi, 7/24 hat.",
+    },
+    en: {
+      title: "Küçükçekmece Boiler, AC and Water-Heater Service — Same Day",
+      description:
+        "Boiler repair, maintenance and installation, AC maintenance and refrigerant charging, water-heater service in Küçükçekmece. Certified technicians, genuine parts, written guarantee, 24/7 line.",
+    },
+  },
   "/iletisim": {
     og: "website",
     tr: {
