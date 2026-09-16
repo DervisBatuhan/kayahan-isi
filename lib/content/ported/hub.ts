@@ -121,8 +121,8 @@ export const hubDefaults: Record<HubKind, HubContent> = {
     titleTop: "İstanbul Avrupa Yakası'nda",
     titleAccent: "sekiz ilçe, aynı gün.",
     lead: "Merkezimiz Bahçelievler'de; ekiplerimiz sekiz ilçede konumlanır ve size en yakın teknisyen yönlendirilir. İlçenizi seçin, o bölgede en sık yaptığımız işleri ve mahalleleri görün.",
-    image: "/gallery/vip-kurumsal-servis-araci.webp",
-    imageAlt: "Kayahan Isı servis aracı",
+    image: "/assets/servis-filo.webp",
+    imageAlt: "Kayahan Isı servis filosu",
     gridHeadLabel: "İLÇELER",
     gridHeadTitle: "İlçenizi seçin.",
     items: [
@@ -262,8 +262,8 @@ export const hubDefaultsEn: Record<HubKind, HubContent> = {
     titleTop: "Eight districts on Istanbul's",
     titleAccent: "European side, same day.",
     lead: "Our base is in Bahçelievler; teams are placed across eight districts and the nearest technician is dispatched. Pick your district to see typical jobs and neighbourhoods.",
-    image: "/gallery/vip-kurumsal-servis-araci.webp",
-    imageAlt: "Kayahan Isı service van",
+    image: "/assets/servis-filo.webp",
+    imageAlt: "Kayahan Isı service fleet",
     gridHeadLabel: "DISTRICTS",
     gridHeadTitle: "Pick your district.",
     items: [
