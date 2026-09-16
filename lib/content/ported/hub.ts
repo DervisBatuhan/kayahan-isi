@@ -144,8 +144,8 @@ export const hubDefaults: Record<HubKind, HubContent> = {
     titleTop: "Bilgiyi paylaşır.",
     titleAccent: "Geleceği geliştiririz.",
     lead: "Sahadan gelen teknik deneyimi, sık sorulan soruları ve müşteri deneyimlerini tek yerde topluyoruz: rehber yazılar, doğrudan yanıtlar ve gerçek hikâyeler.",
-    image: "/assets/home-media-cgi.png",
-    imageAlt: "Bilgi merkezi görseli",
+    image: "/assets/knowledge-hub-art.svg",
+    imageAlt: "Bilgi merkezi — bilgi ağı illüstrasyonu",
     gridHeadLabel: HUB_CHROME.gridDefaultLabel,
     gridHeadTitle: HUB_CHROME.gridDefaultTitle,
     items: [
@@ -285,8 +285,8 @@ export const hubDefaultsEn: Record<HubKind, HubContent> = {
     titleTop: "Sharing knowledge.",
     titleAccent: "Advancing the future.",
     lead: "Field experience, frequently asked questions and client stories in one place: guides, straight answers and real experiences.",
-    image: "/assets/home-media-cgi.png",
-    imageAlt: "Knowledge hub visual",
+    image: "/assets/knowledge-hub-art.svg",
+    imageAlt: "Knowledge hub — knowledge network illustration",
     gridHeadLabel: HUB_CHROME_EN.gridDefaultLabel,
     gridHeadTitle: HUB_CHROME_EN.gridDefaultTitle,
     items: [

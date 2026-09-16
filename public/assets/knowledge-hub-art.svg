@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-label="Bilgi Merkezi">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eaf3f9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="42%" r="45%">
+      <stop offset="0" stop-color="#00a7d6" stop-opacity=".14"/>
+      <stop offset="1" stop-color="#00a7d6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#073678" fill-opacity=".10"/>
+    </pattern>
+  </defs>
+  <rect width="1400" height="1000" fill="url(#bg)"/>
+  <rect width="1400" height="1000" fill="url(#dots)"/>
+  <rect width="1400" height="1000" fill="url(#glow)"/>
+
+  <!-- knowledge waves: quarter arcs radiating from the source point -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M300 900 A600 600 0 0 1 900 300" stroke="#168fb9" stroke-opacity=".22" stroke-width="1.5"/>
+    <path d="M300 900 A470 470 0 0 1 770 430" stroke="#e64744" stroke-opacity=".20" stroke-width="1.5"/>
+    <path d="M300 900 A340 340 0 0 1 640 560" stroke="#eba633" stroke-opacity=".28" stroke-width="1.5"/>
+    <path d="M300 900 A210 210 0 0 1 510 690" stroke="#073678" stroke-opacity=".22" stroke-width="1.5"/>
+    <path d="M300 900 A730 730 0 0 1 1030 170" stroke="#168fb9" stroke-opacity=".10" stroke-width="1.5" stroke-dasharray="2 10"/>
+  </g>
+
+  <!-- knowledge graph: nodes on the arcs, linked -->
+  <g fill="none" stroke="#073678" stroke-opacity=".28" stroke-width="1.2">
+    <path d="M510 690 L640 560 L770 430 L900 300"/>
+    <path d="M640 560 L880 610 L1030 520"/>
+    <path d="M770 430 L1000 400 L1150 300"/>
+    <path d="M880 610 L1000 400"/>
+    <path d="M1030 520 L1150 300" stroke-dasharray="3 8"/>
+  </g>
+  <g>
+    <circle cx="300" cy="900" r="9" fill="#073678"/>
+    <circle cx="300" cy="900" r="22" fill="none" stroke="#073678" stroke-opacity=".25"/>
+    <circle cx="510" cy="690" r="6" fill="#168fb9"/>
+    <circle cx="640" cy="560" r="7" fill="#fff" stroke="#eba633" stroke-width="2"/>
+    <circle cx="770" cy="430" r="6" fill="#e64744"/>
+    <circle cx="900" cy="300" r="7" fill="#fff" stroke="#168fb9" stroke-width="2"/>
+    <circle cx="880" cy="610" r="5" fill="#073678"/>
+    <circle cx="1030" cy="520" r="6" fill="#fff" stroke="#e64744" stroke-width="2"/>
+    <circle cx="1000" cy="400" r="5" fill="#168fb9"/>
+    <circle cx="1150" cy="300" r="8" fill="#fff" stroke="#073678" stroke-width="2"/>
+  </g>
+
+  <!-- open-book / page marks: three stacked reading lines -->
+  <g stroke-linecap="round" stroke-width="2">
+    <line x1="960" y1="720" x2="1180" y2="720" stroke="#073678" stroke-opacity=".35"/>
+    <line x1="960" y1="748" x2="1120" y2="748" stroke="#168fb9" stroke-opacity=".45"/>
+    <line x1="960" y1="776" x2="1060" y2="776" stroke="#eba633" stroke-opacity=".6"/>
+  </g>
+
+  <!-- soft outer ring echoing the partners page, offset to the top-right -->
+  <circle cx="1180" cy="200" r="150" fill="none" stroke="#168fb9" stroke-opacity=".12"/>
+  <circle cx="1180" cy="200" r="96" fill="none" stroke="#eba633" stroke-opacity=".16"/>
+</svg>
