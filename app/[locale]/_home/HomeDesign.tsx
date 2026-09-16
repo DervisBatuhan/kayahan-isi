@@ -327,8 +327,10 @@ function HomePartners({ band }: { band: PartnersBand }) {
               {hasReal
                 ? shown.map((p, i) => (
                     <span className="homePartnerLogo" key={`${p.title}-${i}`}>
+                      {/* Not lazy: the track is moved by a CSS transform, so the browser's
+                          lazy-load intersection check misses logos until a hover/repaint. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.fileUrl} alt={p.title} loading="lazy" decoding="async" />
+                      <img src={p.fileUrl} alt={p.title} loading="eager" fetchPriority="low" decoding="async" />
                     </span>
                   ))
                 : Array.from({ length: HOME_PARTNER_GHOST_COUNT }, (_, i) => (
