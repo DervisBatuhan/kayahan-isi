@@ -103,8 +103,8 @@ export const hubDefaults: Record<HubKind, HubContent> = {
     titleTop: "Kombi, klima ve şofben:",
     titleAccent: "aynı gün, belgeli ekip.",
     lead: "45 yıl DemirDöküm ve Vaillant yetkili servisi olarak edindiğimiz deneyimle bugün tüm markalara hizmet veriyoruz. İstanbul Avrupa Yakası'nda sekiz ilçede arıza, bakım, orijinal parça ve montaj — 7/24 ulaşılabilir hat.",
-    image: "/gallery/vip-kurumsal-servis-araci.webp",
-    imageAlt: "Kayahan Isı kurumsal servis aracı",
+    image: "/assets/servis-filo.webp",
+    imageAlt: "Kayahan Isı servis filosu — merkez bina önünde servis araçları",
     gridHeadLabel: "HİZMETLERİMİZ",
     gridHeadTitle: "Cihazınızı seçin.",
     items: [
@@ -244,8 +244,8 @@ export const hubDefaultsEn: Record<HubKind, HubContent> = {
     titleTop: "Boiler, AC and water heater:",
     titleAccent: "same day, certified team.",
     lead: "With 45 years as DemirDöküm and Vaillant authorised service behind us, we now serve every brand across eight districts on Istanbul's European side — repair, maintenance, genuine parts and installation, 24/7.",
-    image: "/gallery/vip-kurumsal-servis-araci.webp",
-    imageAlt: "Kayahan Isı service van",
+    image: "/assets/servis-filo.webp",
+    imageAlt: "Kayahan Isı service fleet in front of the head office",
     gridHeadLabel: "OUR SERVICES",
     gridHeadTitle: "Pick your appliance.",
     items: [
