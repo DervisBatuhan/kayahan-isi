@@ -5,6 +5,8 @@ title: Isı Pompası Nedir, Nasıl Çalışır? Kimler İçin Uygun?
 excerpt: Isı pompasının çalışma prensibi, hava ve toprak kaynaklı tipleri, gerçek verim değerleri ve İstanbul iklimi için doğru seçim kriterleri.
 tags: ısı pompası, ısıtma, enerji verimliliği
 pairKey: isi-pompasi
+coverUrl: /blog/isi-pompasi.svg
+coverAlt: Isı pompası çalışma şeması — dış üniteden eve ısı taşınması
 publishedAt: 2026-09-15
 ---
 Isı pompası, son yıllarda hem konutlarda hem de ticari binalarda en çok konuşulan ısıtma-soğutma teknolojisi. Doğal gaz fiyatlarındaki dalgalanma, elektrikli çözümlere geçiş ve karbon hedefleri derken "ısı pompası almalı mıyım?" sorusu artık sadece mühendislerin değil, bina sahiplerinin de gündeminde. Bu yazıda teknolojiyi sade bir dille anlatıyor, hangi durumda mantıklı olduğunu ve seçerken nelere dikkat edilmesi gerektiğini paylaşıyoruz.

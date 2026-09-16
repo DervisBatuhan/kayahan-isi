@@ -5,6 +5,8 @@ title: Kombi Bakımı Ne Zaman Yapılmalı? Bakımda Neler Yapılır?
 excerpt: Kombi bakımının doğru zamanı, bakımda yapılan 9 işlem, bakım yaptırmamanın maliyeti ve "bakım" adı altında yapılan eksik işleri nasıl anlarsınız.
 tags: kombi bakımı, kombi servisi, doğal gaz
 pairKey: kombi-bakimi
+coverUrl: /blog/kombi-bakimi.svg
+coverAlt: Kombi bakım kontrol listesi şeması
 publishedAt: 2026-09-16
 ---
 "Kombim çalışıyor, bakıma ne gerek var?" Bu cümleyi her kış yüzlerce kez duyuyoruz — genellikle kombi arızalandıktan sonra. Kombi bakımı bir masraf değil, gaz faturasından ve arıza parasından düşülen bir yatırımdır. Bu yazıda ne zaman yaptırmanız gerektiğini, gerçek bir bakımda hangi işlemlerin yapıldığını ve "bakım" diye gelip on dakikada çıkanları nasıl ayırt edeceğinizi anlatıyoruz.

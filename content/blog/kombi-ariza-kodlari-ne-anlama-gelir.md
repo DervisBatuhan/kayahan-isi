@@ -5,6 +5,8 @@ title: Kombi Arıza Kodları Ne Anlama Gelir? Ne Zaman Servis Çağırmalı?
 excerpt: Vaillant, DemirDöküm, Baymak ve Protherm kombilerde en sık görülen arıza kodları, evde deneyebileceğiniz güvenli adımlar ve servise bırakılması gereken durumlar.
 tags: kombi arıza, arıza kodu, kombi servisi
 pairKey: kombi-ariza-kodlari
+coverUrl: /blog/ariza-kodlari.svg
+coverAlt: Kombi ekranında F.28 arıza kodu ve sık kodların açıklaması
 publishedAt: 2026-09-17
 ---
 Kombi ekranında beliren bir harf ve iki rakam, kışın en çok panik yaratan şeylerden biridir. Oysa arıza kodu kötü haber değil, iyi haberdir: kombi size sorunun **nerede** olduğunu söylüyor. Bu yazıda kodların hangi ailelere ayrıldığını, en sık gördüğümüz kodların anlamını ve hangisinde kendiniz müdahale edebileceğinizi, hangisinde kesinlikle etmemeniz gerektiğini anlatıyoruz.

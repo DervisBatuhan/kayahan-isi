@@ -27,7 +27,7 @@ function Group({ title, children, open = true }: { title: string; children: Reac
 function Option({ active, href, label, count }: { active: boolean; href: string; label: string; count: number }) {
   return (
     <li>
-      <Link href={href} className={active ? "is-active" : ""} rel="nofollow" aria-pressed={active}>
+      <Link href={href} className={active ? "is-active" : ""} rel="nofollow" aria-pressed={active} scroll={false}>
         <i aria-hidden="true">{active && <Check />}</i>
         <span>{label}</span>
         <small>{count}</small>
@@ -79,13 +79,13 @@ export function BlogFilters({
           <ul>
             {chips.map((c) => (
               <li key={c.label}>
-                <Link href={c.href} rel="nofollow" aria-label={`${c.label} — ${ui.clear}`}>
+                <Link href={c.href} rel="nofollow" aria-label={`${c.label} — ${ui.clear}`} scroll={false}>
                   {c.label} <X />
                 </Link>
               </li>
             ))}
           </ul>
-          <Link href={clearAll} className="bf-clear" rel="nofollow">
+          <Link href={clearAll} className="bf-clear" rel="nofollow" scroll={false}>
             {ui.clear}
           </Link>
         </div>
@@ -140,7 +140,7 @@ export function BlogFilters({
             <ul>
               {SORT_OPTIONS[locale].map((o) => (
                 <li key={o.key}>
-                  <Link href={setSort(o.key)} className={o.key === filter.sort ? "is-active" : ""} rel="nofollow">
+                  <Link href={setSort(o.key)} className={o.key === filter.sort ? "is-active" : ""} rel="nofollow" scroll={false}>
                     {o.label}
                   </Link>
                 </li>
@@ -152,7 +152,7 @@ export function BlogFilters({
       <aside className="bf-sidebar" aria-label={ui.filter}>
         {panel}
         {!isDefault({ ...filter, sort: "yeni" }) && (
-          <Link href={clearAll} className="bf-clear bf-clear--wide" rel="nofollow">
+          <Link href={clearAll} className="bf-clear bf-clear--wide" rel="nofollow" scroll={false}>
             {ui.clear}
           </Link>
         )}

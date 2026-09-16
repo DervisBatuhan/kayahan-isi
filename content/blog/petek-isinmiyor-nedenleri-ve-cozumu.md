@@ -5,6 +5,8 @@ title: Petek Isınmıyor: 7 Neden ve Çözümü (Alt Kısım Soğuk, Bazı Petek
 excerpt: Peteğin alt kısmı soğuk, üstü sıcak; bazı odalar hiç ısınmıyor; kombi çalışıyor ama petekler ılık. Her belirtinin nedeni, evde yapabilecekleriniz ve tesisat temizliği ne zaman şart.
 tags: petek ısınmıyor, tesisat temizliği, kombi servisi
 pairKey: petek-isinmiyor
+coverUrl: /blog/petek.svg
+coverAlt: Üstü sıcak altı soğuk petek — tortu birikimi şeması
 publishedAt: 2026-09-19
 ---
 Kombi çalışıyor, ama petekler ısınmıyor — ya da bir kısmı ısınıyor, bir kısmı soğuk. Bu şikâyetin arkasında genellikle kombi değil, **tesisat** vardır. Belirtiye göre neden büyük ölçüde tahmin edilebilir; bu yazı size hangi durumda ne yapmanız gerektiğini gösteriyor.

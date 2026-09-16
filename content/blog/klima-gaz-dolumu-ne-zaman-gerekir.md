@@ -5,6 +5,8 @@ title: Klima Gaz Dolumu Ne Zaman Gerekir? Gaz Eksikliği Nasıl Anlaşılır?
 excerpt: Klima gazı neden azalır, eksik gazın belirtileri, "sadece gaz basmak" neden çözüm değildir ve doğru gaz dolumu işleminde servisin yapması gereken 5 adım.
 tags: klima gaz dolumu, klima servisi, klima bakımı
 pairKey: klima-gaz-dolumu
+coverUrl: /blog/klima-gaz.svg
+coverAlt: Klima iç-dış ünite, manifold ve azot kaçak testi şeması
 publishedAt: 2026-09-18
 ---
 Yazın en çok aldığımız çağrı: "Klima çalışıyor ama soğutmuyor, gazı bitmiş herhalde." Çoğu zaman teşhis doğru, ama çözüm yanlış anlaşılıyor. Klima gazı yakıt gibi tükenen bir şey değildir; **azalıyorsa bir yerden kaçıyordur**. Bu yazıda gaz eksikliğini nasıl anlayacağınızı, doğru dolumun nasıl yapıldığını ve yanlış uygulamanın cihazınıza neye mal olduğunu anlatıyoruz.

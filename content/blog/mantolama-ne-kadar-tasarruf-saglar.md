@@ -5,6 +5,8 @@ title: Mantolama (Dış Cephe Isı Yalıtımı) Ne Kadar Tasarruf Sağlar?
 excerpt: Dış cephe ısı yalıtımının gerçek tasarruf oranı, hangi binada ne kadar geri ödeme süresi, malzeme seçimi (EPS, XPS, taş yünü) ve mantolama sonrası kombi kapasitesinin neden düşmesi gerektiği.
 tags: mantolama, ısı yalıtımı, enerji verimliliği
 pairKey: mantolama
+coverUrl: /blog/mantolama.svg
+coverAlt: Dış cephe ısı yalıtımı kesiti ve tasarruf oranı
 publishedAt: 2026-09-20
 ---
 "Mantolama yaptırsak fatura ne kadar düşer?" sorusunun dürüst cevabı: **binaya göre %25 ile %50 arasında**. Bu aralığın neden bu kadar geniş olduğunu, sizin binanızın hangi uca daha yakın olduğunu ve mantolamadan tam verim almak için ısıtma tarafında ne yapmanız gerektiğini anlatıyoruz.
