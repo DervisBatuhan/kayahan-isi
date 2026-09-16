@@ -306,3 +306,11 @@ footer#iletisim p,footer#iletisim a,footer#iletisim small{color:rgba(228,237,247
 footer#iletisim .footerContactButton{color:#073678}
 
 @media(max-width:600px){.bigCta::after{width:88%;height:27px;opacity:.56}}
+
+/* legal strip under the footer (both chromes) */
+.legalBar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding:14px 5%;background:#021836;border-top:1px solid rgba(255,255,255,.08)}
+.legalBar ul{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0;padding:0;list-style:none}
+.legalBar a{color:#9fb3c8;font-size:9px;letter-spacing:.06em;text-decoration:none}
+.legalBar a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.legalBar small{color:#6f849b;font-size:9px}
+@media(max-width:560px){.legalBar{padding:14px 20px}.legalBar ul{gap:8px 16px}}

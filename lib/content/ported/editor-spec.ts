@@ -688,7 +688,21 @@ const serviceLandingSpec: SectionSpec[] = [
   },
 ];
 
+const legalSpec: SectionSpec[] = [
+  {
+    title: "Yasal metin",
+    description: "Markdown: # başlık, - liste, **kalın**, [metin](/tr/…) bağlantı. [gözden geçirin] işaretli bölümleri hukuk danışmanınızla kontrol edin.",
+    fields: [
+      { key: "title", label: "Başlık", type: "text" },
+      { key: "updated", label: "Güncelleme satırı", type: "text", hint: "ör. Son güncelleme: Eylül 2026" },
+      { key: "intro", label: "Giriş", type: "textarea" },
+      { key: "body", label: "Metin (Markdown)", type: "textarea" },
+    ],
+  },
+];
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
+  legal: legalSpec,
   service: serviceLandingSpec,
   district: serviceLandingSpec,
   brand: serviceLandingSpec,

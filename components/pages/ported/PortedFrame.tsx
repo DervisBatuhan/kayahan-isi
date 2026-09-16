@@ -10,6 +10,7 @@ const HOME_LABEL: Record<Locale, string> = { tr: "Ana Sayfa", en: "Home" };
 /** Which section a family's pages hang under, and its label per locale. */
 const PARENT: Record<string, { seg: string; label: Record<Locale, string> } | null> = {
   hub: null,
+  legal: null,
   knowledge: { seg: "bilgi-merkezi", label: { tr: "Bilgi Merkezi", en: "Knowledge Hub" } },
   corporate: { seg: "kurumsal", label: { tr: "Kurumsal", en: "Corporate" } },
   activity: {

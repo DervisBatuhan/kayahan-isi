@@ -9,6 +9,7 @@
 
 import { useId, useState, type ComponentType } from "react";
 import Image from "next/image";
+import { LegalBar } from "@/components/layout/LegalBar";
 import {
   ArrowRight,
   ChevronDown,
@@ -247,6 +248,7 @@ export function SiteFooter({ content }: { content: SiteContent }) {
           </a>
         </div>
       </footer>
+      <LegalBar locale={c.locale === "en" ? "en" : "tr"} />
     </>
   );
 }

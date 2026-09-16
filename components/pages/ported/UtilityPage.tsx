@@ -123,9 +123,11 @@ const UT = {
       phone: "Geçerli bir telefon numarası girin.",
       message: "Lütfen en az 10 karakterlik bir açıklama yazın.",
       projectType: "Proje türünü seçin.",
+      kvkk: "Devam etmek için KVKK Aydınlatma Metni'ni onaylayın.",
       form: "Lütfen işaretli alanları kontrol edin.",
       server: "Talebiniz kaydedilemedi. Lütfen daha sonra tekrar deneyin.",
     },
+    kvkk: { pre: "Kişisel verilerimin ", link: "KVKK Aydınlatma Metni", post: " kapsamında işlenmesini kabul ediyorum." },
   },
   en: {
     ref: {
@@ -218,9 +220,11 @@ const UT = {
       phone: "Enter a valid phone number.",
       message: "Please write a description of at least 10 characters.",
       projectType: "Select a project type.",
+      kvkk: "Please acknowledge the KVKK notice to continue.",
       form: "Please check the highlighted fields.",
       server: "Your request could not be saved. Please try again later.",
     },
+    kvkk: { pre: "I acknowledge that my personal data will be processed under the ", link: "KVKK notice", post: "." },
   },
 } satisfies Record<Loc, unknown>;
 
@@ -321,6 +325,7 @@ function ContactPage({
   locale: Loc;
 }) {
   const [values, setValues] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [kvkk, setKvkk] = useState(false);
   const [errors, setErrors] = useState<LeadFieldErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
   const [formError, setFormError] = useState<string | null>(null);
@@ -343,6 +348,7 @@ function ContactPage({
     if (!EMAIL_RE.test(values.email.trim())) next.email = t.err.email;
     if (values.phone.trim() && !PHONE_RE.test(values.phone.trim())) next.phone = t.err.phone;
     if (values.message.trim().length < 10) next.message = t.err.message;
+    if (!kvkk) next.kvkk = t.err.kvkk;
     if (Object.keys(next).length) {
       setErrors(next);
       setStatus("error");
@@ -353,6 +359,7 @@ function ContactPage({
     setErrors({});
     const res = await createLead({
       type: "contact",
+      kvkk: true,
       name: values.name,
       email: values.email,
       phone: values.phone,
@@ -545,6 +552,16 @@ function ContactPage({
                 <FieldError message={errors.message} />
               </label>
 
+              <label className={`up-consent${errors.kvkk ? " is-invalid" : ""}`}>
+                <input type="checkbox" name="kvkk" checked={kvkk} onChange={(e) => { setKvkk(e.target.checked); if (errors.kvkk) setErrors((er) => ({ ...er, kvkk: undefined })); }} aria-invalid={!!errors.kvkk} />
+                <span>
+                  {t.kvkk.pre}
+                  <a href={`/${locale}/kvkk-aydinlatma-metni`} target="_blank" rel="noopener noreferrer">{t.kvkk.link}</a>
+                  {t.kvkk.post}
+                </span>
+                <FieldError message={errors.kvkk} />
+              </label>
+
               {ts.widget}
 
               <button
@@ -574,6 +591,7 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
     message: "",
   });
   const [fields, setFields] = useState<string[]>([]);
+  const [kvkk, setKvkk] = useState(false);
   const [errors, setErrors] = useState<LeadFieldErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
   const [formError, setFormError] = useState<string | null>(null);
@@ -599,6 +617,7 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
     if (!EMAIL_RE.test(values.email.trim())) next.email = t.err.email;
     if (!PHONE_RE.test(values.phone.trim())) next.phone = t.err.phone;
     if (!values.projectType.trim()) next.projectType = t.err.projectType;
+    if (!kvkk) next.kvkk = t.err.kvkk;
     if (values.message.trim().length < 10) next.message = t.err.message;
     if (Object.keys(next).length) {
       setErrors(next);
@@ -610,6 +629,7 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
     setErrors({});
     const res = await createLead({
       type: "quote",
+      kvkk: true,
       name: values.name,
       company: values.company,
       email: values.email,
@@ -836,6 +856,16 @@ function QuotePage({ t, locale }: { t: (typeof UT)["tr"]; locale: Loc }) {
                   aria-invalid={!!errors.message}
                 />
                 <FieldError message={errors.message} />
+              </label>
+
+              <label className={`up-consent${errors.kvkk ? " is-invalid" : ""}`}>
+                <input type="checkbox" name="kvkk" checked={kvkk} onChange={(e) => { setKvkk(e.target.checked); if (errors.kvkk) setErrors((er) => ({ ...er, kvkk: undefined })); }} aria-invalid={!!errors.kvkk} />
+                <span>
+                  {t.kvkk.pre}
+                  <a href={`/${locale}/kvkk-aydinlatma-metni`} target="_blank" rel="noopener noreferrer">{t.kvkk.link}</a>
+                  {t.kvkk.post}
+                </span>
+                <FieldError message={errors.kvkk} />
               </label>
 
               {ts.widget}

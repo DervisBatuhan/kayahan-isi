@@ -14,6 +14,7 @@ vi.mock("@/lib/db", () => ({
 
 const validContact = {
   type: "contact" as const,
+  kvkk: true as const,
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
   message: "Merhaba, klima bakım hizmeti hakkında bilgi almak istiyorum.",
@@ -21,6 +22,7 @@ const validContact = {
 
 const validQuote = {
   type: "quote" as const,
+  kvkk: true as const,
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
   phone: "0212 555 44 33",

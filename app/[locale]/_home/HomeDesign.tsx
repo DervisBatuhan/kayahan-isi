@@ -3,6 +3,7 @@
 import { useEffect, useId, useState, type ComponentType } from "react";
 import { preload } from "react-dom";
 import Image from "next/image";
+import { LegalBar } from "@/components/layout/LegalBar";
 import { LangMenu } from "@/components/layout/LangMenu";
 import {
   ArrowRight,
@@ -609,6 +610,7 @@ export function HomeDesign({
           </a>
         </div>
       </footer>
+      <LegalBar locale={c.locale === "en" ? "en" : "tr"} />
     </main>
   );
 }

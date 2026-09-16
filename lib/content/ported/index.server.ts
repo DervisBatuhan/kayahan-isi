@@ -1,5 +1,6 @@
 import "server-only";
 import type { ServiceLanding } from "./service";
+import type { LegalPage } from "./legal";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getPortedEntry } from "./registry";
@@ -66,6 +67,9 @@ export function getExpansionContent<T = Record<string, unknown>>(kind: string, l
 }
 export function getServiceContent(kind: string, locale = "tr") {
   return getPorted<ServiceLanding>("service", kind, locale);
+}
+export function getLegalContent(kind: string, locale = "tr") {
+  return getPorted<LegalPage>("legal", kind, locale);
 }
 export function getBrandContent(kind: string, locale = "tr") {
   return getPorted<ServiceLanding>("brand", kind, locale);

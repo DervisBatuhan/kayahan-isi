@@ -616,6 +616,10 @@ export const PORTED_META: Record<string, Entry> = {
         "Repair, annual maintenance, genuine parts and installation for Protherm boilers by an independent service with 45 years of authorised-service experience. Same day on Istanbul's European side.",
     },
   },
+  "/cerez-politikasi": { og: "website", tr: { title: "Çerez Politikası", description: "kayahanisi.com'da kullanılan çerezler, amaçları ve tercihlerinizi nasıl yönetebileceğiniz." }, en: { title: "Cookie Policy", description: "Which cookies kayahanisi.com uses, why, and how to manage your preferences." } },
+  "/kvkk-aydinlatma-metni": { og: "website", tr: { title: "KVKK Aydınlatma Metni", description: "6698 sayılı KVKK kapsamında kişisel verilerinizin hangi amaçlarla işlendiği, kimlere aktarıldığı ve haklarınız." }, en: { title: "Personal Data Protection Notice (KVKK)", description: "How we process personal data under Turkey's Law No. 6698, recipients, retention and your rights." } },
+  "/gizlilik-politikasi": { og: "website", tr: { title: "Gizlilik Politikası", description: "Kayahan Isı web sitesini ziyaret ettiğinizde gizliliğinizi nasıl koruduğumuz." }, en: { title: "Privacy Policy", description: "How Kayahan Isı protects your privacy when you visit the site and use our services." } },
+  "/kullanim-kosullari": { og: "website", tr: { title: "Kullanım Koşulları", description: "kayahanisi.com web sitesinin kullanım koşulları, içerik ve sorumluluk sınırları." }, en: { title: "Terms of Use", description: "Terms of use for kayahanisi.com, nature of content and limitation of liability." } },
   "/iletisim": {
     og: "website",
     tr: {

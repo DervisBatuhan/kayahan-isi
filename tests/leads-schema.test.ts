@@ -8,6 +8,7 @@ import {
 
 const validContact = {
   type: "contact" as const,
+  kvkk: true as const,
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
   message: "Merhaba, klima bakım hizmeti hakkında bilgi almak istiyorum.",
@@ -15,6 +16,7 @@ const validContact = {
 
 const validQuote = {
   type: "quote" as const,
+  kvkk: true as const,
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
   phone: "0212 555 44 33",
@@ -197,5 +199,14 @@ describe("toFieldErrors", () => {
       const errs = toFieldErrors(res.error);
       expect(Object.keys(errs).length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("lib/leads/schema — KVKK acknowledgement", () => {
+  it("rejects a submission without the KVKK checkbox", () => {
+    const { kvkk: _k, ...noKvkk } = validContact;
+    void _k;
+    expect(contactLeadSchema.safeParse(noKvkk).success).toBe(false);
+    expect(contactLeadSchema.safeParse({ ...validContact, kvkk: false }).success).toBe(false);
   });
 });

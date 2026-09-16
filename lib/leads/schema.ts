@@ -49,6 +49,9 @@ const startedAt = z.number().int().nonnegative().optional();
 /** Cloudflare Turnstile token (verified server-side when the secret is configured). */
 const turnstileToken = z.string().max(4096).optional();
 
+/** KVKK notice acknowledgement — must be ticked; recorded with the lead. */
+const kvkk = z.literal(true, { message: "KVKK Aydınlatma Metni'ni onaylamanız gerekir." });
+
 export const contactLeadSchema = z.object({
   type: z.literal("contact"),
   name,
@@ -61,6 +64,7 @@ export const contactLeadSchema = z.object({
   company_url: honeypot,
   startedAt,
   turnstileToken,
+  kvkk,
 });
 
 export const quoteLeadSchema = z.object({
@@ -82,6 +86,7 @@ export const quoteLeadSchema = z.object({
   company_url: honeypot,
   startedAt,
   turnstileToken,
+  kvkk,
 });
 
 /** A genuine person needs at least this long to read and fill the form. */

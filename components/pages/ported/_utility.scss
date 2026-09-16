@@ -23,3 +23,9 @@
 .up-submit:disabled:hover{background:var(--navy);padding-left:25px}
 .up-turnstile{margin-top:-4px}
 .up-turnstile>div{min-height:65px}
+
+.up-form label.up-consent{display:grid;grid-template-columns:18px 1fr;column-gap:12px;align-items:start;margin:6px 0 4px;font-size:12.5px;line-height:1.55;color:#4a5b6e;cursor:pointer}
+.up-consent input{width:16px;height:16px;margin:2px 0 0;accent-color:var(--navy)}
+.up-consent a{color:var(--navy);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.up-consent.is-invalid span{color:#c0392b}
+.up-consent .up-field-error,.up-consent>p{grid-column:2}

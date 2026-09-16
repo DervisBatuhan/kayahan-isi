@@ -159,3 +159,13 @@ $wash: #f2f7fa;
   .sv-cta { padding: 48px 22px; }
   .sv-btn { width: 100%; justify-content: center; }
 }
+
+// ---------------------------------------------------------- legal pages ----
+.legal-page { background: #fff; }
+.legal-head {
+  padding: 72px max(6vw, 42px) 40px; border-bottom: 1px solid $line; background: linear-gradient(180deg, $wash, #fff 70%);
+  h1 { max-width: 820px; margin: 18px 0 0; color: $navy; font-size: clamp(30px, 3.6vw, 46px); font-weight: 500; letter-spacing: -.04em; line-height: 1.1; }
+  p { max-width: 720px; margin: 18px 0 0; color: $muted; font-size: 16px; line-height: 1.7; }
+}
+.legal-body { max-width: 780px; margin: 0 auto; padding: 56px clamp(20px, 5vw, 48px) 100px; }
+@media (max-width: 600px) { .legal-head { padding: 52px 22px 32px; } }

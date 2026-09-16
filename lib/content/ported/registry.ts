@@ -43,6 +43,7 @@ import {
   serviceLandingSchema,
   type ServiceKind,
 } from "./service";
+import { LEGAL_KINDS, LEGAL_LABEL, LEGAL_ROUTE, legalDefaults, legalDefaultsEn, legalSchema } from "./legal";
 import { activityContentSchema, hubContentSchema, solutionContentSchema } from "./schema";
 import type { Locale } from "@/lib/i18n/config";
 import type { z } from "zod";
@@ -187,6 +188,16 @@ const brandEntries: PortedEntry[] = BRAND_KINDS.map((kind) => ({
   defaults: { tr: brandDefaults[kind], en: brandDefaultsEn[kind] },
 }));
 
+const legalEntries: PortedEntry[] = LEGAL_KINDS.map((kind) => ({
+  family: "legal",
+  kind,
+  label: LEGAL_LABEL[kind].tr,
+  group: "Yasal Metinler",
+  route: LEGAL_ROUTE(kind),
+  schema: legalSchema,
+  defaults: { tr: legalDefaults[kind], en: legalDefaultsEn[kind] },
+}));
+
 export const PORTED_ENTRIES: PortedEntry[] = [
   ...hubEntries,
   ...corporateEntries,
@@ -197,6 +208,7 @@ export const PORTED_ENTRIES: PortedEntry[] = [
   ...districtEntries,
   ...brandEntries,
   ...knowledgeEntries,
+  ...legalEntries,
 ];
 
 export function getPortedEntry(family: string, kind: string): PortedEntry | undefined {
