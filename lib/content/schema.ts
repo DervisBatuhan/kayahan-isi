@@ -40,7 +40,12 @@ export const siteContentSchema = z.object({
     highlights: z.array(z.string()),
     links: z.array(navLink),
   }),
-  brand: z.object({ name: z.string(), tagline: z.string() }),
+  brand: z.object({
+    name: z.string(),
+    tagline: z.string(),
+    seoTitle: z.string().max(70).optional().default(""),
+    seoDescription: z.string().max(200).optional().default(""),
+  }),
   nav: z.object({ items: z.array(navItem), cta: navLink }),
   hero: z.object({
     titleLines: z.array(z.string()),

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import KnowledgePage from "@/components/pages/ported/KnowledgePage";
 import { PortedFrame } from "@/components/pages/ported/PortedFrame";
 import { getSiteContent } from "@/lib/content/site.server";
-import { buildPortedMetadata } from "@/lib/seo";
+import { buildPortedMetadata } from "@/lib/seo.server";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { getKnowledgeContent } from "@/lib/content/ported/index.server";
 

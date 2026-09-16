@@ -43,10 +43,11 @@ import {
   serviceLandingSchema,
   type ServiceKind,
 } from "./service";
+import { UTILITY_KINDS, UTILITY_LABEL, UTILITY_ROUTE, utilityDefaults, utilityDefaultsEn, utilitySchemas } from "./utility";
 import { LEGAL_KINDS, LEGAL_LABEL, LEGAL_ROUTE, legalDefaults, legalDefaultsEn, legalSchema } from "./legal";
 import { activityContentSchema, hubContentSchema, solutionContentSchema } from "./schema";
 import type { Locale } from "@/lib/i18n/config";
-import type { z } from "zod";
+import { z } from "zod";
 
 const HUB_LABEL: Record<string, string> = {
   corporate: "Kurumsal (hub)",
@@ -198,7 +199,31 @@ const legalEntries: PortedEntry[] = LEGAL_KINDS.map((kind) => ({
   defaults: { tr: legalDefaults[kind], en: legalDefaultsEn[kind] },
 }));
 
-export const PORTED_ENTRIES: PortedEntry[] = [
+const utilityEntries: PortedEntry[] = UTILITY_KINDS.map((kind) => ({
+  family: "utility",
+  kind,
+  label: UTILITY_LABEL[kind],
+  group: "Referans / İletişim / Teklif",
+  route: UTILITY_ROUTE[kind],
+  schema: utilitySchemas[kind],
+  defaults: { tr: utilityDefaults[kind], en: utilityDefaultsEn[kind] },
+}));
+
+/**
+ * Every design page gets two optional SEO overrides on top of its own shape.
+ * Empty = fall back to the code default in `meta.ts` (see lib/seo.server.ts).
+ */
+const seoFields = {
+  seoTitle: z.string().trim().max(70).optional().default(""),
+  seoDescription: z.string().trim().max(200).optional().default(""),
+};
+function withSeo(entry: PortedEntry): PortedEntry {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const base = entry.schema as z.ZodObject<any>;
+  return { ...entry, schema: typeof base.extend === "function" ? base.extend(seoFields) : entry.schema };
+}
+
+const RAW_ENTRIES: PortedEntry[] = [
   ...hubEntries,
   ...corporateEntries,
   ...expansionEntries,
@@ -208,8 +233,11 @@ export const PORTED_ENTRIES: PortedEntry[] = [
   ...districtEntries,
   ...brandEntries,
   ...knowledgeEntries,
+  ...utilityEntries,
   ...legalEntries,
 ];
+
+export const PORTED_ENTRIES: PortedEntry[] = RAW_ENTRIES.map(withSeo);
 
 export function getPortedEntry(family: string, kind: string): PortedEntry | undefined {
   return PORTED_ENTRIES.find((e) => e.family === family && e.kind === kind);

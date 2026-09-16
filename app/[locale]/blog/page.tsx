@@ -7,7 +7,7 @@ import { BlogFilters } from "@/components/blog/BlogFilters";
 import { FILTER_UI, applyFilter, facets, isDefault, parseFilter } from "@/lib/blog/filter";
 import "@/components/blog/blog.scss";
 import { getSiteContent } from "@/lib/content/site.server";
-import { buildPortedMetadata } from "@/lib/seo";
+import { buildPortedMetadata } from "@/lib/seo.server";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { getKnowledgeContent } from "@/lib/content/ported/index.server";
 import { getPublishedPosts } from "@/lib/blog/index.server";

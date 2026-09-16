@@ -50,8 +50,15 @@ export async function generateMetadata({
   params,
 }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
-  const meta = isLocale(locale) ? META[locale] : META.tr;
   const current: Locale = isLocale(locale) ? locale : "tr";
+  const site = await getSiteContent(current);
+  const base = META[current];
+  // Panel override (Menü & İletişim → Marka → SEO); empty = code default.
+  const meta = {
+    ...base,
+    title: site.brand.seoTitle?.trim() || base.title,
+    description: site.brand.seoDescription?.trim() || base.description,
+  };
 
   return {
     metadataBase: new URL(SITE_URL),

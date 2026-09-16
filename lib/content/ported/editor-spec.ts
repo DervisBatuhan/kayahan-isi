@@ -701,7 +701,78 @@ const legalSpec: SectionSpec[] = [
   },
 ];
 
+const utilityReferences: SectionSpec[] = [
+  { title: "Hero", fields: [
+    { key: "eyebrow", label: "Üst etiket", type: "text" },
+    { key: "h1a", label: "Başlık — üst satır", type: "text" },
+    { key: "h1b", label: "Başlık — vurgulu satır", type: "text" },
+  ] },
+  { title: "Sektör kartları", fields: [
+    { key: "sectors", label: "Kartlar", type: "objectList", itemLabel: "Sektör", columns: [
+      { key: "num", label: "No" }, { key: "title", label: "Başlık" }, { key: "text", label: "Açıklama", kind: "textarea" },
+    ] },
+  ] },
+  { title: "Kanıt bandı", fields: [
+    { key: "proofSince", label: "Üst etiket", type: "text" },
+    { key: "proofValue", label: "Büyük sayı", type: "text" },
+    { key: "proofSuffix", label: "Sayı eki (ör. +)", type: "text" },
+    { key: "proofa", label: "Metin — 1. satır", type: "text" },
+    { key: "proofb", label: "Metin — 2. satır", type: "text" },
+  ] },
+];
+const utilityContact: SectionSpec[] = [
+  { title: "Hero", fields: [
+    { key: "eyebrow", label: "Üst etiket", type: "text" },
+    { key: "h1a", label: "Başlık — üst satır", type: "text" },
+    { key: "h1b", label: "Başlık — vurgulu satır", type: "text" },
+  ] },
+  { title: "Yan blok", fields: [
+    { key: "asideLabel", label: "Üst etiket", type: "text" },
+    { key: "asideH2a", label: "Başlık — üst satır", type: "text" },
+    { key: "asideH2b", label: "Başlık — alt satır", type: "text" },
+  ] },
+  { title: "Form", description: "Alan etiketleri sabittir; konu seçenekleri ve başlıklar buradan.", fields: [
+    { key: "formHead", label: "Form üst etiketi", type: "text" },
+    { key: "formSub", label: "Form alt başlığı", type: "text" },
+    { key: "subjectOpts", label: "Konu seçenekleri", type: "stringList", itemLabel: "Konu" },
+    { key: "okLabel", label: "Başarı — üst etiket", type: "text" },
+    { key: "okH2a", label: "Başarı — 1. satır", type: "text" },
+    { key: "okH2b", label: "Başarı — 2. satır", type: "text" },
+  ] },
+];
+const utilityQuote: SectionSpec[] = [
+  { title: "Hero", fields: [
+    { key: "eyebrow", label: "Üst etiket", type: "text" },
+    { key: "h1a", label: "Başlık — üst satır", type: "text" },
+    { key: "h1b", label: "Başlık — vurgulu satır", type: "text" },
+    { key: "steps", label: "Adımlar (hero)", type: "stringList", itemLabel: "Adım" },
+  ] },
+  { title: "Proje briefi", fields: [
+    { key: "briefLabel", label: "Üst etiket", type: "text" },
+    { key: "briefH2a", label: "Başlık — üst satır", type: "text" },
+    { key: "briefH2b", label: "Başlık — alt satır", type: "text" },
+    { key: "briefP", label: "Metin", type: "textarea" },
+    { key: "briefTag1", label: "Etiket 1", type: "text" },
+    { key: "briefTag2", label: "Etiket 2", type: "text" },
+  ] },
+  { title: "Form", description: "Alan etiketleri sabittir; bölüm başlıkları ve seçenekler buradan.", fields: [
+    { key: "head1", label: "1. bölüm etiketi", type: "text" },
+    { key: "head1sub", label: "1. bölüm alt başlığı", type: "text" },
+    { key: "head2", label: "2. bölüm etiketi", type: "text" },
+    { key: "head2sub", label: "2. bölüm alt başlığı", type: "text" },
+    { key: "projectTypeOpts", label: "Proje türü seçenekleri", type: "stringList", itemLabel: "Tür" },
+    { key: "fields", label: "İlgi alanı seçenekleri", type: "stringList", itemLabel: "Alan" },
+    { key: "detailPh", label: "Proje detayı yer tutucu", type: "text" },
+    { key: "okLabel", label: "Başarı — üst etiket", type: "text" },
+    { key: "okH2a", label: "Başarı — 1. satır", type: "text" },
+    { key: "okH2b", label: "Başarı — 2. satır", type: "text" },
+  ] },
+];
+
 export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
+  "utility:references": utilityReferences,
+  "utility:contact": utilityContact,
+  "utility:quote": utilityQuote,
   legal: legalSpec,
   service: serviceLandingSpec,
   district: serviceLandingSpec,
@@ -725,6 +796,17 @@ export const PORTED_EDITOR_SPEC: Record<string, SectionSpec[]> = {
   knowledge: knowledgeSpec,
 };
 
+const SEO_SECTION: SectionSpec = {
+  title: "SEO (Google görünümü)",
+  description:
+    "Boş bırakılırsa sistemdeki varsayılan başlık ve açıklama kullanılır. Başlık ≤ 60, açıklama 120–160 karakter idealdir; site adı (\"| Kayahan Isı\") otomatik eklenir.",
+  fields: [
+    { key: "seoTitle", label: "Google başlığı", type: "text", hint: "Arama sonucundaki mavi başlık." },
+    { key: "seoDescription", label: "Google açıklaması", type: "textarea", hint: "Başlığın altındaki gri açıklama; sosyal paylaşımlarda da görünür." },
+  ],
+};
+
 export function getEditorSpec(family: string, kind: string): SectionSpec[] {
-  return PORTED_EDITOR_SPEC[`${family}:${kind}`] ?? PORTED_EDITOR_SPEC[family] ?? [];
+  const base = PORTED_EDITOR_SPEC[`${family}:${kind}`] ?? PORTED_EDITOR_SPEC[family] ?? [];
+  return [...base, SEO_SECTION];
 }

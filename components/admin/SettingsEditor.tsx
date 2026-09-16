@@ -12,6 +12,7 @@ import {
   RemoveButton,
   SaveBar,
   Select,
+  TextArea,
   TextInput,
   useActiveSection,
 } from "./fields";
@@ -56,6 +57,28 @@ export function SettingsEditor({ locale, initial }: { locale: Locale; initial: S
               onChange={(e) => patch("brand", { ...data.brand, tagline: e.target.value })}
             />
           </Field>
+        </div>
+        <div className="mt-2 rounded-[4px] border border-line bg-surface-muted/60 p-3">
+          <p className="mb-3 text-[12px] font-semibold text-ink-700">
+            SEO — ana sayfa ve site geneli (Google görünümü)
+          </p>
+          <div className="grid gap-3">
+            <Field label="Google başlığı" hint="Ana sayfanın arama sonucundaki başlığı; ≤ 60 karakter idealdir. Boşsa sistem varsayılanı kullanılır.">
+              <TextInput
+                value={data.brand.seoTitle ?? ""}
+                maxLength={70}
+                onChange={(e) => patch("brand", { ...data.brand, seoTitle: e.target.value })}
+              />
+            </Field>
+            <Field label="Google açıklaması" hint="120–160 karakter idealdir; sosyal paylaşımlarda da görünür.">
+              <TextArea
+                rows={3}
+                value={data.brand.seoDescription ?? ""}
+                maxLength={200}
+                onChange={(e) => patch("brand", { ...data.brand, seoDescription: e.target.value })}
+              />
+            </Field>
+          </div>
         </div>
       </Panel>
 

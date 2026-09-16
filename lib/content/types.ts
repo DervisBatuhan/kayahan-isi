@@ -132,6 +132,9 @@ export type SiteContent = {
   brand: {
     name: string;
     tagline: string;
+    /** Home page + site-wide default <title>/description (Google). Empty = code default. */
+    seoTitle?: string;
+    seoDescription?: string;
   };
   nav: {
     items: NavItem[];

@@ -68,6 +68,9 @@ export function getExpansionContent<T = Record<string, unknown>>(kind: string, l
 export function getServiceContent(kind: string, locale = "tr") {
   return getPorted<ServiceLanding>("service", kind, locale);
 }
+export function getUtilityContent(kind: string, locale = "tr") {
+  return getPorted<Record<string, unknown>>("utility", kind, locale);
+}
 export function getLegalContent(kind: string, locale = "tr") {
   return getPorted<LegalPage>("legal", kind, locale);
 }

@@ -6,7 +6,7 @@ import { getSiteContent } from "@/lib/content/site.server";
 import { getServiceContent } from "@/lib/content/ported/index.server";
 import { getPortedMeta } from "@/lib/content/ported/meta";
 import { SERVICE_LABEL } from "@/lib/content/ported/service";
-import { buildPortedMetadata } from "@/lib/seo";
+import { buildPortedMetadata } from "@/lib/seo.server";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { faqGraph, jsonLdScript, serviceGraph } from "@/lib/structured-data";
 

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import CorporatePage from "@/components/pages/ported/CorporatePage";
 import { PortedFrame } from "@/components/pages/ported/PortedFrame";
 import { getSiteContent } from "@/lib/content/site.server";
-import { buildPortedMetadata } from "@/lib/seo";
+import { buildPortedMetadata } from "@/lib/seo.server";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { getCorporateContent } from "@/lib/content/ported/index.server";
 

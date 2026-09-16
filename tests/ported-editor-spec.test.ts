@@ -41,11 +41,20 @@ describe("lib/content/ported/editor-spec", () => {
 
   it("falls back to the family-level spec when there is no family:kind entry", () => {
     // activity/solution/hub are keyed by family only.
-    expect(getEditorSpec("activity", "climate")).toBe(getEditorSpec("activity", "heating"));
+    expect(getEditorSpec("activity", "climate")).toEqual(getEditorSpec("activity", "heating"));
     expect(getEditorSpec("hub", "corporate").length).toBeGreaterThan(0);
   });
 
-  it("returns an empty array for a completely unknown family", () => {
-    expect(getEditorSpec("totally", "unknown")).toEqual([]);
+  it("returns only the shared SEO section for a completely unknown family", () => {
+    const spec = getEditorSpec("totally", "unknown");
+    expect(spec).toHaveLength(1);
+    expect(spec[0].fields.map((f) => f.key)).toEqual(["seoTitle", "seoDescription"]);
+  });
+
+  it("appends the SEO section to every page's spec", () => {
+    for (const [family, kind] of [["hub", "corporate"], ["service", "kombi"], ["legal", "cerez-politikasi"], ["utility", "quote"]]) {
+      const last = getEditorSpec(family, kind).at(-1)!;
+      expect(last.fields.map((f) => f.key), `${family}/${kind}`).toEqual(["seoTitle", "seoDescription"]);
+    }
   });
 });

@@ -4,7 +4,7 @@ import { PortedFrame } from "@/components/pages/ported/PortedFrame";
 import { LegalPage } from "@/components/pages/ported/LegalPage";
 import { getSiteContent } from "@/lib/content/site.server";
 import { getLegalContent } from "@/lib/content/ported/index.server";
-import { buildPortedMetadata } from "@/lib/seo";
+import { buildPortedMetadata } from "@/lib/seo.server";
 import { isLocale, locales } from "@/lib/i18n/config";
 
 const KIND = "kvkk-aydinlatma-metni";
