@@ -224,7 +224,7 @@ export function SiteFooter({ content }: { content: SiteContent }) {
         </a>
       </section>
 
-      <footer id="iletisim">
+      <footer id="iletisim" style={{ "--footer-cols": c.footer.columns.length } as React.CSSProperties}>
         <div className="footerBrand">
           <Logo variant="footer" homeHref={`/${c.locale}`} />
           <p>{c.footer.description}</p>

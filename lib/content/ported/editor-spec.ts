@@ -607,6 +607,8 @@ const serviceLandingSpec: SectionSpec[] = [
       { key: "heroTitle", label: "Başlık", type: "text" },
       { key: "heroAccent", label: "Başlık — vurgulu satır", type: "text" },
       { key: "heroLead", label: "Giriş metni", type: "textarea" },
+      { key: "heroImage", label: "Sağ görsel yolu", type: "text", hint: "public/ içindeki yol, ör. /gallery/vip-kurumsal-servis-araci.webp — boş bırakılırsa soyut grafik gösterilir." },
+      { key: "heroImageAlt", label: "Görsel alt metni", type: "text" },
     ],
   },
   {

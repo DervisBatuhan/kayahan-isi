@@ -70,9 +70,16 @@ export default function ServiceLandingPage({
             </Link>
           </div>
         </div>
-        <div className="sv-hero-art" aria-hidden="true">
-          <Wrench />
-        </div>
+        {c.heroImage ? (
+          <figure className="sv-hero-photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.heroImage} alt={c.heroImageAlt} fetchPriority="high" />
+          </figure>
+        ) : (
+          <div className="sv-hero-art" aria-hidden="true">
+            <Wrench />
+          </div>
+        )}
       </section>
 
       <section className="sv-body ep-section">

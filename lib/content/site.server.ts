@@ -5,37 +5,11 @@ import type { Locale } from "@/lib/i18n/config";
 import type { NavItem, SiteContent } from "./types";
 import { getDefaultSiteContent } from "./site";
 import { siteContentSchema } from "./schema";
+import { mergeFooterColumns, mergeNavItems } from "./merge";
+
+export { mergeFooterColumns, mergeNavItems };
 
 export const SITE_CONTENT_TAG = "site-content";
-
-/**
- * `nav.items` is a nested array, so the top-level `{...fallback, ...fromDb}`
- * spread below can't "fill in" a new item the way it does for a flat key —
- * a saved row's `nav` object wins wholesale, permanently hiding any item
- * added to the code default after that row was last saved (e.g. a brand new
- * top-level menu). Reconcile by href instead: walk the current code default
- * for order and to introduce new items/children, but keep whatever an admin
- * has customized on an item that already existed, and keep any item the
- * admin added that isn't in the code defaults at all.
- */
-export function mergeNavItems(dbItems: NavItem[], fallbackItems: NavItem[]): NavItem[] {
-  const dbByHref = new Map(dbItems.map((i) => [i.href, i]));
-  const fallbackHrefs = new Set(fallbackItems.map((i) => i.href));
-
-  const ordered = fallbackItems.map((def) => {
-    const existing = dbByHref.get(def.href);
-    if (!existing) return def;
-    if (!def.children) return existing;
-    const existingChildHrefs = new Set((existing.children ?? []).map((c) => c.href));
-    const newChildren = def.children.filter((c) => !existingChildHrefs.has(c.href));
-    return newChildren.length
-      ? { ...existing, children: [...(existing.children ?? []), ...newChildren] }
-      : existing;
-  });
-
-  const adminOnly = dbItems.filter((i) => !fallbackHrefs.has(i.href));
-  return [...ordered, ...adminOnly];
-}
 
 const readRow = unstable_cache(
   async (locale: Locale): Promise<SiteContent | null> => {
@@ -68,6 +42,13 @@ export async function getSiteContent(locale: Locale): Promise<SiteContent> {
     nav: fromDb.nav
       ? { ...fallback.nav, ...fromDb.nav, items: mergeNavItems(fromDb.nav.items ?? [], fallback.nav.items) }
       : fallback.nav,
+    footer: fromDb.footer
+      ? {
+          ...fallback.footer,
+          ...fromDb.footer,
+          columns: mergeFooterColumns(fromDb.footer.columns ?? [], fallback.footer.columns),
+        }
+      : fallback.footer,
     locale,
   };
   const parsed = siteContentSchema.safeParse(merged);

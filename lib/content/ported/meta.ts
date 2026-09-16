@@ -382,6 +382,19 @@ export const PORTED_META: Record<string, Entry> = {
         "From housing to healthcare, from industry to tourism — projects completed since 1976 and the trust we sustain.",
     },
   },
+  "/servis": {
+    og: "website",
+    tr: {
+      title: "Servis — Kombi, Klima ve Şofben Servisi, İstanbul Avrupa Yakası",
+      description:
+        "Kombi, klima ve şofben servisi: arıza, yıllık bakım, orijinal parça ve montaj. Bahçelievler, Bağcılar, Bakırköy ve beş komşu ilçede aynı gün; DemirDöküm, Vaillant, Baymak, Protherm dahil tüm markalar.",
+    },
+    en: {
+      title: "Service — Boiler, AC and Water-Heater Service, Istanbul",
+      description:
+        "Boiler, AC and water-heater service: repair, annual maintenance, genuine parts and installation. Same day across eight districts on Istanbul's European side; every brand.",
+    },
+  },
   "/kombi-servisi": {
     og: "website",
     tr: {

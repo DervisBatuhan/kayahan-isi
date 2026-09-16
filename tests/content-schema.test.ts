@@ -29,3 +29,21 @@ describe("lib/content/schema — siteContentSchema", () => {
     expect(siteContentSchema.safeParse(withoutBands).success).toBe(false);
   });
 });
+
+describe("lib/content/site.server — mergeFooterColumns", async () => {
+  const { mergeFooterColumns } = await import("@/lib/content/merge");
+  it("keeps saved columns and appends new default columns by title", () => {
+    const db = [{ title: "Kurumsal", links: [{ label: "a", href: "/a" }] }];
+    const def = [
+      { title: "Kurumsal", links: [{ label: "b", href: "/b" }] },
+      { title: "Servis", links: [{ label: "c", href: "/c" }] },
+    ];
+    const out = mergeFooterColumns(db, def);
+    expect(out.map((c) => c.title)).toEqual(["Kurumsal", "Servis"]);
+    expect(out[0].links[0].label).toBe("a");
+  });
+  it("matches titles case-insensitively (TR locale)", () => {
+    const out = mergeFooterColumns([{ title: "SERVİS" }], [{ title: "Servis" }]);
+    expect(out).toHaveLength(1);
+  });
+});

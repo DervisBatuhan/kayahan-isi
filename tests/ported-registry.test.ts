@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { PORTED_ENTRIES, getPortedEntry } from "@/lib/content/ported/registry";
 
 describe("lib/content/ported/registry", () => {
-  it("registers exactly 43 design pages (28 + 3 service + 8 district + 4 brand)", () => {
-    expect(PORTED_ENTRIES).toHaveLength(43);
+  it("registers exactly 44 design pages (29 hubs+content + 3 service + 8 district + 4 brand)", () => {
+    expect(PORTED_ENTRIES).toHaveLength(44);
   });
 
   it("covers the nine families", () => {

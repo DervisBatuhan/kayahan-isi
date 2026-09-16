@@ -29,6 +29,11 @@ $wash: #f2f7fa;
   svg { width: 34%; height: auto; color: $navy; stroke-width: 1; }
   &:before { content: ""; position: absolute; inset: 14%; border: 1px solid rgba(0, 167, 214, .3); border-radius: 50%; }
 }
+.sv-hero-photo {
+  position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid $line; background: $wash;
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  &:after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(7, 54, 120, .06); background: linear-gradient(180deg, transparent 70%, rgba(3, 42, 101, .18)); }
+}
 .sv-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 
 .sv-page a.sv-btn, .sv-btn {
@@ -128,6 +133,7 @@ $wash: #f2f7fa;
 @media (max-width: 1000px) {
   .sv-hero { grid-template-columns: 1fr; min-height: 0; padding: 64px 28px; }
   .sv-hero-art { display: none; }
+  .sv-hero-photo { max-width: 560px; }
   .sv-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); article:nth-child(4n) { border-right: 1px solid $line; } article:nth-child(2n) { border-right: 0; } article:nth-last-child(-n + 4) { border-bottom: 1px solid $line; } article:nth-last-child(-n + 2) { border-bottom: 0; } }
 }
 @media (max-width: 600px) {

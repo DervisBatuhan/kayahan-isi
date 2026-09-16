@@ -56,12 +56,12 @@ const tr: SiteContent = {
       },
       {
         label: "Servis",
-        href: "/tr/kombi-servisi",
+        href: "/tr/servis",
         children: [
           { label: "Kombi Servisi", href: "/tr/kombi-servisi" },
           { label: "Klima Servisi", href: "/tr/klima-servisi" },
           { label: "Şofben Servisi", href: "/tr/sofben-servisi" },
-          { label: "Hizmet Bölgelerimiz", href: "/tr/kombi-servisi#bolgeler" },
+          { label: "Hizmet Bölgelerimiz", href: "/tr/servis" },
         ],
       },
       {
@@ -292,7 +292,7 @@ const tr: SiteContent = {
       ctaHref: "/tr/referanslar",
       image: "/assets/home-projects-cgi.png",
       imageAlt: "Kayahan Isı proje mühendisliği",
-      overlayLabel: "01 / BÜTÜNLEŞİK SİSTEMLER",
+      overlayLabel: "BÜTÜNLEŞİK SİSTEMLER",
       overlayTitle: "Analizden devreye almaya.",
       facts: [
         { value: "1400+", label: "Tamamlanan proje" },
@@ -392,9 +392,18 @@ const tr: SiteContent = {
           { label: "Bina Otomasyonu", href: "/tr/cozumler/bina-otomasyonu" },
           { label: "Enerji Verimliliği", href: "/tr/cozumler/enerji-verimliligi" },
           { label: "Servis & Bakım", href: "/tr/cozumler/servis-bakim" },
+        ],
+      },
+      {
+        title: "Servis",
+        links: [
           { label: "Kombi Servisi", href: "/tr/kombi-servisi" },
           { label: "Klima Servisi", href: "/tr/klima-servisi" },
           { label: "Şofben Servisi", href: "/tr/sofben-servisi" },
+          { label: "Hizmet Bölgelerimiz", href: "/tr/servis" },
+          { label: "DemirDöküm Servisi", href: "/tr/kombi-servisi/demirdokum" },
+          { label: "Vaillant Servisi", href: "/tr/kombi-servisi/vaillant" },
+          { label: "Baymak Servisi", href: "/tr/kombi-servisi/baymak" },
         ],
       },
     ],
@@ -455,12 +464,12 @@ const en: SiteContent = {
       },
       {
         label: "Service",
-        href: "/en/kombi-servisi",
+        href: "/en/servis",
         children: [
           { label: "Boiler Service", href: "/en/kombi-servisi" },
           { label: "AC Service", href: "/en/klima-servisi" },
           { label: "Water-Heater Service", href: "/en/sofben-servisi" },
-          { label: "Service Areas", href: "/en/kombi-servisi#bolgeler" },
+          { label: "Service Areas", href: "/en/servis" },
         ],
       },
       {
@@ -588,7 +597,7 @@ const en: SiteContent = {
       ctaHref: "/en/referanslar",
       image: "/assets/home-projects-cgi.png",
       imageAlt: "Kayahan Isı project engineering",
-      overlayLabel: "01 / INTEGRATED SYSTEMS",
+      overlayLabel: "INTEGRATED SYSTEMS",
       overlayTitle: "From analysis to commissioning.",
       facts: [
         { value: "1400+", label: "Completed projects" },
@@ -678,9 +687,18 @@ const en: SiteContent = {
           { label: "Building Automation", href: "/en/cozumler/bina-otomasyonu" },
           { label: "Energy Efficiency", href: "/en/cozumler/enerji-verimliligi" },
           { label: "Service & Maintenance", href: "/en/cozumler/servis-bakim" },
+        ],
+      },
+      {
+        title: "Service",
+        links: [
           { label: "Boiler Service", href: "/en/kombi-servisi" },
           { label: "AC Service", href: "/en/klima-servisi" },
           { label: "Water-Heater Service", href: "/en/sofben-servisi" },
+          { label: "Service Areas", href: "/en/servis" },
+          { label: "DemirDöküm Service", href: "/en/kombi-servisi/demirdokum" },
+          { label: "Vaillant Service", href: "/en/kombi-servisi/vaillant" },
+          { label: "Baymak Service", href: "/en/kombi-servisi/baymak" },
         ],
       },
     ],

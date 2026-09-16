@@ -1,6 +1,6 @@
 import type { HubContent } from "./types";
 
-export type HubKind = "corporate" | "activity" | "solutions" | "explore";
+export type HubKind = "corporate" | "activity" | "solutions" | "explore" | "service";
 
 export const HUB_CHROME = {
   gridDefaultLabel: "BAŞLIKLAR",
@@ -98,6 +98,32 @@ export const hubDefaults: Record<HubKind, HubContent> = {
     ctaLabel: "İletişime Geçin",
     ctaHref: "/tr/iletisim",
   },
+  service: {
+    eyebrow: "SERVİS",
+    titleTop: "Kombi, klima ve şofben:",
+    titleAccent: "aynı gün, belgeli ekip.",
+    lead: "45 yıl DemirDöküm ve Vaillant yetkili servisi olarak edindiğimiz deneyimle bugün tüm markalara hizmet veriyoruz. İstanbul Avrupa Yakası'nda sekiz ilçede arıza, bakım, orijinal parça ve montaj — 7/24 ulaşılabilir hat.",
+    image: "/gallery/vip-kurumsal-servis-araci.webp",
+    imageAlt: "Kayahan Isı kurumsal servis aracı",
+    gridHeadLabel: "HİZMETLER VE BÖLGELER",
+    gridHeadTitle: "Cihazınızı ve ilçenizi seçin.",
+    items: [
+      { title: "Kombi Servisi", href: "/tr/kombi-servisi", text: "Arıza, yıllık bakım, orijinal parça, montaj ve yoğuşmalıya dönüşüm.", icon: "heat" },
+      { title: "Klima Servisi", href: "/tr/klima-servisi", text: "Bakım, gaz dolumu, kaçak tespiti, montaj ve söküm-takım.", icon: "snow" },
+      { title: "Şofben Servisi", href: "/tr/sofben-servisi", text: "Gazlı ve elektrikli modellerde arıza, bakım ve mevzuata uygun montaj.", icon: "zap" },
+      { title: "Bahçelievler", href: "/tr/servis/bahcelievler", text: "Merkezimiz; Şirinevler, Yenibosna, Kocasinan, Soğanlı.", icon: "target" },
+      { title: "Bağcılar", href: "/tr/servis/bagcilar", text: "Güneşli, Mahmutbey, Yenimahalle, Kirazlı, Göztepe.", icon: "target" },
+      { title: "Bakırköy", href: "/tr/servis/bakirkoy", text: "Ataköy, Florya, Yeşilköy, Yeşilyurt, Osmaniye.", icon: "target" },
+      { title: "Güngören", href: "/tr/servis/gungoren", text: "Merter, Tozkoparan, Haznedar, Güneştepe.", icon: "target" },
+      { title: "Zeytinburnu", href: "/tr/servis/zeytinburnu", text: "Kazlıçeşme, Merkezefendi, Beştelsiz, Sümer, Telsiz.", icon: "target" },
+      { title: "Esenler", href: "/tr/servis/esenler", text: "Atışalanı, Oruçreis, Menderes, Kemer, Havaalanı.", icon: "target" },
+      { title: "Bayrampaşa", href: "/tr/servis/bayrampasa", text: "Kocatepe, Yıldırım, Altıntepsi, Terazidere, Vatan.", icon: "target" },
+      { title: "Küçükçekmece", href: "/tr/servis/kucukcekmece", text: "Halkalı, Atakent, Sefaköy, Tevfikbey, Cennet.", icon: "target" },
+    ],
+    band: "Markaya göre servis: DemirDöküm, Vaillant, Baymak ve Protherm sayfalarımızda modeller, sık arızalar ve arıza kodları.",
+    ctaLabel: "Servis talebi oluştur",
+    ctaHref: "/tr/teklif-al",
+  },
 };
 
 export const hubDefaultsEn: Record<HubKind, HubContent> = {
@@ -179,5 +205,31 @@ export const hubDefaultsEn: Record<HubKind, HubContent> = {
     band: "Get to know Kayahan Isı up close.",
     ctaLabel: "Get in Touch",
     ctaHref: "/en/iletisim",
+  },
+  service: {
+    eyebrow: "SERVICE",
+    titleTop: "Boiler, AC and water heater:",
+    titleAccent: "same day, certified team.",
+    lead: "With 45 years as DemirDöküm and Vaillant authorised service behind us, we now serve every brand across eight districts on Istanbul's European side — repair, maintenance, genuine parts and installation, 24/7.",
+    image: "/gallery/vip-kurumsal-servis-araci.webp",
+    imageAlt: "Kayahan Isı service van",
+    gridHeadLabel: "SERVICES AND AREAS",
+    gridHeadTitle: "Pick your appliance and district.",
+    items: [
+      { title: "Boiler Service", href: "/en/kombi-servisi", text: "Faults, annual maintenance, genuine parts, installation and condensing conversion.", icon: "heat" },
+      { title: "AC Service", href: "/en/klima-servisi", text: "Maintenance, refrigerant charging, leak detection, installation and relocation.", icon: "snow" },
+      { title: "Water-Heater Service", href: "/en/sofben-servisi", text: "Gas and electric models — faults, maintenance, code-compliant installation.", icon: "zap" },
+      { title: "Bahçelievler", href: "/en/servis/bahcelievler", text: "Our base; Şirinevler, Yenibosna, Kocasinan, Soğanlı.", icon: "target" },
+      { title: "Bağcılar", href: "/en/servis/bagcilar", text: "Güneşli, Mahmutbey, Yenimahalle, Kirazlı, Göztepe.", icon: "target" },
+      { title: "Bakırköy", href: "/en/servis/bakirkoy", text: "Ataköy, Florya, Yeşilköy, Yeşilyurt, Osmaniye.", icon: "target" },
+      { title: "Güngören", href: "/en/servis/gungoren", text: "Merter, Tozkoparan, Haznedar, Güneştepe.", icon: "target" },
+      { title: "Zeytinburnu", href: "/en/servis/zeytinburnu", text: "Kazlıçeşme, Merkezefendi, Beştelsiz, Sümer, Telsiz.", icon: "target" },
+      { title: "Esenler", href: "/en/servis/esenler", text: "Atışalanı, Oruçreis, Menderes, Kemer, Havaalanı.", icon: "target" },
+      { title: "Bayrampaşa", href: "/en/servis/bayrampasa", text: "Kocatepe, Yıldırım, Altıntepsi, Terazidere, Vatan.", icon: "target" },
+      { title: "Küçükçekmece", href: "/en/servis/kucukcekmece", text: "Halkalı, Atakent, Sefaköy, Tevfikbey, Cennet.", icon: "target" },
+    ],
+    band: "Service by brand: model ranges, frequent faults and error codes on our DemirDöküm, Vaillant, Baymak and Protherm pages.",
+    ctaLabel: "Request service",
+    ctaHref: "/en/teklif-al",
   },
 };

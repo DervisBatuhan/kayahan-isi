@@ -82,7 +82,7 @@ export function realCards(items: unknown): { title: string; text: string }[] {
 
 export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> = {
   blog: {
-    heroIndex: "01 / BİLGİ MERKEZİ",
+    heroIndex: "BİLGİ MERKEZİ",
     heroTitleTop: "Bilgiyi paylaşır.",
     heroTitleAccent: "Geleceği geliştiririz.",
     heroLead:
@@ -93,7 +93,7 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
     items: sixDummyCards("Yazı"),
   },
   faq: {
-    heroIndex: "01 / SIKÇA SORULAN SORULAR",
+    heroIndex: "SIKÇA SORULAN SORULAR",
     heroTitleTop: "Sorular netleşir.",
     heroTitleAccent: "Çözümler kolaylaşır.",
     heroLead:
@@ -118,7 +118,7 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
     ],
   },
   reviews: {
-    heroIndex: "01 / MÜŞTERİ YORUMLARI",
+    heroIndex: "MÜŞTERİ YORUMLARI",
     heroTitleTop: "Deneyim konuşur.",
     heroTitleAccent: "Güven kalır.",
     heroLead:
@@ -137,7 +137,7 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
 
 export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>> = {
   blog: {
-    heroIndex: "01 / KNOWLEDGE HUB",
+    heroIndex: "KNOWLEDGE HUB",
     heroTitleTop: "Sharing knowledge.",
     heroTitleAccent: "Advancing the future.",
     heroLead:
@@ -148,7 +148,7 @@ export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>>
     items: sixDummyCardsEn("Article"),
   },
   faq: {
-    heroIndex: "01 / FREQUENTLY ASKED QUESTIONS",
+    heroIndex: "FREQUENTLY ASKED QUESTIONS",
     heroTitleTop: "Questions clarified.",
     heroTitleAccent: "Solutions simplified.",
     heroLead:
@@ -173,7 +173,7 @@ export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>>
     ],
   },
   reviews: {
-    heroIndex: "01 / CLIENT STORIES",
+    heroIndex: "CLIENT STORIES",
     heroTitleTop: "Experience speaks.",
     heroTitleAccent: "Trust remains.",
     heroLead:

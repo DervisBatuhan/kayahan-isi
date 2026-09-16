@@ -113,7 +113,7 @@ export const CORPORATE_ROUTE: Record<CorporateKind, string> = {
 };
 
 export const corporateAboutDefault: CorporateAbout = {
-  index: "01 / KURUMSAL",
+  index: "KURUMSAL",
   titleTop: "Köklerimizden",
   titleAccent: "geleceğe.",
   lead: "1976’dan bugüne; teknik ustalığı, kurumsal sorumluluk ve geleceğin teknolojileriyle bir araya getiriyoruz.",
@@ -144,19 +144,19 @@ export const corporateAboutDefault: CorporateAbout = {
 };
 
 export const corporateMissionDefault: CorporateMission = {
-  index: "02 / YÖNÜMÜZ",
+  index: "YÖNÜMÜZ",
   titleTop: "Bugünü iyileştir.",
   titleAccent: "Geleceği tasarla.",
   lead: "İnsan, yapı ve enerji arasında daha dengeli, daha verimli ve daha güvenilir sistemler kuruyoruz.",
   dual: [
     {
-      tag: "01 / MİSYONUMUZ",
+      tag: "MİSYONUMUZ",
       headingTop: "Doğru sistemi,",
       headingBottom: "doğru ihtiyaçla buluşturmak.",
       body: "İklimlendirme ve enerji sistemlerinde güvenli, verimli ve uzun ömürlü çözümler sunmak; teknik bilgiyi erişilebilir hizmete dönüştürmek.",
     },
     {
-      tag: "02 / VİZYONUMUZ",
+      tag: "VİZYONUMUZ",
       headingTop: "Tecrübeyi,",
       headingBottom: "geleceğin standardına taşımak.",
       body: "Köklü uzmanlığımızı yeni nesil teknolojilerle birleştirerek sektörün güven, verimlilik ve sürdürülebilirlik yaklaşımına yön vermek.",
@@ -176,7 +176,7 @@ export const corporateMissionDefault: CorporateMission = {
 };
 
 export const corporateQualityDefault: CorporateQuality = {
-  index: "03 / KALİTE",
+  index: "KALİTE",
   titleTop: "Her aşamada",
   titleAccent: "aynı güven.",
   lead: "Analizden uygulamaya, devreye almadan satış sonrası desteğe kadar ölçülebilir kalite anlayışı.",
@@ -202,7 +202,7 @@ export const corporateQualityDefault: CorporateQuality = {
 };
 
 export const corporateSustainDefault: CorporateSustain = {
-  index: "04 / SÜRDÜRÜLEBİLİRLİK",
+  index: "SÜRDÜRÜLEBİLİRLİK",
   titleTop: "Enerjiyi koru.",
   titleAccent: "Yarını güçlendir.",
   lead: "Konforu azaltmadan tüketimi düşüren, kaynakları verimli kullanan ve uzun ömürlü çözümler geliştiriyoruz.",
@@ -237,7 +237,7 @@ export const corporateDefaults: Record<CorporateKind, Record<string, unknown>> =
 /* ── English defaults ─────────────────────────────────────────────────── */
 
 export const corporateAboutDefaultEn: CorporateAbout = {
-  index: "01 / CORPORATE",
+  index: "CORPORATE",
   titleTop: "From our roots",
   titleAccent: "to the future.",
   lead: "Since 1976, we bring technical craftsmanship, corporate responsibility and the technology of the future together.",
@@ -268,19 +268,19 @@ export const corporateAboutDefaultEn: CorporateAbout = {
 };
 
 export const corporateMissionDefaultEn: CorporateMission = {
-  index: "02 / OUR DIRECTION",
+  index: "OUR DIRECTION",
   titleTop: "Improve today.",
   titleAccent: "Design the future.",
   lead: "We build more balanced, more efficient and more reliable systems across people, buildings and energy.",
   dual: [
     {
-      tag: "01 / OUR MISSION",
+      tag: "OUR MISSION",
       headingTop: "To match the right system",
       headingBottom: "with the right need.",
       body: "To provide safe, efficient and long-lasting solutions in air-conditioning and energy systems; to turn technical knowledge into accessible service.",
     },
     {
-      tag: "02 / OUR VISION",
+      tag: "OUR VISION",
       headingTop: "To carry experience",
       headingBottom: "into the standard of the future.",
       body: "To shape the sector's approach to trust, efficiency and sustainability by combining our rooted expertise with new-generation technologies.",
@@ -300,7 +300,7 @@ export const corporateMissionDefaultEn: CorporateMission = {
 };
 
 export const corporateQualityDefaultEn: CorporateQuality = {
-  index: "03 / QUALITY",
+  index: "QUALITY",
   titleTop: "The same trust",
   titleAccent: "at every stage.",
   lead: "A measurable approach to quality — from analysis to installation, from commissioning to after-sales support.",
@@ -326,7 +326,7 @@ export const corporateQualityDefaultEn: CorporateQuality = {
 };
 
 export const corporateSustainDefaultEn: CorporateSustain = {
-  index: "04 / SUSTAINABILITY",
+  index: "SUSTAINABILITY",
   titleTop: "Protect the energy.",
   titleAccent: "Strengthen tomorrow.",
   lead: "We develop long-lasting solutions that cut consumption without cutting comfort and use resources efficiently.",

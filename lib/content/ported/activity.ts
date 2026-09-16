@@ -41,7 +41,7 @@ export function activityChrome(locale: string) {
 
 export const activityDefaults: Record<ActivityKind, ActivityContent> = {
   climate: {
-    index: "01 / İKLİMLENDİRME",
+    index: "İKLİMLENDİRME",
     name: "İklimlendirme",
     slug: "/tr/faaliyet-alanlari/iklimlendirme",
     asset: "/assets/activity-climate-cgi.png",
@@ -68,7 +68,7 @@ export const activityDefaults: Record<ActivityKind, ActivityContent> = {
     ],
   },
   heating: {
-    index: "02 / ISITMA",
+    index: "ISITMA",
     name: "Isıtma",
     slug: "/tr/faaliyet-alanlari/isitma",
     asset: "/assets/activity-heating-cgi.png",
@@ -90,7 +90,7 @@ export const activityDefaults: Record<ActivityKind, ActivityContent> = {
     uses: ["Merkezi sistemler", "Proses ısıtma", "Yerden ısıtma", "Isı geri kazanımı"],
   },
   cooling: {
-    index: "03 / SOĞUTMA",
+    index: "SOĞUTMA",
     name: "Soğutma",
     slug: "/tr/faaliyet-alanlari/sogutma",
     asset: "/assets/activity-cooling-cgi.png",
@@ -117,7 +117,7 @@ export const activityDefaults: Record<ActivityKind, ActivityContent> = {
     ],
   },
   insulation: {
-    index: "04 / YALITIM",
+    index: "YALITIM",
     name: "Yalıtım",
     slug: "/tr/faaliyet-alanlari/yalitim",
     asset: "/assets/activity-insulation-cgi.png",
@@ -144,7 +144,7 @@ export const activityDefaults: Record<ActivityKind, ActivityContent> = {
     ],
   },
   energy: {
-    index: "05 / ENERJİ",
+    index: "ENERJİ",
     name: "Enerji",
     slug: "/tr/faaliyet-alanlari/enerji",
     asset: "/assets/activity-energy-cgi.png",
@@ -172,7 +172,7 @@ const USES_HEADING_EN = "Solutions shaped by the need.";
 
 export const activityDefaultsEn: Record<ActivityKind, ActivityContent> = {
   climate: {
-    index: "01 / AIR CONDITIONING",
+    index: "AIR CONDITIONING",
     name: "Air Conditioning",
     slug: "/en/faaliyet-alanlari/iklimlendirme",
     asset: "/assets/activity-climate-cgi.png",
@@ -194,7 +194,7 @@ export const activityDefaultsEn: Record<ActivityKind, ActivityContent> = {
     uses: ["Commercial buildings", "Industrial facilities", "Healthcare buildings", "Mixed-use projects"],
   },
   heating: {
-    index: "02 / HEATING",
+    index: "HEATING",
     name: "Heating",
     slug: "/en/faaliyet-alanlari/isitma",
     asset: "/assets/activity-heating-cgi.png",
@@ -216,7 +216,7 @@ export const activityDefaultsEn: Record<ActivityKind, ActivityContent> = {
     uses: ["Central systems", "Process heating", "Underfloor heating", "Heat recovery"],
   },
   cooling: {
-    index: "03 / COOLING",
+    index: "COOLING",
     name: "Cooling",
     slug: "/en/faaliyet-alanlari/sogutma",
     asset: "/assets/activity-cooling-cgi.png",
@@ -238,7 +238,7 @@ export const activityDefaultsEn: Record<ActivityKind, ActivityContent> = {
     uses: ["Comfort cooling", "Process cooling", "Precision-controlled areas", "Chilled-water systems"],
   },
   insulation: {
-    index: "04 / INSULATION",
+    index: "INSULATION",
     name: "Insulation",
     slug: "/en/faaliyet-alanlari/yalitim",
     asset: "/assets/activity-insulation-cgi.png",
@@ -260,7 +260,7 @@ export const activityDefaultsEn: Record<ActivityKind, ActivityContent> = {
     uses: ["Mechanical installations", "Industrial surfaces", "Roof and façade", "Acoustic applications"],
   },
   energy: {
-    index: "05 / ENERGY",
+    index: "ENERGY",
     name: "Energy",
     slug: "/en/faaliyet-alanlari/enerji",
     asset: "/assets/activity-energy-cgi.png",

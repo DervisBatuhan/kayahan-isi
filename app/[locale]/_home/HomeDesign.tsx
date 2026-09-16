@@ -586,7 +586,7 @@ export function HomeDesign({
       </section>
 
       {/* Footer */}
-      <footer id="iletisim">
+      <footer id="iletisim" style={{ "--footer-cols": c.footer.columns.length } as React.CSSProperties}>
         <div className="footerBrand">
           <Logo variant="footer" />
           <p>{c.footer.description}</p>

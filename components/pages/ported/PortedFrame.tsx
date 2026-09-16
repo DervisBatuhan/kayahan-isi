@@ -17,8 +17,8 @@ const PARENT: Record<string, { seg: string; label: Record<Locale, string> } | nu
     label: { tr: "Faaliyet Alanlarımız", en: "Our Fields" },
   },
   solution: { seg: "cozumler", label: { tr: "Çözümlerimiz", en: "Our Solutions" } },
-  service: null,
-  district: { seg: "kombi-servisi", label: { tr: "Kombi Servisi", en: "Boiler Service" } },
+  service: { seg: "servis", label: { tr: "Servis", en: "Service" } },
+  district: { seg: "servis", label: { tr: "Servis", en: "Service" } },
   brand: { seg: "kombi-servisi", label: { tr: "Kombi Servisi", en: "Boiler Service" } },
 };
 

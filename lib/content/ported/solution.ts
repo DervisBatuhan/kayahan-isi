@@ -33,7 +33,7 @@ export function solutionChrome(locale: string) {
 
 export const solutionDefaults: Record<SolutionKind, SolutionContent> = {
   systems: {
-    index: "01 / SİSTEM ÇÖZÜMLERİ",
+    index: "SİSTEM ÇÖZÜMLERİ",
     name: "Sistem Çözümleri",
     slug: "/tr/cozumler/sistem-cozumleri",
     asset: "/assets/solution-systems-cgi.png",
@@ -58,7 +58,7 @@ export const solutionDefaults: Record<SolutionKind, SolutionContent> = {
     ],
   },
   automation: {
-    index: "02 / BİNA OTOMASYONU",
+    index: "BİNA OTOMASYONU",
     name: "Bina Otomasyonu",
     slug: "/tr/cozumler/bina-otomasyonu",
     asset: "/assets/solution-automation-cgi.png",
@@ -83,7 +83,7 @@ export const solutionDefaults: Record<SolutionKind, SolutionContent> = {
     ],
   },
   efficiency: {
-    index: "03 / ENERJİ VERİMLİLİĞİ",
+    index: "ENERJİ VERİMLİLİĞİ",
     name: "Enerji Verimliliği",
     slug: "/tr/cozumler/enerji-verimliligi",
     asset: "/assets/solution-efficiency-cgi.png",
@@ -108,7 +108,7 @@ export const solutionDefaults: Record<SolutionKind, SolutionContent> = {
     ],
   },
   service: {
-    index: "04 / SERVİS & BAKIM",
+    index: "SERVİS & BAKIM",
     name: "Servis & Bakım",
     slug: "/tr/cozumler/servis-bakim",
     asset: "/assets/solution-service-cgi.png",
@@ -136,7 +136,7 @@ export const solutionDefaults: Record<SolutionKind, SolutionContent> = {
 
 export const solutionDefaultsEn: Record<SolutionKind, SolutionContent> = {
   systems: {
-    index: "01 / SYSTEM SOLUTIONS",
+    index: "SYSTEM SOLUTIONS",
     name: "System Solutions",
     slug: "/en/cozumler/sistem-cozumleri",
     asset: "/assets/solution-systems-cgi.png",
@@ -161,7 +161,7 @@ export const solutionDefaultsEn: Record<SolutionKind, SolutionContent> = {
     ],
   },
   automation: {
-    index: "02 / BUILDING AUTOMATION",
+    index: "BUILDING AUTOMATION",
     name: "Building Automation",
     slug: "/en/cozumler/bina-otomasyonu",
     asset: "/assets/solution-automation-cgi.png",
@@ -186,7 +186,7 @@ export const solutionDefaultsEn: Record<SolutionKind, SolutionContent> = {
     ],
   },
   efficiency: {
-    index: "03 / ENERGY EFFICIENCY",
+    index: "ENERGY EFFICIENCY",
     name: "Energy Efficiency",
     slug: "/en/cozumler/enerji-verimliligi",
     asset: "/assets/solution-efficiency-cgi.png",
@@ -211,7 +211,7 @@ export const solutionDefaultsEn: Record<SolutionKind, SolutionContent> = {
     ],
   },
   service: {
-    index: "04 / SERVICE & MAINTENANCE",
+    index: "SERVICE & MAINTENANCE",
     name: "Service & Maintenance",
     slug: "/en/cozumler/servis-bakim",
     asset: "/assets/solution-service-cgi.png",
