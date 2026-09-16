@@ -10,7 +10,7 @@ import { locales } from "../lib/i18n/config";
 
 async function main() {
   // 1) Admin user
-  const email = (process.env.ADMIN_EMAIL ?? "admin@kayahanisi.com.tr")
+  const email = (process.env.ADMIN_EMAIL ?? "admin@kayahanisi.com")
     .trim()
     .toLowerCase();
   const password = process.env.ADMIN_PASSWORD ?? "kayahan2025";

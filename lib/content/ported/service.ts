@@ -38,7 +38,8 @@ export const serviceLandingSchema = z.object({
   ctaLabel: s.max(80),
 });
 
-export type ServiceLanding = z.infer<typeof serviceLandingSchema>;
+/** Output shape; `heroImage`/`heroImageAlt` default to "" so defaults may omit them. */
+export type ServiceLanding = z.input<typeof serviceLandingSchema>;
 
 export type ServiceKind = "kombi" | "klima" | "sofben";
 export type DistrictKind =
@@ -144,8 +145,6 @@ export const serviceDefaults: Record<ServiceKind, ServiceLanding> = {
     heroAccent: "45 yıllık yetkili servis deneyimiyle.",
     heroLead:
       "DemirDöküm ve Vaillant yetkili servisi olarak geçen 45 yılın ardından bugün tüm markalara hizmet veriyoruz: arıza tespiti, periyodik bakım, orijinal parça, montaj ve 7/24 acil müdahale.",
-    heroImage: "/gallery/kombi-servisi-teknisyen-2.webp",
-    heroImageAlt: "Kombi bakımı yapan Kayahan Isı teknisyeni",
     introLabel: "NEDEN KAYAHAN?",
     introHeading: "Kombinizi tanıyan bir servis: markadan bağımsız, belgeli, hesap verebilir.",
     body: `Kombi, evin en çok çalışan ve en az bakılan cihazıdır. Kış ortasında arıza vermesi, sıcak suyun kesilmesi ya da gaz faturasının sessizce yükselmesi çoğu zaman aylar öncesinden önlenebilecek küçük sorunların sonucudur. Kayahan Isı olarak ${BRANDS} başta olmak üzere **tüm kombi markalarına** servis veriyoruz.
@@ -212,8 +211,6 @@ Kışın kombisiz kalmak beklenebilecek bir durum değildir. Telefon ve WhatsApp
     heroAccent: "Sezona hazır, verimli, sessiz.",
     heroLead:
       "Split, multi-split ve VRF sistemlerde arıza tespiti, periyodik bakım, gaz dolumu, montaj ve söküm-takım hizmeti. Konut, ofis ve iş yerlerinde MEB Soğutma-İklimlendirme belgeli teknisyenlerle.",
-    heroImage: "/gallery/vip-kurumsal-servis-araci.webp",
-    heroImageAlt: "Kayahan Isı servis aracı",
     introLabel: "NEDEN KAYAHAN?",
     introHeading: "Klimanız yalnızca soğutmasın; verimli çalışsın, sağlıklı hava üflesin.",
     body: `Klima, İstanbul yazlarında konfor kadar sağlık meselesidir: temizlenmeyen filtre ve evaporatör, küf ve bakteri üreten bir kaynağa dönüşür; eksik gaz ise cihazın iki kat elektrik harcayıp yarım soğutmasına yol açar. Kayahan Isı, tüm markaların **split, multi-split ve VRF** sistemlerine servis verir.
@@ -280,8 +277,6 @@ Ofis, mağaza, klinik ve küçük plazalarda VRF/VRV sistemlerin bakım sözleş
     heroAccent: "Güvenli sıcak su, belgeli ekip.",
     heroLead:
       "Doğal gazlı ve elektrikli şofbenlerde arıza tespiti, bakım, orijinal parça ve montaj. Gaz yakıcı cihazlarda MYK Seviye 4 belgeli teknisyenlerle, gaz güvenliği önce.",
-    heroImage: "/gallery/kombi-servisi-teknisyen-1.webp",
-    heroImageAlt: "Sahada Kayahan Isı teknisyeni",
     introLabel: "NEDEN KAYAHAN?",
     introHeading: "Şofben, doğru bakılmadığında en riskli ev cihazıdır. Biz bu işi kurallarına göre yaparız.",
     body: `Şofben küçük bir cihazdır ama gaz yakar ve banyoda çalışır; baca, havalandırma ve emniyet donanımı hayati önemdedir. Kayahan Isı, ${BRANDS} dahil **tüm şofben markalarına** servis verir; hermetik, bacalı ve elektrikli (ani su ısıtıcı ve termosifon) modellerin tamamında.
@@ -346,8 +341,6 @@ export const serviceDefaultsEn: Record<ServiceKind, ServiceLanding> = {
     heroAccent: "45 years of authorised-service experience.",
     heroLead:
       "After 45 years as DemirDöküm and Vaillant authorised service we now serve every brand: diagnosis, annual maintenance, genuine parts, installation and 24/7 emergency response.",
-    heroImage: "/gallery/kombi-servisi-teknisyen-2.webp",
-    heroImageAlt: "Kayahan Isı technician servicing a boiler",
     introLabel: "WHY KAYAHAN?",
     introHeading: "A service that knows your boiler: brand-independent, certified, accountable.",
     body: `We service **every combi-boiler brand** — ${BRANDS} and more — across Istanbul's European side.
@@ -404,8 +397,6 @@ Our phone and WhatsApp line is open **24/7**. If you smell gas: close the valve,
     heroAccent: "Ready for the season, efficient, quiet.",
     heroLead:
       "Diagnosis, maintenance, refrigerant charging, installation and relocation for split, multi-split and VRF systems — homes, offices and shops, by Ministry-certified refrigeration technicians.",
-    heroImage: "/gallery/vip-kurumsal-servis-araci.webp",
-    heroImageAlt: "Kayahan Isı service van",
     introLabel: "WHY KAYAHAN?",
     introHeading: "Your AC should not just cool; it should run efficiently and blow healthy air.",
     body: `We service split, multi-split and **VRF** systems of every brand.
@@ -462,8 +453,6 @@ Maintenance contracts, fault response and indoor-unit additions for offices, ret
     heroAccent: "Safe hot water, certified team.",
     heroLead:
       "Diagnosis, maintenance, genuine parts and installation for gas and electric water heaters — gas appliances handled by MYK Level 4 certified technicians, safety first.",
-    heroImage: "/gallery/kombi-servisi-teknisyen-1.webp",
-    heroImageAlt: "Kayahan Isı technician on site",
     introLabel: "WHY KAYAHAN?",
     introHeading: "A neglected gas water heater is the riskiest appliance in the home. We do this by the book.",
     body: `We service **every water-heater brand** — room-sealed, open-flue and electric (instantaneous and storage) models.
@@ -846,8 +835,6 @@ function districtLanding(kind: DistrictKind, locale: "tr" | "en"): ServiceLandin
       heroTitle: `${name} kombi, klima ve şofben servisi.`,
       heroAccent: "Aynı gün, belgeli ekip, orijinal parça.",
       heroLead: c.lead,
-      heroImage: "/gallery/vip-kurumsal-servis-araci.webp",
-      heroImageAlt: `${name} kombi, klima ve şofben servisi — Kayahan Isı servis aracı`,
       introLabel: `${name.toLocaleUpperCase("tr")}'DE KAYAHAN`,
       introHeading: c.heading,
       body: c.body,
@@ -866,8 +853,6 @@ function districtLanding(kind: DistrictKind, locale: "tr" | "en"): ServiceLandin
     heroTitle: `${name} boiler, AC and water-heater service.`,
     heroAccent: "Same day, certified team, genuine parts.",
     heroLead: c.lead,
-    heroImage: "/gallery/vip-kurumsal-servis-araci.webp",
-    heroImageAlt: `${name} boiler, AC and water-heater service — Kayahan Isı service van`,
     introLabel: `KAYAHAN IN ${name.toUpperCase()}`,
     introHeading: c.heading,
     body: c.body,
@@ -1183,8 +1168,6 @@ function brandLanding(kind: BrandKind, locale: "tr" | "en"): ServiceLanding {
       heroTitle: `${name} kombi servisi.`,
       heroAccent: "Arıza, bakım, orijinal parça, montaj.",
       heroLead: c.lead,
-      heroImage: "/gallery/kombi-servisi-teknisyen-2.webp",
-      heroImageAlt: `${name} kombi servisi — Kayahan Isı teknisyeni`,
       introLabel: `${name.toLocaleUpperCase("tr")} VE KAYAHAN`,
       introHeading: c.heading,
       body: c.body,
@@ -1203,8 +1186,6 @@ function brandLanding(kind: BrandKind, locale: "tr" | "en"): ServiceLanding {
     heroTitle: `${name} boiler service.`,
     heroAccent: "Repair, maintenance, genuine parts, installation.",
     heroLead: c.lead,
-    heroImage: "/gallery/kombi-servisi-teknisyen-2.webp",
-    heroImageAlt: `${name} boiler service — Kayahan Isı technician`,
     introLabel: `${name.toUpperCase()} AND KAYAHAN`,
     introHeading: c.heading,
     body: c.body,

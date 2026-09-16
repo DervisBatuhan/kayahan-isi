@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-label="Veito">
+  <rect width="320" height="120" fill="#ffffff"/>
+  <text x="160" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="44" letter-spacing="-1" fill="#073678">VEITO</text>
+  <rect x="120" y="88" width="80" height="3" fill="#00a7d6"/>
+</svg>

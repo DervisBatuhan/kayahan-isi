@@ -61,7 +61,7 @@ const tr: SiteContent = {
           { label: "Kombi Servisi", href: "/tr/kombi-servisi" },
           { label: "Klima Servisi", href: "/tr/klima-servisi" },
           { label: "Şofben Servisi", href: "/tr/sofben-servisi" },
-          { label: "Hizmet Bölgelerimiz", href: "/tr/servis" },
+          { label: "Hizmet Bölgelerimiz", href: "/tr/hizmet-bolgelerimiz" },
         ],
       },
       {
@@ -91,7 +91,7 @@ const tr: SiteContent = {
       },
       {
         label: "Bilgi Merkezi",
-        href: "/tr/blog",
+        href: "/tr/bilgi-merkezi",
         children: [
           { label: "Blog", href: "/tr/blog" },
           { label: "Sıkça Sorulan Sorular", href: "/tr/sikca-sorulan-sorular" },
@@ -400,7 +400,7 @@ const tr: SiteContent = {
           { label: "Kombi Servisi", href: "/tr/kombi-servisi" },
           { label: "Klima Servisi", href: "/tr/klima-servisi" },
           { label: "Şofben Servisi", href: "/tr/sofben-servisi" },
-          { label: "Hizmet Bölgelerimiz", href: "/tr/servis" },
+          { label: "Hizmet Bölgelerimiz", href: "/tr/hizmet-bolgelerimiz" },
           { label: "DemirDöküm Servisi", href: "/tr/kombi-servisi/demirdokum" },
           { label: "Vaillant Servisi", href: "/tr/kombi-servisi/vaillant" },
           { label: "Baymak Servisi", href: "/tr/kombi-servisi/baymak" },
@@ -469,7 +469,7 @@ const en: SiteContent = {
           { label: "Boiler Service", href: "/en/kombi-servisi" },
           { label: "AC Service", href: "/en/klima-servisi" },
           { label: "Water-Heater Service", href: "/en/sofben-servisi" },
-          { label: "Service Areas", href: "/en/servis" },
+          { label: "Service Areas", href: "/en/hizmet-bolgelerimiz" },
         ],
       },
       {
@@ -499,7 +499,7 @@ const en: SiteContent = {
       },
       {
         label: "Knowledge Hub",
-        href: "/en/blog",
+        href: "/en/bilgi-merkezi",
         children: [
           { label: "Blog", href: "/en/blog" },
           { label: "Frequently Asked Questions", href: "/en/sikca-sorulan-sorular" },
@@ -695,7 +695,7 @@ const en: SiteContent = {
           { label: "Boiler Service", href: "/en/kombi-servisi" },
           { label: "AC Service", href: "/en/klima-servisi" },
           { label: "Water-Heater Service", href: "/en/sofben-servisi" },
-          { label: "Service Areas", href: "/en/servis" },
+          { label: "Service Areas", href: "/en/hizmet-bolgelerimiz" },
           { label: "DemirDöküm Service", href: "/en/kombi-servisi/demirdokum" },
           { label: "Vaillant Service", href: "/en/kombi-servisi/vaillant" },
           { label: "Baymak Service", href: "/en/kombi-servisi/baymak" },

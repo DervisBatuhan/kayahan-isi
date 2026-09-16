@@ -82,7 +82,7 @@ export function realCards(items: unknown): { title: string; text: string }[] {
 
 export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> = {
   blog: {
-    heroIndex: "BİLGİ MERKEZİ",
+    heroIndex: "BLOG",
     heroTitleTop: "Bilgiyi paylaşır.",
     heroTitleAccent: "Geleceği geliştiririz.",
     heroLead:
@@ -137,7 +137,7 @@ export const knowledgeDefaults: Record<KnowledgeKind, Record<string, unknown>> =
 
 export const knowledgeDefaultsEn: Record<KnowledgeKind, Record<string, unknown>> = {
   blog: {
-    heroIndex: "KNOWLEDGE HUB",
+    heroIndex: "BLOG",
     heroTitleTop: "Sharing knowledge.",
     heroTitleAccent: "Advancing the future.",
     heroLead:

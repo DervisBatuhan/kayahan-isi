@@ -459,7 +459,27 @@ const expansionPress: SectionSpec[] = [
     ],
   },
   {
+    title: "Haberler",
+    description: "Basın ve TV görünümleri, duyurular. Sırayı ok tuşlarıyla değiştirebilirsiniz; en üstteki en yeni.",
+    fields: [
+      {
+        key: "news",
+        label: "Haberler",
+        type: "objectList",
+        itemLabel: "Haber",
+        columns: [
+          { key: "date", label: "Tarih (ör. 12 Mart 2026)" },
+          { key: "source", label: "Kaynak (ör. CNN Türk)" },
+          { key: "title", label: "Başlık" },
+          { key: "text", label: "Özet", kind: "textarea" },
+          { key: "href", label: "Bağlantı (isteğe bağlı, https://…)" },
+        ],
+      },
+    ],
+  },
+  {
     title: "Haber arşivi (boş durum)",
+    description: "Haber listesi boşken gösterilen mesaj.",
     fields: [
       { key: "emptyLabel", label: "Üst etiket", type: "text" },
       { key: "emptyBody", label: "Metin", type: "textarea" },

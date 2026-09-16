@@ -27,7 +27,7 @@ import { hubChrome } from "@/lib/content/ported/hub";
 import type { HubContent } from "@/lib/content/ported/types";
 import "./ported.scss";
 
-export type HubKind = "corporate" | "activity" | "solutions" | "explore" | "service";
+export type HubKind = "corporate" | "activity" | "solutions" | "explore" | "service" | "areas" | "knowledge";
 
 const ICONS: Record<string, ComponentType<{ className?: string }>> = {
   building: Building2,

@@ -22,12 +22,29 @@ $wash: #f2f7fa;
   h1 em { display: block; color: $cyan; font-style: normal; font-weight: 400; }
   > div:first-child > p { max-width: 640px; margin: 26px 0 0; color: $muted; font-size: 16px; line-height: 1.75; }
 }
-.sv-hero-art {
-  position: relative; display: grid; place-items: center; aspect-ratio: 1; max-width: 360px; margin-left: auto;
-  border-radius: 50%; border: 1px solid rgba(7, 54, 120, .12);
-  background: radial-gradient(circle at 30% 30%, rgba(0, 167, 214, .16), transparent 60%);
-  svg { width: 34%; height: auto; color: $navy; stroke-width: 1; }
-  &:before { content: ""; position: absolute; inset: 14%; border: 1px solid rgba(0, 167, 214, .3); border-radius: 50%; }
+// Schematic illustration panel (ServiceHeroArt)
+.sv-art {
+  position: relative; overflow: hidden; border: 1px solid rgba(7, 54, 120, .12); box-shadow: 0 30px 60px rgba(3, 27, 60, .18);
+  svg { display: block; width: 100%; height: auto; }
+}
+.sv-art-flow { stroke-dasharray: 6 10; animation: sv-dash 2.4s linear infinite; }
+.sv-art-flow--back { animation-direction: reverse; }
+.sv-art-air { stroke-dasharray: 5 9; animation: sv-dash 1.8s linear infinite; }
+.sv-art-flame { transform-box: fill-box; transform-origin: 50% 90%; animation: sv-flame 1.6s ease-in-out infinite; }
+.sv-art-fan { transform-box: fill-box; transform-origin: center; animation: sv-spin 6s linear infinite; }
+.sv-art-snow { transform-box: fill-box; transform-origin: center; animation: sv-spin 24s linear infinite; }
+.sv-art-heat { animation: sv-rise 2.2s ease-in-out infinite; }
+.sv-art-drops { animation: sv-drip 1.4s ease-in infinite; }
+.sv-art-pulse { transform-box: fill-box; transform-origin: center; animation: sv-pulse 2.6s ease-out infinite; }
+.sv-art-rings { transform-box: fill-box; transform-origin: center; animation: sv-spin 60s linear infinite; }
+@keyframes sv-dash { to { stroke-dashoffset: -32; } }
+@keyframes sv-flame { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06) translateY(-1px); } }
+@keyframes sv-spin { to { transform: rotate(360deg); } }
+@keyframes sv-rise { 0% { transform: translateY(2px); opacity: .5; } 50% { transform: translateY(-3px); opacity: 1; } 100% { transform: translateY(2px); opacity: .5; } }
+@keyframes sv-drip { 0% { transform: translateY(-4px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
+@keyframes sv-pulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .sv-art-flow, .sv-art-air, .sv-art-flame, .sv-art-fan, .sv-art-snow, .sv-art-heat, .sv-art-drops, .sv-art-pulse, .sv-art-rings { animation: none !important; }
 }
 .sv-hero-photo {
   position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid $line; background: $wash;
@@ -132,8 +149,7 @@ $wash: #f2f7fa;
 // -------------------------------------------------------- responsive ----
 @media (max-width: 1000px) {
   .sv-hero { grid-template-columns: 1fr; min-height: 0; padding: 64px 28px; }
-  .sv-hero-art { display: none; }
-  .sv-hero-photo { max-width: 560px; }
+  .sv-art, .sv-hero-photo { max-width: 560px; }
   .sv-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); article:nth-child(4n) { border-right: 1px solid $line; } article:nth-child(2n) { border-right: 0; } article:nth-last-child(-n + 4) { border-bottom: 1px solid $line; } article:nth-last-child(-n + 2) { border-bottom: 0; } }
 }
 @media (max-width: 600px) {

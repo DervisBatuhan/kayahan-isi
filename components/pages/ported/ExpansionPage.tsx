@@ -356,7 +356,10 @@ function Gallery({ c }: { c: Record<string, unknown> }) {
   );
 }
 
+type NewsItem = { date: string; source: string; title: string; text: string; href: string };
+
 function Press({ c }: { c: Record<string, unknown> }) {
+  const news = (Array.isArray(c.news) ? (c.news as NewsItem[]) : []).filter((n) => n && (n.title || n.text));
   return (
     <>
       <PageHero
@@ -387,11 +390,37 @@ function Press({ c }: { c: Record<string, unknown> }) {
             </Link>
           </div>
         </div>
-        <div className="ep-press-empty">
-          <Newspaper />
-          <span>{String(c.emptyLabel ?? "")}</span>
-          <p>{String(c.emptyBody ?? "")}</p>
-        </div>
+        {news.length > 0 ? (
+          <ol className="ep-news-list">
+            {news.map((n, i) => {
+              const external = /^https?:\/\//i.test(n.href ?? "");
+              const Title = n.href ? (
+                <a href={n.href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                  {n.title} <ArrowRight />
+                </a>
+              ) : (
+                <span>{n.title}</span>
+              );
+              return (
+                <li key={`${n.title}-${i}`}>
+                  <div className="ep-news-meta">
+                    <Newspaper />
+                    <b>{n.source}</b>
+                    {n.date && <time>{n.date}</time>}
+                  </div>
+                  <h3>{Title}</h3>
+                  {n.text && <p>{n.text}</p>}
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <div className="ep-press-empty">
+            <Newspaper />
+            <span>{String(c.emptyLabel ?? "")}</span>
+            <p>{String(c.emptyBody ?? "")}</p>
+          </div>
+        )}
       </section>
     </>
   );

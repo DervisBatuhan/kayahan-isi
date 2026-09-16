@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { BlogPostView } from "@/lib/blog/shared";
 import { BLOG_UI, formatPostDate } from "@/lib/blog/format";
 import { headings, readingMinutes } from "@/lib/blog/markdown";
+import { tagSlug } from "@/lib/blog/filter";
 import { Markdown } from "./Markdown";
 import "./blog.scss";
 
@@ -70,7 +71,9 @@ export function BlogArticle({
             <span>{ui.tags}</span>
             <ul>
               {post.tags.map((t) => (
-                <li key={t}>{t}</li>
+                <li key={t}>
+                  <Link href={`/${locale}/blog/etiket/${tagSlug(t)}`}>{t}</Link>
+                </li>
               ))}
             </ul>
           </div>

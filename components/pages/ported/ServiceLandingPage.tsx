@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Phone, MessageCircle, MapPin, Wrench } from "lucide-react";
+import { ArrowRight, Phone, MessageCircle, MapPin } from "lucide-react";
 import type { Locale } from "@/lib/i18n/config";
 import type { ServiceLanding } from "@/lib/content/ported/service";
 import {
@@ -14,6 +14,7 @@ import {
   type ServiceKind,
 } from "@/lib/content/ported/service";
 import { Markdown } from "@/components/blog/Markdown";
+import { ServiceHeroArt, type HeroArtVariant } from "./ServiceHeroArt";
 import "./ported.scss";
 
 const UI: Record<Locale, { call: string; whatsapp: string; otherServices: string; districtsAria: string; brands: string; allBrands: string }> = {
@@ -45,6 +46,8 @@ export default function ServiceLandingPage({
   const waHref = whatsapp ? `https://wa.me/${whatsapp}` : "";
   const quoteHref = `/${locale}/teklif-al`;
   const href = (route: string) => route.replace(/^\/tr/, `/${locale}`);
+  const artVariant: HeroArtVariant = current.brand ? "brand" : current.district ? "district" : (current.service ?? "kombi");
+  const artName = current.brand ? BRAND_NAME[current.brand] : current.district ? DISTRICT_NAME[current.district] : "";
 
   return (
     <div className="cp-page sv-page">
@@ -76,9 +79,7 @@ export default function ServiceLandingPage({
             <img src={c.heroImage} alt={c.heroImageAlt} fetchPriority="high" />
           </figure>
         ) : (
-          <div className="sv-hero-art" aria-hidden="true">
-            <Wrench />
-          </div>
+          <ServiceHeroArt variant={artVariant} name={artName} locale={locale} />
         )}
       </section>
 

@@ -395,6 +395,32 @@ export const PORTED_META: Record<string, Entry> = {
         "Boiler, AC and water-heater service: repair, annual maintenance, genuine parts and installation. Same day across eight districts on Istanbul's European side; every brand.",
     },
   },
+  "/hizmet-bolgelerimiz": {
+    og: "website",
+    tr: {
+      title: "Hizmet Bölgelerimiz — İstanbul Avrupa Yakası Kombi, Klima, Şofben Servisi",
+      description:
+        "Bahçelievler, Bağcılar, Bakırköy, Güngören, Zeytinburnu, Esenler, Bayrampaşa ve Küçükçekmece'de aynı gün kombi, klima ve şofben servisi. İlçenizi seçin.",
+    },
+    en: {
+      title: "Service Areas — Istanbul European Side",
+      description:
+        "Same-day boiler, AC and water-heater service in Bahçelievler, Bağcılar, Bakırköy, Güngören, Zeytinburnu, Esenler, Bayrampaşa and Küçükçekmece. Pick your district.",
+    },
+  },
+  "/bilgi-merkezi": {
+    og: "website",
+    tr: {
+      title: "Bilgi Merkezi — Blog, Sıkça Sorulan Sorular, Müşteri Yorumları",
+      description:
+        "Isıtma, soğutma ve enerji verimliliği üzerine rehber yazılar, servis ve bakım hakkında sık sorulan sorular ve müşteri deneyimleri.",
+    },
+    en: {
+      title: "Knowledge Hub — Blog, FAQ, Client Stories",
+      description:
+        "Guides on heating, cooling and energy efficiency, frequently asked questions on service and maintenance, and client stories.",
+    },
+  },
   "/kombi-servisi": {
     og: "website",
     tr: {

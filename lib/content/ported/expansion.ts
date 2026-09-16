@@ -83,7 +83,7 @@ export const partnersSchema = z.object({
   introHeadingTop: s.max(160),
   introHeadingAccent: s.max(160),
   introBody: s.max(600),
-  items: z.array(partnerItem).min(0).max(40),
+  items: z.array(partnerItem).min(0).max(80),
 });
 
 export const gallerySchema = z.object({
@@ -107,6 +107,20 @@ export const pressSchema = z.object({
   featureCtaHref: s.max(200),
   emptyLabel: s.max(80),
   emptyBody: s.max(400),
+  /** News archive — shown as a list when non-empty; the empty-state block otherwise. */
+  news: z
+    .array(
+      z.object({
+        date: s.max(40),
+        source: s.max(120),
+        title: s.max(200),
+        text: s.max(600),
+        href: s.max(400),
+      }),
+    )
+    .max(40)
+    .optional()
+    .default([]),
 });
 
 export const careerSchema = z.object({
@@ -274,6 +288,22 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
       "Yeni projelerimiz, teknik gelişmelerimiz ve kurumsal duyurularımız yakında burada.",
     featureCtaLabel: "BASIN İLETİŞİMİ",
     featureCtaHref: "/tr/iletisim",
+    news: [
+      {
+        date: "2024",
+        source: "CNN Türk",
+        title: "Klima bomba gibi patladı — yetkili servis bilirkişisi İlhan Kaya değerlendirdi",
+        text: "Kurucumuz İlhan Kaya, aşırı kirli klimalarda ısının atılamayıp basıncın yükselmesinin yol açtığı riskleri ve düzenli bakımın önemini CNN Türk'e anlattı.",
+        href: "",
+      },
+      {
+        date: "2024",
+        source: "Business Türk Channel",
+        title: "Isıtma ve iklimlendirme sektöründe servis kalitesi",
+        text: "İlhan Kaya, stüdyo konuğu olarak mesleki eğitim, yetkili servis standartları ve tüketici güvenliği üzerine değerlendirmelerde bulundu.",
+        href: "",
+      },
+    ],
     emptyLabel: "HABER ARŞİVİ",
     emptyBody: "Yeni içerikler eklendikçe bu alanda listelenecektir.",
   },
@@ -408,6 +438,22 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
       "Our new projects, technical developments and corporate announcements will be here soon.",
     featureCtaLabel: "PRESS CONTACT",
     featureCtaHref: "/en/iletisim",
+    news: [
+      {
+        date: "2024",
+        source: "CNN Türk",
+        title: "'The AC exploded like a bomb' — expert witness İlhan Kaya on air-conditioner safety",
+        text: "Our founder explained on CNN Türk how heavily soiled units fail to reject heat, letting pressure build, and why regular maintenance matters.",
+        href: "",
+      },
+      {
+        date: "2024",
+        source: "Business Türk Channel",
+        title: "Service quality in the heating and HVAC industry",
+        text: "As a studio guest, İlhan Kaya discussed vocational training, authorised-service standards and consumer safety.",
+        href: "",
+      },
+    ],
     emptyLabel: "NEWS ARCHIVE",
     emptyBody: "New content will be listed in this area as it is added.",
   },

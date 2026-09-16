@@ -300,7 +300,7 @@ function HomeEditorial({
 // The home rail is a teaser, not the full directory — cap it at 10 (admin
 // controls which ones by reordering the list in the panel) and send everyone
 // else to the dedicated, paginated page via the "Tümünü Gör" link.
-const HOME_PARTNER_MAX = 10;
+const HOME_PARTNER_MAX = 13;
 const HOME_PARTNER_GHOST_COUNT = 10;
 
 function HomePartners({ band }: { band: PartnersBand }) {

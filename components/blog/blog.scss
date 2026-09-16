@@ -119,7 +119,7 @@ $wash: #f2f7fa;
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 56px; padding-top: 26px; border-top: 1px solid $line;
   > span { color: $cyan-deep; font-size: 10px; font-weight: 700; letter-spacing: .26em; }
   ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-  li { padding: 5px 11px; border: 1px solid $line; color: $navy; font-size: 12.5px; font-weight: 600; }
+  li a { display: inline-block; padding: 5px 11px; border: 1px solid $line; color: $navy; font-size: 12.5px; font-weight: 600; text-decoration: none; &:hover { background: $navy; color: #fff; border-color: $navy; } }
 }
 
 // -------------------------------------------------------- responsive ----
@@ -132,4 +132,68 @@ $wash: #f2f7fa;
   .blog-hero { padding: 52px 22px 36px; }
   .blog-prose { font-size: 16px; h2 { font-size: 24px; } h3 { font-size: 20px; } }
   .blog-body-wrap { padding-top: 44px; padding-bottom: 80px; }
+}
+
+// ---------------------------------------------------- filter + sort ----
+.blog-listing { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: start; }
+.blog-listing > .blog-list { grid-column: 2; }
+.bf-toolbar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid $line; }
+.bf-count { margin: 0; color: $navy; font-size: 13px; font-weight: 700; letter-spacing: .04em; }
+.bf-toolbar-actions { display: flex; gap: 10px; }
+
+.bf-sidebar { grid-column: 1; position: sticky; top: 100px; }
+.bf-group {
+  border-bottom: 1px solid $line;
+  summary { display: flex; align-items: center; justify-content: space-between; padding: 16px 2px; cursor: pointer; list-style: none; color: $navy; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+  summary::-webkit-details-marker { display: none; }
+  summary svg { width: 15px; height: 15px; transition: transform .2s; }
+  &[open] summary svg { transform: rotate(180deg); }
+  ul { margin: 0; padding: 0 0 12px; list-style: none; }
+  li a {
+    display: flex; align-items: center; gap: 10px; padding: 7px 2px; color: $ink; font-size: 14px; text-decoration: none;
+    i { display: grid; place-items: center; width: 16px; height: 16px; border: 1px solid #b7c4d0; border-radius: 2px; background: #fff; }
+    i svg { width: 12px; height: 12px; color: #fff; }
+    small { margin-left: auto; color: $grey-soft; font-size: 12px; }
+    &:hover { color: $navy; }
+    &.is-active { color: $navy; font-weight: 600; i { background: $navy; border-color: $navy; } }
+  }
+}
+.bf-selected {
+  padding: 0 0 14px; border-bottom: 1px solid $line;
+  > span { display: block; margin: 14px 0 8px; color: $cyan-deep; font-size: 10px; font-weight: 800; letter-spacing: .2em; }
+  ul { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  li a { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid $line; background: $wash; color: $navy; font-size: 12.5px; font-weight: 600; text-decoration: none; svg { width: 12px; height: 12px; } &:hover { border-color: $navy; } }
+}
+.bf-clear { display: inline-block; margin-top: 10px; color: $cyan-deep; font-size: 12.5px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; &:hover { color: $navy; } }
+.bf-clear--wide { margin-top: 18px; }
+
+.bf-sort {
+  position: relative;
+  summary { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border: 1px solid $line; background: #fff; color: $ink; font-size: 13px; cursor: pointer; list-style: none; white-space: nowrap; b { color: $navy; } svg { width: 14px; height: 14px; } }
+  summary::-webkit-details-marker { display: none; }
+  ul { position: absolute; right: 0; z-index: 20; min-width: 260px; margin: 6px 0 0; padding: 6px 0; list-style: none; border: 1px solid $line; background: #fff; box-shadow: 0 12px 30px rgba(7, 54, 120, .12); }
+  li a { display: block; padding: 9px 14px; color: $ink; font-size: 13.5px; text-decoration: none; &:hover { background: $wash; } &.is-active { color: $navy; font-weight: 700; } }
+}
+
+.bf-drawer { display: none; }
+.bf-empty { grid-column: 2; padding: 56px 24px; border: 1px dashed $line; text-align: center; h3 { margin: 0; color: $navy; font-size: 20px; font-weight: 600; } p { margin: 8px 0 0; color: $grey-soft; font-size: 14px; } a { display: inline-block; margin-top: 16px; color: $cyan-deep; font-weight: 700; } }
+
+@media (max-width: 900px) {
+  .blog-listing { grid-template-columns: 1fr; gap: 20px; }
+  .blog-listing > .blog-list, .bf-empty { grid-column: 1; }
+  .bf-sidebar { display: none; }
+  .bf-drawer {
+    display: block; position: relative;
+    > summary { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid $navy; background: $navy; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; list-style: none; svg { width: 15px; height: 15px; } b { display: grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: $cyan; color: #fff; font-size: 11px; } }
+    > summary::-webkit-details-marker { display: none; }
+    .bf-drawer-close { display: none; }
+    // Open: the panel covers the screen and the summary becomes the fixed
+    // bottom "show results" bar — tapping it toggles the details closed.
+    &[open] .bf-drawer-panel { position: fixed; inset: 0 0 64px; z-index: 60; overflow-y: auto; padding: 18px 20px 40px; background: #fff; }
+    &[open] > summary { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; display: flex; justify-content: center; height: 64px; border: 0; border-top: 1px solid $line; background: $navy; }
+    &[open] .bf-drawer-open { display: none; }
+    &[open] .bf-drawer-close { display: block; }
+    .bf-drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; span { color: $navy; font-size: 13px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; } }
+  }
+  .bf-sort ul { right: auto; left: 0; }
 }
