@@ -33,6 +33,15 @@
     linear-gradient(0deg, #fff 0%, transparent 16%);
   pointer-events: none;
 }
+/* servis: fade the building strip at the top so the fleet carries the frame */
+.hub-service .hub-art::before {
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.7) 12%, transparent 34%),
+    linear-gradient(0deg, #fff 0%, transparent 16%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 18%, transparent 36%);
+}
+.hub-service .hub-art img {
+  object-position: center 70%;
+}
 .hub-art img {
   width: 114%;
   height: 112%;
