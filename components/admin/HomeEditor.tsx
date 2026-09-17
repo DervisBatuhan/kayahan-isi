@@ -578,7 +578,7 @@ export function HomeEditor({ locale, initial }: { locale: Locale; initial: HomeC
       >
         <div className="grid gap-3 sm:grid-cols-2">
           <LinkFields
-            label="Hero — birincil düğme (turuncu)"
+            label="Hero — birincil düğme (lacivert)"
             value={data.serviceFocus.heroPrimary}
             onChange={(v) => patch("serviceFocus", { ...data.serviceFocus, heroPrimary: v })}
           />

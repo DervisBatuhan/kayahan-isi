@@ -21,7 +21,7 @@ export default async function HomeContentPage({
         <div>
           <h1 className="text-[20px] font-extrabold text-ink-900">Ana Sayfa İçeriği</h1>
           <p className="mt-1 text-[13px] text-ink-500">
-            Hero, istatistikler, kartlar, zaman çizelgesi, kurucu ve otorite bölümleri.
+            Hero, servis katmanı, istatistikler, kartlar, zaman çizelgesi, kurucu ve otorite bölümleri.
           </p>
         </div>
         <LocaleTabs locale={locale} basePath="/admin/home" />
