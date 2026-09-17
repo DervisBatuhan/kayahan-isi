@@ -61,3 +61,47 @@ export function isBlobUrl(url: string): boolean {
 /** Solution-partner logo item — identical shape to a certificate item. */
 export type PartnerItem = CertItem;
 export const normalizePartnerItems = normalizeCertItems;
+
+/* ── news media (image or video per press item) ─────────────────────────── */
+export const MEDIA_ACCEPT = "image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime";
+export const MEDIA_ALLOWED_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "video/mp4",
+  "video/webm",
+  "video/quicktime",
+] as const;
+export const MEDIA_MAX_BYTES = 200 * 1024 * 1024;
+
+export function isVideoType(contentType: string): boolean {
+  return contentType.startsWith("video/");
+}
+
+/** YouTube / Vimeo page URL → privacy-friendly embed URL, or null if unrecognised. */
+export function toEmbedUrl(input: string): string | null {
+  let u: URL;
+  try {
+    u = new URL(input.trim());
+  } catch {
+    return null;
+  }
+  if (u.protocol !== "https:") return null;
+  const host = u.hostname.replace(/^www\.|^m\./, "");
+  const ytId = (id: string | null) => (id && /^[\w-]{6,20}$/.test(id) ? id : null);
+  if (host === "youtube.com" || host === "youtube-nocookie.com") {
+    const id =
+      ytId(u.searchParams.get("v")) ??
+      ytId(u.pathname.match(/^\/(?:embed|shorts|live)\/([\w-]+)/)?.[1] ?? null);
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+  }
+  if (host === "youtu.be") {
+    const id = ytId(u.pathname.slice(1));
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+  }
+  if (host === "vimeo.com" || host === "player.vimeo.com") {
+    const id = u.pathname.match(/(\d{6,12})/)?.[1];
+    return id ? `https://player.vimeo.com/video/${id}` : null;
+  }
+  return null;
+}

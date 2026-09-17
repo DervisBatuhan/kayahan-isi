@@ -1,7 +1,7 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
-import { CERT_ALLOWED_TYPES, CERT_MAX_BYTES } from "@/lib/content/ported/certificates-shared";
+import { CERT_ALLOWED_TYPES, MEDIA_ALLOWED_TYPES, MEDIA_MAX_BYTES } from "@/lib/content/ported/certificates-shared";
 
 /**
  * Client-upload token endpoint for certificate files. The admin editor calls
@@ -23,8 +23,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         const session = await getSession();
         if (!session) throw new Error("Yetkisiz.");
         return {
-          allowedContentTypes: [...CERT_ALLOWED_TYPES],
-          maximumSizeInBytes: CERT_MAX_BYTES,
+          // Certificates + news media (images / short videos) share this token route.
+          allowedContentTypes: [...new Set([...CERT_ALLOWED_TYPES, ...MEDIA_ALLOWED_TYPES])],
+          maximumSizeInBytes: MEDIA_MAX_BYTES,
           addRandomSuffix: true,
           tokenPayload: JSON.stringify({ by: session.email }),
         };

@@ -17,7 +17,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { isImageType, normalizeCertItems, normalizePartnerItems } from "@/lib/content/ported/certificates-shared";
+import { isImageType, isVideoType, normalizeCertItems, normalizePartnerItems, toEmbedUrl } from "@/lib/content/ported/certificates-shared";
 import "./ported.scss";
 
 type Icon = ComponentType<{ className?: string }>;
@@ -356,7 +356,42 @@ function Gallery({ c }: { c: Record<string, unknown> }) {
   );
 }
 
-type NewsItem = { date: string; source: string; title: string; text: string; href: string };
+type NewsItem = {
+  date: string;
+  source: string;
+  title: string;
+  text: string;
+  href: string;
+  mediaUrl?: string;
+  mediaType?: string;
+  embedUrl?: string;
+};
+
+/** Image, uploaded video or YouTube/Vimeo embed for a press item — or null. */
+function NewsMedia({ n }: { n: NewsItem }) {
+  const embed = n.embedUrl ? toEmbedUrl(n.embedUrl) : null;
+  if (embed) {
+    return (
+      <figure className="ep-news-media ep-news-media--video">
+        <iframe src={embed} title={n.title} loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
+      </figure>
+    );
+  }
+  if (!n.mediaUrl) return null;
+  if (isVideoType(n.mediaType ?? "")) {
+    return (
+      <figure className="ep-news-media ep-news-media--video">
+        <video src={n.mediaUrl} controls preload="metadata" playsInline />
+      </figure>
+    );
+  }
+  return (
+    <figure className="ep-news-media">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={n.mediaUrl} alt={n.title} loading="lazy" decoding="async" />
+    </figure>
+  );
+}
 
 function Press({ c }: { c: Record<string, unknown> }) {
   const news = (Array.isArray(c.news) ? (c.news as NewsItem[]) : []).filter((n) => n && (n.title || n.text));
@@ -369,6 +404,41 @@ function Press({ c }: { c: Record<string, unknown> }) {
         accent={String(c.heroAccent ?? "")}
       />
       <section className="ep-press ep-section">
+        {news.length > 0 ? (
+          <ol className="ep-news-list">
+            {news.map((n, i) => {
+              const external = /^https?:\/\//i.test(n.href ?? "");
+              const Title = n.href ? (
+                <a href={n.href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                  {n.title} <ArrowRight />
+                </a>
+              ) : (
+                <span>{n.title}</span>
+              );
+              const hasMedia = Boolean(n.mediaUrl || (n.embedUrl && toEmbedUrl(n.embedUrl)));
+              return (
+                <li key={`${n.title}-${i}`} className={hasMedia ? "has-media" : undefined}>
+                  <div className="ep-news-meta">
+                    <Newspaper />
+                    <b>{n.source}</b>
+                    {n.date && <time>{n.date}</time>}
+                  </div>
+                  <div className="ep-news-body">
+                    <h3>{Title}</h3>
+                    {n.text && <p>{n.text}</p>}
+                  </div>
+                  {hasMedia && <NewsMedia n={n} />}
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <div className="ep-press-empty">
+            <Newspaper />
+            <span>{String(c.emptyLabel ?? "")}</span>
+            <p>{String(c.emptyBody ?? "")}</p>
+          </div>
+        )}
         <div className="ep-press-feature ep-press-typographic">
           <div className="ep-news-index">
             <span>
@@ -390,37 +460,6 @@ function Press({ c }: { c: Record<string, unknown> }) {
             </Link>
           </div>
         </div>
-        {news.length > 0 ? (
-          <ol className="ep-news-list">
-            {news.map((n, i) => {
-              const external = /^https?:\/\//i.test(n.href ?? "");
-              const Title = n.href ? (
-                <a href={n.href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                  {n.title} <ArrowRight />
-                </a>
-              ) : (
-                <span>{n.title}</span>
-              );
-              return (
-                <li key={`${n.title}-${i}`}>
-                  <div className="ep-news-meta">
-                    <Newspaper />
-                    <b>{n.source}</b>
-                    {n.date && <time>{n.date}</time>}
-                  </div>
-                  <h3>{Title}</h3>
-                  {n.text && <p>{n.text}</p>}
-                </li>
-              );
-            })}
-          </ol>
-        ) : (
-          <div className="ep-press-empty">
-            <Newspaper />
-            <span>{String(c.emptyLabel ?? "")}</span>
-            <p>{String(c.emptyBody ?? "")}</p>
-          </div>
-        )}
       </section>
     </>
   );

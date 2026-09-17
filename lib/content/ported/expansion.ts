@@ -116,6 +116,12 @@ export const pressSchema = z.object({
         title: s.max(200),
         text: s.max(600),
         href: s.max(400),
+        /** Uploaded image / video (Vercel Blob) — optional. */
+        mediaUrl: s.max(600).optional().default(""),
+        mediaType: s.max(80).optional().default(""),
+        mediaName: s.max(200).optional().default(""),
+        /** YouTube / Vimeo page link — optional; rendered as an embed. */
+        embedUrl: s.max(400).optional().default(""),
       }),
     )
     .max(40)

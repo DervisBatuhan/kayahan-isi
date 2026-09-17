@@ -3,7 +3,9 @@
 export type ObjectListColumn = {
   key: string;
   label: string;
-  kind?: "text" | "textarea";
+  /** `media`: an image/video upload stored as `<key>Url`, `<key>Type`, `<key>Name`. */
+  kind?: "text" | "textarea" | "media";
+  hint?: string;
 };
 
 export type FieldSpec =
@@ -473,6 +475,8 @@ const expansionPress: SectionSpec[] = [
           { key: "title", label: "Başlık" },
           { key: "text", label: "Özet", kind: "textarea" },
           { key: "href", label: "Bağlantı (isteğe bağlı, https://…)" },
+          { key: "media", label: "Görsel / video (isteğe bağlı)", kind: "media", hint: "PNG, JPG, WebP ya da MP4/WebM. Video için YouTube bağlantısı da kullanabilirsiniz." },
+          { key: "embedUrl", label: "YouTube / Vimeo bağlantısı (isteğe bağlı)" },
         ],
       },
     ],

@@ -17,7 +17,9 @@ const csp = [
   // Vercel Blob client uploads: the browser fetches the SDK API at vercel.com,
   // then reads/writes the file at *.public.blob.vercel-storage.com.
   "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com https://vercel.com https://blob.vercel-storage.com https://*.public.blob.vercel-storage.com",
-  "frame-src https://challenges.cloudflare.com",
+  "media-src 'self' blob: https://*.public.blob.vercel-storage.com",
+  // Press page: YouTube / Vimeo embeds for news items
+  "frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
