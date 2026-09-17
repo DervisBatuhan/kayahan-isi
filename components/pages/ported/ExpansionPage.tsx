@@ -43,12 +43,16 @@ const EP_CHROME = {
     viewCertAria: (x: string) => `${x} belgesini görüntüle`,
     partnerFallback: "Çözüm Ortağı",
     logoAreaLabel: "LOGO ALANI",
+    certsEmptyLabel: "BELGELER HAZIRLANIYOR",
+    certsEmptyBody: "Yetkinlik ve eğitim belgelerimiz yakında burada.",
   },
   en: {
     viewCert: "VIEW CERTIFICATE",
     viewCertAria: (x: string) => `View the ${x} certificate`,
     partnerFallback: "Solution Partner",
     logoAreaLabel: "LOGO SPACE",
+    certsEmptyLabel: "CERTIFICATES COMING SOON",
+    certsEmptyBody: "Our qualification and training certificates will appear here shortly.",
   },
 };
 
@@ -231,8 +235,8 @@ function Message({ c }: { c: Record<string, unknown> }) {
   );
 }
 
-function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: string; viewCertAria: (x: string) => string } }) {
-  const items = normalizeCertItems(c.items);
+function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: string; viewCertAria: (x: string) => string; certsEmptyLabel: string; certsEmptyBody: string } }) {
+  const items = normalizeCertItems(c.items).filter((x) => x.title || x.fileUrl);
   return (
     <>
       <PageHero
@@ -251,6 +255,13 @@ function Certificates({ c, ep }: { c: Record<string, unknown>; ep: { viewCert: s
           </h2>
           <p>{String(c.introBody ?? "")}</p>
         </div>
+        {items.length === 0 && (
+          <div className="ep-press-empty">
+            <FileBadge2 />
+            <span>{ep.certsEmptyLabel}</span>
+            <p>{ep.certsEmptyBody}</p>
+          </div>
+        )}
         <div className="ep-cert-grid">
           {items.map((x, i) => (
             <article key={`${x.title}-${i}`}>

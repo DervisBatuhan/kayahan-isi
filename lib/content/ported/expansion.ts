@@ -51,7 +51,9 @@ const certItem = z.union([
     contentType: "",
   })),
   z.object({
-    title: req.max(120),
+    // Title may be empty (a half-filled row must not block saving the page);
+    // fully empty rows are dropped on read.
+    title: s.max(120),
     fileUrl: s.max(600),
     fileName: s.max(200),
     contentType: s.max(120),
