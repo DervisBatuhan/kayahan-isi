@@ -636,7 +636,7 @@ export function HomeDesign({
           <p>{c.hero.paragraph}</p>
           <div className="heroActions">
             <a className="heroBtn heroBtn--service" href={c.serviceFocus.heroPrimary.href}>
-              <Wrench /> {c.serviceFocus.heroPrimary.label}
+              <Wrench /> {c.serviceFocus.heroPrimary.label} <ArrowRight />
             </a>
             <a className="heroBtn heroBtn--ghost" href={c.serviceFocus.heroSecondary.href}>
               {c.serviceFocus.heroSecondary.label} <ArrowRight />
