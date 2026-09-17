@@ -73,16 +73,51 @@ type HeroVariant =
   | "projects"
   | "partners";
 
+type MediaLike = { mediaUrl?: string; mediaType?: string; embedUrl?: string };
+
+function hasMedia(m: MediaLike | undefined): boolean {
+  return Boolean(m && (m.mediaUrl || (m.embedUrl && toEmbedUrl(m.embedUrl))));
+}
+
+/** Uploaded image / video or YouTube-Vimeo embed. `ambient` = muted autoplay loop (hero decor). */
+function Media({ m, alt, ambient }: { m: MediaLike; alt: string; ambient?: boolean }) {
+  const embed = m.embedUrl ? toEmbedUrl(m.embedUrl) : null;
+  if (embed) {
+    return (
+      <iframe
+        src={ambient ? `${embed}?autoplay=1&mute=1&loop=1&controls=0&playsinline=1` : embed}
+        title={alt}
+        loading="lazy"
+        allow="accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    );
+  }
+  if (isVideoType(m.mediaType ?? "")) {
+    return ambient ? (
+      <video src={m.mediaUrl} autoPlay muted loop playsInline preload="metadata" aria-label={alt} />
+    ) : (
+      <video src={m.mediaUrl} controls preload="metadata" playsInline aria-label={alt} />
+    );
+  }
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={m.mediaUrl} alt={alt} loading="lazy" decoding="async" />;
+}
+
 function PageHero({
   eyebrow,
   title,
   accent,
   variant = "orbit",
+  heroMedia,
 }: {
   eyebrow: string;
   title: string;
   accent: string;
   variant?: HeroVariant;
+  /** Gallery hero: up to three boxes filled with media; empty ones stay decorative. */
+  heroMedia?: MediaLike[];
 }) {
   return (
     <section className={`ep-hero ep-hero-${variant}`}>
@@ -101,11 +136,16 @@ function PageHero({
           <i />
         </div>
       ) : (
-        <div className="ep-hero-signature" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
+        <div className="ep-hero-signature" aria-hidden={!heroMedia?.some(hasMedia)}>
+          {[0, 1, 2, 3].map((i) =>
+            hasMedia(heroMedia?.[i]) ? (
+              <figure key={i}>
+                <Media m={heroMedia![i]} alt="" ambient />
+              </figure>
+            ) : (
+              <i key={i} />
+            ),
+          )}
         </div>
       )}
     </section>
@@ -328,8 +368,11 @@ function Partners({
   );
 }
 
+type GalleryItem = { src?: string; title: string; caption: string } & MediaLike;
+
 function Gallery({ c }: { c: Record<string, unknown> }) {
-  const items = (c.items as { src: string; title: string; caption: string }[]) ?? [];
+  const items = ((c.items as GalleryItem[]) ?? []).filter((x) => x && (hasMedia(x) || x.src));
+  const heroMedia = Array.isArray(c.heroMedia) ? (c.heroMedia as MediaLike[]) : [];
   return (
     <>
       <PageHero
@@ -337,12 +380,17 @@ function Gallery({ c }: { c: Record<string, unknown> }) {
         eyebrow={String(c.heroEyebrow ?? "")}
         title={String(c.heroTitle ?? "")}
         accent={String(c.heroAccent ?? "")}
+        heroMedia={heroMedia}
       />
       <section className="ep-gallery ep-section">
         {items.map((x, i) => (
-          <figure className={i === 0 || i === 3 ? "wide" : ""} key={`${x.src}-${i}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img loading="lazy" decoding="async" src={x.src} alt={x.title} />
+          <figure className={i === 0 || i === 3 ? "wide" : ""} key={`${x.title}-${i}`}>
+            {hasMedia(x) ? (
+              <Media m={x} alt={x.title} />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img loading="lazy" decoding="async" src={x.src} alt={x.title} />
+            )}
             <figcaption>
               <span>
                 0{i + 1} / {x.title}
@@ -367,28 +415,11 @@ type NewsItem = {
   embedUrl?: string;
 };
 
-/** Image, uploaded video or YouTube/Vimeo embed for a press item — or null. */
 function NewsMedia({ n }: { n: NewsItem }) {
-  const embed = n.embedUrl ? toEmbedUrl(n.embedUrl) : null;
-  if (embed) {
-    return (
-      <figure className="ep-news-media ep-news-media--video">
-        <iframe src={embed} title={n.title} loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
-      </figure>
-    );
-  }
-  if (!n.mediaUrl) return null;
-  if (isVideoType(n.mediaType ?? "")) {
-    return (
-      <figure className="ep-news-media ep-news-media--video">
-        <video src={n.mediaUrl} controls preload="metadata" playsInline />
-      </figure>
-    );
-  }
+  const video = Boolean((n.embedUrl && toEmbedUrl(n.embedUrl)) || isVideoType(n.mediaType ?? ""));
   return (
-    <figure className="ep-news-media">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={n.mediaUrl} alt={n.title} loading="lazy" decoding="async" />
+    <figure className={video ? "ep-news-media ep-news-media--video" : "ep-news-media"}>
+      <Media m={n} alt={n.title} />
     </figure>
   );
 }
@@ -415,9 +446,9 @@ function Press({ c }: { c: Record<string, unknown> }) {
               ) : (
                 <span>{n.title}</span>
               );
-              const hasMedia = Boolean(n.mediaUrl || (n.embedUrl && toEmbedUrl(n.embedUrl)));
+              const withMedia = hasMedia(n);
               return (
-                <li key={`${n.title}-${i}`} className={hasMedia ? "has-media" : undefined}>
+                <li key={`${n.title}-${i}`} className={withMedia ? "has-media" : undefined}>
                   <div className="ep-news-meta">
                     <Newspaper />
                     <b>{n.source}</b>
@@ -427,7 +458,7 @@ function Press({ c }: { c: Record<string, unknown> }) {
                     <h3>{Title}</h3>
                     {n.text && <p>{n.text}</p>}
                   </div>
-                  {hasMedia && <NewsMedia n={n} />}
+                  {withMedia && <NewsMedia n={n} />}
                 </li>
               );
             })}

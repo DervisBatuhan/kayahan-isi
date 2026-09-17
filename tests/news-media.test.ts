@@ -30,3 +30,17 @@ describe("press news media", () => {
     expect(withMedia.news[0].mediaType).toBe("video/mp4");
   });
 });
+
+describe("gallery media", async () => {
+  const { gallerySchema } = await import("@/lib/content/ported/expansion");
+  it("hero boxes are optional and capped at three", () => {
+    const ok = gallerySchema.parse({ ...expansionDefaults.gallery, heroMedia: [{ mediaUrl: "/a.webp", mediaType: "image/webp" }] });
+    expect(ok.heroMedia).toHaveLength(1);
+    expect(() => gallerySchema.parse({ ...expansionDefaults.gallery, heroMedia: [{}, {}, {}, {}] })).toThrow();
+  });
+  it("an item needs a legacy src, an upload or an embed link", () => {
+    expect(() => gallerySchema.parse({ ...expansionDefaults.gallery, items: [{ title: "x", caption: "" }] })).toThrow();
+    const v = gallerySchema.parse({ ...expansionDefaults.gallery, items: [{ title: "x", caption: "", embedUrl: "https://youtu.be/dQw4w9WgXcQ" }] });
+    expect(v.items[0].src).toBe("");
+  });
+});

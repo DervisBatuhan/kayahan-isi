@@ -228,6 +228,7 @@ function FieldRenderer({
       items={Array.isArray(value) ? (value as Row[]) : []}
       onChange={onChange as (v: Row[]) => void}
       newItem={() => Object.fromEntries(columns.map((c) => [c.key, ""]))}
+      max={spec.max}
       render={(item, update) => (
         <div className="grid gap-2 sm:grid-cols-2">
           {columns.map((col) => (
@@ -268,6 +269,7 @@ function ReorderableList<T>({
   newItem,
   render,
   beforeRemove,
+  max,
 }: {
   label: string;
   hint?: string;
@@ -276,6 +278,8 @@ function ReorderableList<T>({
   onChange: (v: T[]) => void;
   newItem: () => T;
   render: (item: T, update: (patch: T) => void) => React.ReactNode;
+  /** Optional row cap; the add button disables once reached. */
+  max?: number;
   /** Side effect to run for a row that is about to be removed (e.g. delete an
    *  uploaded file). Fire-and-forget; removal proceeds regardless. */
   beforeRemove?: (item: T) => void;
@@ -353,7 +357,9 @@ function ReorderableList<T>({
             })}
           </div>
         ))}
-        <AddButton label={`${itemLabel} ekle`} onClick={addOne} />
+        {(max === undefined || items.length < max) && (
+          <AddButton label={`${itemLabel} ekle`} onClick={addOne} />
+        )}
       </div>
     </Field>
   );

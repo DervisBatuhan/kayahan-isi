@@ -86,10 +86,30 @@ export const partnersSchema = z.object({
   items: z.array(partnerItem).min(0).max(80),
 });
 
+/** Uploaded image / video (Vercel Blob) or a YouTube / Vimeo link — all optional. */
+const mediaShape = {
+  mediaUrl: s.max(600).optional().default(""),
+  mediaType: s.max(80).optional().default(""),
+  mediaName: s.max(200).optional().default(""),
+  embedUrl: s.max(400).optional().default(""),
+};
+
 export const gallerySchema = z.object({
   ...heroShape,
+  /** The three boxes in the hero — optional media; empty boxes stay decorative. */
+  heroMedia: z.array(z.object(mediaShape)).max(3).optional().default([]),
   items: z
-    .array(z.object({ src: req.max(200), title: req.max(120), caption: s.max(160) }))
+    .array(
+      z
+        .object({
+          /** Legacy static path (code defaults). An uploaded `mediaUrl` / `embedUrl` wins over it. */
+          src: s.max(200).optional().default(""),
+          title: req.max(120),
+          caption: s.max(160),
+          ...mediaShape,
+        })
+        .refine((x) => x.src || x.mediaUrl || x.embedUrl, { message: "Görsel ya da video ekleyin." }),
+    )
     .min(1)
     .max(24),
 });
@@ -116,12 +136,7 @@ export const pressSchema = z.object({
         title: s.max(200),
         text: s.max(600),
         href: s.max(400),
-        /** Uploaded image / video (Vercel Blob) — optional. */
-        mediaUrl: s.max(600).optional().default(""),
-        mediaType: s.max(80).optional().default(""),
-        mediaName: s.max(200).optional().default(""),
-        /** YouTube / Vimeo page link — optional; rendered as an embed. */
-        embedUrl: s.max(400).optional().default(""),
+        ...mediaShape,
       }),
     )
     .max(40)

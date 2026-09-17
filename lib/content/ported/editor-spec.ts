@@ -40,6 +40,8 @@ export type FieldSpec =
       itemLabel: string;
       columns: ObjectListColumn[];
       hint?: string;
+      /** Hard cap on rows (the "add" button disables at the limit). */
+      max?: number;
     }
   | {
       key: string;
@@ -423,19 +425,38 @@ const expansionCertificates: SectionSpec[] = [
   },
 ];
 
+const mediaColumns: ObjectListColumn[] = [
+  { key: "media", label: "Görsel / video", kind: "media", hint: "PNG, JPG, WebP ya da MP4/WebM. Video için YouTube bağlantısı da kullanabilirsiniz." },
+  { key: "embedUrl", label: "YouTube / Vimeo bağlantısı (isteğe bağlı)" },
+];
+
 const expansionGallery: SectionSpec[] = [
-  { title: "Hero", fields: expansionHero },
   {
-    title: "Görseller",
-    description: "Sıralanabilir.",
+    title: "Hero",
+    fields: [
+      ...expansionHero,
+      {
+        key: "heroMedia",
+        label: "Hero kutuları (sağdaki 3 kutu)",
+        type: "objectList",
+        itemLabel: "Kutu",
+        max: 3,
+        hint: "1. kutu büyük (sol), 2. ve 3. sağda üst üste. Boş bırakılan kutu dekoratif kalır. Videolar sessiz ve döngüde oynar.",
+        columns: mediaColumns,
+      },
+    ],
+  },
+  {
+    title: "Görseller ve videolar",
+    description: "Sıralanabilir. 1. ve 4. öğe geniş gösterilir.",
     fields: [
       {
         key: "items",
-        label: "Görseller",
+        label: "Öğeler",
         type: "objectList",
-        itemLabel: "Görsel",
+        itemLabel: "Öğe",
         columns: [
-          { key: "src", label: "Görsel yolu" },
+          ...mediaColumns,
           { key: "title", label: "Başlık" },
           { key: "caption", label: "Alt yazı" },
         ],
@@ -475,8 +496,7 @@ const expansionPress: SectionSpec[] = [
           { key: "title", label: "Başlık" },
           { key: "text", label: "Özet", kind: "textarea" },
           { key: "href", label: "Bağlantı (isteğe bağlı, https://…)" },
-          { key: "media", label: "Görsel / video (isteğe bağlı)", kind: "media", hint: "PNG, JPG, WebP ya da MP4/WebM. Video için YouTube bağlantısı da kullanabilirsiniz." },
-          { key: "embedUrl", label: "YouTube / Vimeo bağlantısı (isteğe bağlı)" },
+          ...mediaColumns,
         ],
       },
     ],
