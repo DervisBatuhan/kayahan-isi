@@ -550,7 +550,7 @@ export function HomeDesign({
       {/* Header */}
       <div className="trust">
         {/* Highlights scroll sideways on narrow screens instead of being cut;
-            links, phone and the language switch stay pinned on the right. */}
+            phone, links and the language switch stay pinned on the right. */}
         <div className="trustItems">
           {c.topBar.highlights.map((h, i) => {
             const I = trustIcons[i % trustIcons.length];
@@ -563,14 +563,14 @@ export function HomeDesign({
           })}
         </div>
         <i />
+        <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
+          <Phone /> {c.footer.contact.phone}
+        </a>
         {c.topBar.links.map((l) => (
           <a key={l.href} href={l.href}>
             {l.label}
           </a>
         ))}
-        <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
-          <Phone /> {c.footer.contact.phone}
-        </a>
         <LangMenu current={c.locale as "tr" | "en"} />
       </div>
 
