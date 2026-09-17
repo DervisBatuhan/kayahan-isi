@@ -146,8 +146,8 @@ export function SiteHeader({ content }: { content: SiteContent }) {
   return (
     <>
       <div className="trust">
-        {/* Highlights + links scroll sideways on narrow screens instead of being
-            cut; the phone and the language switch stay pinned on the right. */}
+        {/* Highlights scroll sideways on narrow screens instead of being cut;
+            links, phone and the language switch stay pinned on the right. */}
         <div className="trustItems">
           {c.topBar.highlights.map((h, i) => {
             const I = TRUST_ICONS[i % TRUST_ICONS.length];
@@ -158,13 +158,13 @@ export function SiteHeader({ content }: { content: SiteContent }) {
               </span>
             );
           })}
-          {c.topBar.links.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
         </div>
         <i />
+        {c.topBar.links.map((l) => (
+          <a key={l.href} href={l.href}>
+            {l.label}
+          </a>
+        ))}
         <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
           <Phone /> {c.footer.contact.phone}
         </a>
