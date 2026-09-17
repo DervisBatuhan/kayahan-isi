@@ -448,7 +448,7 @@ const expansionGallery: SectionSpec[] = [
   },
   {
     title: "Görseller ve videolar",
-    description: "Sıralanabilir. 1. ve 4. öğe geniş gösterilir.",
+    description: "Sıralanabilir. 1. ve 4. öğe geniş gösterilir. Tümü kaldırılabilir; liste boşken aşağıdaki mesaj gösterilir.",
     fields: [
       {
         key: "items",
@@ -461,6 +461,14 @@ const expansionGallery: SectionSpec[] = [
           { key: "caption", label: "Alt yazı" },
         ],
       },
+    ],
+  },
+  {
+    title: "Boş durum",
+    description: "Galeri listesi boşken gösterilen mesaj.",
+    fields: [
+      { key: "emptyLabel", label: "Üst etiket", type: "text" },
+      { key: "emptyBody", label: "Metin", type: "textarea" },
     ],
   },
 ];

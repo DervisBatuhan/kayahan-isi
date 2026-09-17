@@ -110,8 +110,10 @@ export const gallerySchema = z.object({
         })
         .refine((x) => x.src || x.mediaUrl || x.embedUrl, { message: "Görsel ya da video ekleyin." }),
     )
-    .min(1)
     .max(24),
+  /** Shown when the list is empty (e.g. while new media is being prepared). */
+  emptyLabel: s.max(80).optional().default(""),
+  emptyBody: s.max(400).optional().default(""),
 });
 
 export const pressSchema = z.object({
@@ -294,6 +296,8 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
       { src: "/gallery/ofis-sertifika-duvari-2.webp", title: "Belge duvarı", caption: "Mesleki yeterlilik ve eğitim sertifikaları" },
       { src: "/gallery/business-turk-channel-studyo.webp", title: "Stüdyo çekimi", caption: "Business Türk Channel" },
     ],
+    emptyLabel: "GALERİ HAZIRLANIYOR",
+    emptyBody: "Sahadan ve ekranlardan yeni kareler yakında burada.",
   },
   press: {
     heroEyebrow: "BASINDA BİZ",
@@ -444,6 +448,8 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
       { src: "/gallery/ofis-sertifika-duvari-2.webp", title: "Certificate wall", caption: "Vocational qualification and training certificates" },
       { src: "/gallery/business-turk-channel-studyo.webp", title: "Studio recording", caption: "Business Türk Channel" },
     ],
+    emptyLabel: "GALLERY COMING SOON",
+    emptyBody: "New moments from the field and the screen will appear here shortly.",
   },
   press: {
     heroEyebrow: "IN THE PRESS",

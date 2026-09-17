@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Download,
   FileBadge2,
+  Image as ImageIcon,
   Mail,
   Newspaper,
   Quote,
@@ -382,7 +383,14 @@ function Gallery({ c }: { c: Record<string, unknown> }) {
         accent={String(c.heroAccent ?? "")}
         heroMedia={heroMedia}
       />
-      <section className="ep-gallery ep-section">
+      <section className={items.length ? "ep-gallery ep-section" : "ep-section"}>
+        {items.length === 0 && (
+          <div className="ep-press-empty">
+            <ImageIcon />
+            <span>{String(c.emptyLabel ?? "")}</span>
+            <p>{String(c.emptyBody ?? "")}</p>
+          </div>
+        )}
         {items.map((x, i) => (
           <figure className={i === 0 || i === 3 ? "wide" : ""} key={`${x.title}-${i}`}>
             {hasMedia(x) ? (
