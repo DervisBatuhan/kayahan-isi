@@ -379,3 +379,33 @@ footer#iletisim .footerContactButton{color:#073678}
 .serviceAll svg{width:14px;height:14px;color:var(--cyan);transition:transform .2s}
 .serviceAll:hover svg{transform:translateX(4px)}
 @media(max-width:980px){.serviceAll{align-self:flex-start;order:2;margin-top:4px}}
+
+/* ── Responsive rule of thumb (see memory: responsive-policy) ──────────────
+   Nothing is removed on smaller screens — content reflows, wraps or scrolls.
+   The only "swaps" are equivalents: desktop Hızlı Servis FAB + WhatsApp bubble
+   ↔ mobile sticky bar (same three actions); desktop nav ↔ hamburger menu. */
+.trustItems{display:flex;align-items:center;gap:38px;min-width:0}
+.trustItems span,.trustItems a{display:flex;gap:6px;align-items:center;white-space:nowrap}
+@media(max-width:980px){
+  .trust{gap:12px}
+  .trustItems{flex:1;gap:18px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);padding-right:24px}
+  .trustItems::-webkit-scrollbar{display:none}
+  .trustItems span,.trustItems a,.trust span:nth-child(n+3){display:flex!important}
+  .trust>i{display:none}
+  .trust>a.trustPhone{display:flex!important;margin-left:0;flex:none}
+}
+@media(max-width:560px){.trust span:nth-child(2){display:flex!important}.trust{padding:0 12px}}
+/* Badge stays at every desktop width (the extra header button is gone, so it fits). */
+@media(max-width:1360px) and (min-width:981px){.navBadge{display:inline-block}}
+/* Timeline on small screens scrolls sideways: draw the rail per milestone so it
+   follows the scroll instead of stopping at the visible edge. */
+@media(max-width:980px){
+  .timeline:before{display:none}
+  .timeline article{padding-top:0}
+  .timeline article:after{content:"";position:absolute;left:0;right:0;top:46px;height:1px;background:#9caec3;z-index:0}
+  .timeline article:first-child:after{left:50%}
+  .timeline article:last-child:after{right:50%}
+  .timeline article>i{position:relative;z-index:1}
+  .timeline{-webkit-mask-image:none;mask-image:none;padding-right:8px}
+}
+@media(max-width:600px){.title{width:auto;max-width:100%;padding:0 8px;line-height:1.3}}

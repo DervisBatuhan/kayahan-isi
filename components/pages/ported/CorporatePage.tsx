@@ -186,7 +186,7 @@ function HeroVisual({ kind, ch }: { kind: CorporateKind; ch: ReturnType<typeof c
     return (
       <div className="cp-memory-art">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/corporate-memory-cgi.png" alt={ch.memoryAlt} />
+        <img src="/assets/corporate-memory-cgi.webp" alt={ch.memoryAlt} />
         <div className="cp-era">
           <b>1976</b>
           <i />
@@ -199,7 +199,7 @@ function HeroVisual({ kind, ch }: { kind: CorporateKind; ch: ReturnType<typeof c
     return (
       <div className="cp-calibration-art">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/quality-calibration-cgi.png" alt={ch.calibrationAlt} />
+        <img src="/assets/quality-calibration-cgi.webp" alt={ch.calibrationAlt} />
         <div className="cp-calibration-mark">
           <small>
             {ch.calibration[0]}
@@ -212,7 +212,7 @@ function HeroVisual({ kind, ch }: { kind: CorporateKind; ch: ReturnType<typeof c
   return (
     <div className="cp-living-art">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/assets/sustainable-flow-cgi.png" alt={ch.flowAlt} />
+      <img src="/assets/sustainable-flow-cgi.webp" alt={ch.flowAlt} />
       <div className="cp-living-note">
         <span>{ch.cycleLabel}</span>
         <b>{ch.cycleValue}</b>

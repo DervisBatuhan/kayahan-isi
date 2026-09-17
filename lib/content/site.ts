@@ -281,7 +281,7 @@ const tr: SiteContent = {
         "1976’da başlayan yolculuğumuzda; sahada kazanılan teknik bilgiyi, insan odaklı hizmet anlayışını ve yeni nesil enerji teknolojilerini aynı çatı altında buluşturuyoruz.",
       ctaLabel: "KAYAHAN ISI’YI TANIYIN",
       ctaHref: "/tr/kurumsal/hakkimizda",
-      image: "/assets/home-about-cgi.png",
+      image: "/assets/home-about-cgi.webp",
       imageAlt: "Kayahan Isı mühendislik yaklaşımı",
     },
     projects: {
@@ -290,7 +290,7 @@ const tr: SiteContent = {
       titleBottom: "ölçülebilir performans.",
       ctaLabel: "TÜM REFERANSLAR",
       ctaHref: "/tr/referanslar",
-      image: "/assets/home-projects-cgi.png",
+      image: "/assets/home-projects-cgi.webp",
       imageAlt: "Kayahan Isı proje mühendisliği",
       overlayLabel: "BÜTÜNLEŞİK SİSTEMLER",
       overlayTitle: "Analizden devreye almaya.",
@@ -310,7 +310,7 @@ const tr: SiteContent = {
       items: ["KALİTE YÖNETİMİ", "TEKNİK YETKİNLİK", "İŞ GÜVENLİĞİ", "ENERJİ PERFORMANSI"],
     },
     media: {
-      image: "/assets/home-media-cgi.png",
+      image: "/assets/home-media-cgi.webp",
       imageAlt: "Kayahan Isı teknik detaylar ve mühendislik planları",
       links: [
         {
@@ -647,7 +647,7 @@ const en: SiteContent = {
         "On the journey that began in 1976, we bring field-earned technical knowledge, a people-focused service approach and new-generation energy technologies under one roof.",
       ctaLabel: "GET TO KNOW KAYAHAN ISI",
       ctaHref: "/en/kurumsal/hakkimizda",
-      image: "/assets/home-about-cgi.png",
+      image: "/assets/home-about-cgi.webp",
       imageAlt: "Kayahan Isı engineering approach",
     },
     projects: {
@@ -656,7 +656,7 @@ const en: SiteContent = {
       titleBottom: "for every building.",
       ctaLabel: "ALL REFERENCES",
       ctaHref: "/en/referanslar",
-      image: "/assets/home-projects-cgi.png",
+      image: "/assets/home-projects-cgi.webp",
       imageAlt: "Kayahan Isı project engineering",
       overlayLabel: "INTEGRATED SYSTEMS",
       overlayTitle: "From analysis to commissioning.",
@@ -676,7 +676,7 @@ const en: SiteContent = {
       items: ["QUALITY MANAGEMENT", "TECHNICAL COMPETENCE", "OCCUPATIONAL SAFETY", "ENERGY PERFORMANCE"],
     },
     media: {
-      image: "/assets/home-media-cgi.png",
+      image: "/assets/home-media-cgi.webp",
       imageAlt: "Kayahan Isı technical details and engineering plans",
       links: [
         { eyebrow: "GALLERY", title: "Selections from the field and projects.", href: "/en/galeri", icon: "images" },

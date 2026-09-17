@@ -53,3 +53,35 @@ video {
     height: 24px;
   }
 }
+
+// ── Mobile legibility floor ────────────────────────────────────────────────
+// The design uses 8–9px uppercase eyebrows/labels that read fine on a desktop
+// but not on a phone. On small screens lift them to 10px; nothing is hidden.
+@media (max-width: 600px) {
+  .homeProjectVisual > div span,
+  .homeMedia > a > span,
+  .homePartnerMarqueeHead span,
+  .strengthGrid p,
+  .solutionList p,
+  .solutionList b,
+  .timeline p,
+  .ep-chair > span,
+  .ep-gallery figcaption span,
+  .ep-press-feature > div > span,
+  .ep-open span,
+  .ep-partner-logo--empty span,
+  .ap-art-note span,
+  .ap-switch small,
+  .sp-index b,
+  .sp-index span,
+  .sp-switch small,
+  .cp-living-note span,
+  .cp-era,
+  .up-contact-items small,
+  .up-quote-diagram span,
+  .legalBar a,
+  .legalBar small {
+    font-size: 10px !important;
+  }
+  .timeline h3 { font-size: 11px; }
+}

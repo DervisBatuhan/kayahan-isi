@@ -146,24 +146,28 @@ export function SiteHeader({ content }: { content: SiteContent }) {
   return (
     <>
       <div className="trust">
-        {c.topBar.highlights.map((h, i) => {
-          const I = TRUST_ICONS[i % TRUST_ICONS.length];
-          return (
-            <span key={h}>
-              <I />
-              {h}
-            </span>
-          );
-        })}
+        {/* Highlights + links scroll sideways on narrow screens instead of being
+            cut; the phone and the language switch stay pinned on the right. */}
+        <div className="trustItems">
+          {c.topBar.highlights.map((h, i) => {
+            const I = TRUST_ICONS[i % TRUST_ICONS.length];
+            return (
+              <span key={h}>
+                <I />
+                {h}
+              </span>
+            );
+          })}
+          {c.topBar.links.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </div>
         <i />
         <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
           <Phone /> {c.footer.contact.phone}
         </a>
-        {c.topBar.links.map((l) => (
-          <a key={l.href} href={l.href}>
-            {l.label}
-          </a>
-        ))}
         <LangMenu current={c.locale as Locale} />
       </div>
 
