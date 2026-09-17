@@ -84,6 +84,9 @@ export const partnersSchema = z.object({
   introHeadingAccent: s.max(160),
   introBody: s.max(600),
   items: z.array(partnerItem).min(0).max(80),
+  /** Brand search box above the grid. */
+  searchPlaceholder: s.max(80).optional().default(""),
+  searchEmpty: s.max(200).optional().default(""),
 });
 
 /** Uploaded image / video (Vercel Blob) or a YouTube / Vimeo link — all optional. */
@@ -379,6 +382,8 @@ export const expansionDefaults: Record<ExpansionKind, Record<string, unknown>> =
     introHeadingAccent: "üretiyoruz.",
     introBody:
       "Teknik yetkinliği, güvenilirliği ve uzun vadeli değer üretme yaklaşımını paylaşan markalarla birlikte çalışıyoruz.",
+    searchPlaceholder: "Marka ara… (ör. Vaillant, Daikin)",
+    searchEmpty: "Bu adla bir marka bulunamadı. Tüm markalarla çalışıyoruz — bize yazın.",
     items: [],
   },
 };
@@ -531,6 +536,8 @@ export const expansionDefaultsEn: Record<ExpansionKind, Record<string, unknown>>
     introHeadingAccent: "together.",
     introBody:
       "We work with brands that share our commitment to technical expertise, reliability and long-term value.",
+    searchPlaceholder: "Search brands… (e.g. Vaillant, Daikin)",
+    searchEmpty: "No brand by that name — we service every brand, just ask.",
     items: [],
   },
 };

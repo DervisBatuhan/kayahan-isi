@@ -369,3 +369,8 @@ footer#iletisim .footerContactButton{color:#073678}
 @media(max-width:1360px) and (min-width:981px){header nav{gap:16px;font-size:10px}.offer{padding:0 16px;margin-left:6px}.navBadge{display:none}}
 @media(max-width:980px){.hero{height:auto;min-height:0;padding-bottom:28px}.hero .building{height:240px;margin-top:24px}.hero .under{margin-top:16px}}
 @media(max-width:640px){.serviceCards{grid-template-columns:1fr}}
+/* Draggable marquee: JS moves the track, so the CSS animation is off here. */
+.homePartnerViewport--drag{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.homePartnerViewport--drag.is-dragging{cursor:grabbing}
+.homePartnerViewport--drag .homePartnerTrack{animation:none!important}
+.homePartnerViewport--drag img{pointer-events:none}

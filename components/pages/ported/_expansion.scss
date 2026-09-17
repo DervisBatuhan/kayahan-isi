@@ -103,3 +103,15 @@
 @media(max-width:1000px){.ep-projects{grid-template-columns:1fr}}
 @media(max-width:900px){.ep-hero{grid-template-columns:1fr;min-height:580px}.ep-hero h1{font-size:48px}.ep-orbit{position:absolute;right:-80px;bottom:-60px;opacity:.7}.ep-board,.ep-certs,.ep-career{grid-template-columns:1fr}.ep-partner-grid{grid-template-columns:repeat(2,1fr)}.ep-governance{grid-template-columns:1fr 1fr}.ep-press-feature{grid-template-columns:1fr}.ep-press-feature img{height:390px}.ep-gallery figure.wide{height:430px}}
 @media(max-width:560px){.ep-section{padding:58px 20px}.ep-hero{padding:58px 20px;min-height:560px}.ep-hero h1{font-size:39px}.ep-orbit{width:290px;height:290px}.ep-board h2,.ep-intro h2,.ep-career h2,.ep-press h2,.ep-partners-heading h2{font-size:32px}.ep-governance{grid-template-columns:1fr}.ep-governance article{min-height:180px;border-right:0;border-bottom:1px solid #ffffff2e}.ep-message{grid-template-columns:1fr}.ep-message>svg{margin-bottom:25px}.ep-message .ep-lead{font-size:21px}.ep-cert-grid,.ep-gallery,.ep-career-values,.ep-partner-grid{grid-template-columns:1fr}.ep-cert-grid article{border-right:0!important;border-bottom:1px solid #dce5ed!important}.ep-gallery figure,.ep-gallery figure.wide{grid-column:auto;height:320px}.ep-press-feature>div{padding:35px 25px}.ep-open{margin:0 20px 58px;padding:30px}}
+/* partners: brand search */
+.ep-partner-search{position:relative;display:flex;align-items:center;gap:12px;max-width:520px;margin:0 0 26px;padding:0 14px 0 16px;height:52px;border:1px solid #dfe5eb;background:#fff;transition:border-color .2s,box-shadow .2s}
+.ep-partner-search:focus-within{border-color:#00a7d6;box-shadow:0 0 0 3px rgba(0,167,214,.12)}
+.ep-partner-search>svg{width:18px;height:18px;flex:none;color:#123d78}
+.ep-partner-search input{flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:#123055}
+.ep-partner-search input::placeholder{color:#8a9bb0}
+.ep-partner-search input::-webkit-search-cancel-button{display:none}
+.ep-partner-search button{display:grid;place-items:center;width:26px;height:26px;border:0;border-radius:50%;background:#eef3f7;color:#123d78;cursor:pointer}
+.ep-partner-search button svg{width:14px;height:14px}
+.ep-partner-search>span{flex:none;min-width:28px;padding:0 8px;height:24px;display:grid;place-items:center;border-radius:12px;background:#073678;color:#fff;font-size:11px;font-weight:800}
+.ep-partner-empty{margin:0 0 26px;padding:28px;border:1px dashed #cfd9e3;color:#68798c;font-size:14px;text-align:center}
+@media(max-width:560px){.ep-partner-search{max-width:none}}

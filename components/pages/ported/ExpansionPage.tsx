@@ -15,13 +15,27 @@ import {
   Mail,
   Newspaper,
   Quote,
+  Search,
   ShieldCheck,
   Users,
+  X,
 } from "lucide-react";
 import { isImageType, isVideoType, normalizeCertItems, normalizePartnerItems, toEmbedUrl } from "@/lib/content/ported/certificates-shared";
 import "./ported.scss";
 
 type Icon = ComponentType<{ className?: string }>;
+
+/** Case- and diacritic-insensitive key: "Şofben" → "sofben", "İhlas" → "ihlas". */
+function foldForSearch(s: string): string {
+  return s
+    .replace(/İ/g, "i")
+    .replace(/I/g, "ı")
+    .toLocaleLowerCase("tr")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ı/g, "i")
+    .trim();
+}
 
 const EP_CHROME = {
   tr: {
@@ -285,10 +299,18 @@ function Partners({
 }) {
   // Rows come straight from the panel now — including logo-less slots an
   // admin added and hasn't uploaded to yet — so no synthetic placeholders.
-  const items = normalizePartnerItems(c.items);
-  const pageCount = Math.ceil(items.length / PARTNERS_PAGE_SIZE);
+  const all = normalizePartnerItems(c.items);
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
-  const start = page * PARTNERS_PAGE_SIZE;
+  const q = foldForSearch(query);
+  // Match on the brand name; fall back to the logo file name for rows whose
+  // title was never filled in ("vaillant.svg" still finds Vaillant).
+  const items = q
+    ? all.filter((x) => foldForSearch(`${x.title} ${x.fileName.replace(/\.[a-z0-9]+$/i, "")}`).includes(q))
+    : all;
+  const pageCount = Math.ceil(items.length / PARTNERS_PAGE_SIZE);
+  const safePage = Math.min(page, Math.max(0, pageCount - 1));
+  const start = safePage * PARTNERS_PAGE_SIZE;
   const pageItems = items.slice(start, start + PARTNERS_PAGE_SIZE);
 
   return (
@@ -312,6 +334,29 @@ function Partners({
           <p>{String(c.introBody ?? "")}</p>
         </div>
         <div>
+          <label className="ep-partner-search">
+            <Search />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setPage(0);
+              }}
+              placeholder={String(c.searchPlaceholder ?? "")}
+              aria-label={String(c.searchPlaceholder ?? "")}
+              autoComplete="off"
+            />
+            {query && (
+              <button type="button" onClick={() => setQuery("")} aria-label="Temizle">
+                <X />
+              </button>
+            )}
+            <span>{items.length}</span>
+          </label>
+          {items.length === 0 && (
+            <p className="ep-partner-empty">{String(c.searchEmpty ?? "")}</p>
+          )}
           <div className="ep-partner-grid">
             {pageItems.map((x, i) => (
               <article className="ep-partner-card" key={`${x.title}-${start + i}`}>
@@ -336,8 +381,8 @@ function Partners({
             <nav className="ep-pagination" aria-label="Sayfalar">
               <button
                 type="button"
-                onClick={() => setPage((p) => Math.max(0, p - 1))}
-                disabled={page === 0}
+                onClick={() => setPage(Math.max(0, safePage - 1))}
+                disabled={safePage === 0}
                 aria-label="Önceki sayfa"
               >
                 <ArrowLeft />
@@ -346,17 +391,17 @@ function Partners({
                 <button
                   type="button"
                   key={i}
-                  className={i === page ? "active" : ""}
+                  className={i === safePage ? "active" : ""}
                   onClick={() => setPage(i)}
-                  aria-current={i === page ? "page" : undefined}
+                  aria-current={i === safePage ? "page" : undefined}
                 >
                   {i + 1}
                 </button>
               ))}
               <button
                 type="button"
-                onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
-                disabled={page === pageCount - 1}
+                onClick={() => setPage(Math.min(pageCount - 1, safePage + 1))}
+                disabled={safePage === pageCount - 1}
                 aria-label="Sonraki sayfa"
               >
                 <ArrowRight />

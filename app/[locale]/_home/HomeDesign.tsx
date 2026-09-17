@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState, type ComponentType } from "react";
+import { useEffect, useId, useRef, useState, type ComponentType } from "react";
 import { preload } from "react-dom";
 import Image from "next/image";
 import { LegalBar } from "@/components/layout/LegalBar";
@@ -311,6 +311,110 @@ const HOME_PARTNER_GHOST_COUNT = 10;
 function HomePartners({ band }: { band: PartnersBand }) {
   const shown = band.items.slice(0, HOME_PARTNER_MAX);
   const hasReal = shown.length > 0;
+  const viewport = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+
+  // JS-driven marquee: the track scrolls on its own, but the visitor can grab
+  // it and slide left/right (mouse or touch). The two identical groups make it
+  // seamless — the offset wraps at one group's width. Auto-scroll pauses while
+  // hovering or dragging and resumes afterwards without a jump.
+  useEffect(() => {
+    const el = track.current;
+    const vp = viewport.current;
+    if (!el || !vp || !hasReal) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SPEED = 42; // px/s auto-scroll
+    let offset = 0;
+    let groupW = 0;
+    let paused = false;
+    let dragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    let lastX = 0;
+    let lastT = 0;
+    let velocity = 0; // px/ms from the last drag movement (for a short glide)
+    let raf = 0;
+    let prev = performance.now();
+
+    const measure = () => {
+      groupW = (el.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? 0;
+    };
+    const wrap = (x: number) => (groupW ? ((x % groupW) + groupW) % groupW : 0);
+    const apply = () => {
+      el.style.transform = `translate3d(${-wrap(offset)}px,0,0)`;
+    };
+    const tick = (now: number) => {
+      const dt = now - prev;
+      prev = now;
+      if (!dragging) {
+        if (Math.abs(velocity) > 0.02) {
+          offset -= velocity * dt;
+          velocity *= Math.pow(0.94, dt / 16);
+        } else if (!paused && !reduced) {
+          offset += (SPEED * dt) / 1000;
+        }
+        apply();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      dragging = true;
+      velocity = 0;
+      startX = lastX = e.clientX;
+      startOffset = offset;
+      lastT = performance.now();
+      vp.setPointerCapture(e.pointerId);
+      vp.classList.add("is-dragging");
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!dragging) return;
+      const now = performance.now();
+      const dx = e.clientX - startX;
+      offset = startOffset - dx;
+      const dt = Math.max(1, now - lastT);
+      velocity = (e.clientX - lastX) / dt;
+      lastX = e.clientX;
+      lastT = now;
+      apply();
+    };
+    const onUp = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      vp.classList.remove("is-dragging");
+      try {
+        vp.releasePointerCapture(e.pointerId);
+      } catch {
+        /* already released */
+      }
+    };
+    const onEnter = () => (paused = true);
+    const onLeave = () => (paused = false);
+
+    measure();
+    apply();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    vp.addEventListener("pointerdown", onDown);
+    vp.addEventListener("pointermove", onMove);
+    vp.addEventListener("pointerup", onUp);
+    vp.addEventListener("pointercancel", onUp);
+    vp.addEventListener("mouseenter", onEnter);
+    vp.addEventListener("mouseleave", onLeave);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      vp.removeEventListener("pointerdown", onDown);
+      vp.removeEventListener("pointermove", onMove);
+      vp.removeEventListener("pointerup", onUp);
+      vp.removeEventListener("pointercancel", onUp);
+      vp.removeEventListener("mouseenter", onEnter);
+      vp.removeEventListener("mouseleave", onLeave);
+    };
+  }, [hasReal]);
+
   return (
     <section className="homePartnerMarquee reveal" aria-labelledby="home-partners-title">
       <div className="homePartnerMarqueeHead">
@@ -324,17 +428,17 @@ function HomePartners({ band }: { band: PartnersBand }) {
           {band.ctaLabel} <ArrowRight />
         </a>
       </div>
-      <div className="homePartnerViewport" aria-hidden={!hasReal}>
-        <div className="homePartnerTrack">
+      <div className="homePartnerViewport homePartnerViewport--drag" aria-hidden={!hasReal} ref={viewport}>
+        <div className="homePartnerTrack" ref={track}>
           {[0, 1].map((group) => (
             <div className="homePartnerGroup" key={group}>
               {hasReal
                 ? shown.map((p, i) => (
                     <span className="homePartnerLogo" key={`${p.title}-${i}`}>
-                      {/* Not lazy: the track is moved by a CSS transform, so the browser's
-                          lazy-load intersection check misses logos until a hover/repaint. */}
+                      {/* Not lazy: the track is moved by a transform, so the browser's
+                          lazy-load intersection check misses logos until a repaint. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.fileUrl} alt={p.title} loading="eager" fetchPriority="low" decoding="async" />
+                      <img src={p.fileUrl} alt={p.title} loading="eager" fetchPriority="low" decoding="async" draggable={false} />
                     </span>
                   ))
                 : Array.from({ length: HOME_PARTNER_GHOST_COUNT }, (_, i) => (
