@@ -470,7 +470,7 @@ const tr: SiteContent = {
     ],
     contact: {
       title: "İletişim",
-      address: "Merkez Mah. Teknik Sok. No: 10\n34956 Tuzla / İstanbul / Türkiye",
+      address: "Fevzi Çakmak Cd. No: 13/1\n34180 Bahçelievler / İstanbul / Türkiye",
       phone: "+90 212 441 88 88",
       whatsapp: "905322153304",
       email: "info@kayahanisi.com",
@@ -826,7 +826,7 @@ const en: SiteContent = {
     ],
     contact: {
       title: "Contact",
-      address: "Merkez Mah. Teknik Sok. No: 10\n34956 Tuzla / İstanbul / Türkiye",
+      address: "Fevzi Çakmak Cd. No: 13/1\n34180 Bahçelievler / İstanbul / Türkiye",
       phone: "+90 212 441 88 88",
       whatsapp: "905322153304",
       email: "info@kayahanisi.com",

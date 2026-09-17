@@ -26,7 +26,7 @@ type ContactInfo = { phone: string; email: string; address: string; whatsapp?: s
 const DEFAULT_CONTACT: ContactInfo = {
   phone: "+90 212 441 88 88",
   email: "info@kayahanisi.com",
-  address: "Merkez Mah. Teknik Sok. No: 10\n34956 Tuzla / İstanbul",
+  address: "Fevzi Çakmak Cd. No: 13/1\n34180 Bahçelievler / İstanbul",
   whatsapp: "905322153304",
 };
 

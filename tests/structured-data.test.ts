@@ -54,7 +54,7 @@ describe("lib/structured-data — siteGraph", () => {
         ...site.footer,
         contact: {
           ...site.footer.contact,
-          address: "Merkez Mah. Teknik Sok. No: 10\n34956 Tuzla / İstanbul / Türkiye",
+          address: "Fevzi Çakmak Cd. No: 13/1\n34180 Bahçelievler / İstanbul / Türkiye",
         },
       },
     };
@@ -62,9 +62,9 @@ describe("lib/structured-data — siteGraph", () => {
     const org = graph["@graph"][0] as { address: Record<string, unknown> };
     expect(org.address).toMatchObject({
       "@type": "PostalAddress",
-      streetAddress: "Merkez Mah. Teknik Sok. No: 10",
-      postalCode: "34956",
-      addressLocality: "Tuzla",
+      streetAddress: "Fevzi Çakmak Cd. No: 13/1",
+      postalCode: "34180",
+      addressLocality: "Bahçelievler",
       addressRegion: "İstanbul",
       addressCountry: "Türkiye",
     });

@@ -31,7 +31,7 @@ export const LEGAL_LABEL: Record<LegalKind, { tr: string; en: string }> = {
 export const LEGAL_ROUTE = (k: LegalKind) => `/tr/${k}`;
 
 const COMPANY = "Kayahan Isıtma Sistemleri Teknik Bakım Onarım İnş. San. Tic. Ltd. Şti.";
-const ADDRESS = "Merkez Mah. Teknik Sok. No: 10, 34956 Tuzla / İstanbul";
+const ADDRESS = "Fevzi Çakmak Cd. No: 13/1, 34180 Bahçelievler / İstanbul";
 const EMAIL = "info@kayahanisi.com";
 const PHONE = "+90 212 441 88 88";
 const SITE = "www.kayahanisi.com";

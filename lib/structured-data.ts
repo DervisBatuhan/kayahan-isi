@@ -74,7 +74,7 @@ export function siteGraph(locale: Locale, site: SiteContent) {
     .filter((href) => /^https?:\/\//.test(href));
 
   // Address is free text, e.g.
-  //   "Merkez Mah. Teknik Sok. No: 10\n34956 Tuzla / İstanbul / Türkiye"
+  //   "Fevzi Çakmak Cd. No: 13/1\n34180 Bahçelievler / İstanbul / Türkiye"
   const [street = "", cityLine = ""] = contact.address.split("\n");
   const cityParts = cityLine.split("/").map((s) => s.trim());
   const postalMatch = cityParts[0]?.match(/^(\d{4,5})\s*(.*)$/);
