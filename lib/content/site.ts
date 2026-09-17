@@ -45,16 +45,6 @@ const tr: SiteContent = {
         ],
       },
       {
-        label: "Çözümlerimiz",
-        href: "/tr/cozumler",
-        children: [
-          { label: "Sistem Çözümleri", href: "/tr/cozumler/sistem-cozumleri" },
-          { label: "Bina Otomasyonu", href: "/tr/cozumler/bina-otomasyonu" },
-          { label: "Enerji Verimliliği", href: "/tr/cozumler/enerji-verimliligi" },
-          { label: "Servis & Bakım", href: "/tr/cozumler/servis-bakim" },
-        ],
-      },
-      {
         label: "Servis",
         href: "/tr/servis",
         children: [
@@ -62,6 +52,16 @@ const tr: SiteContent = {
           { label: "Klima Servisi", href: "/tr/klima-servisi" },
           { label: "Şofben Servisi", href: "/tr/sofben-servisi" },
           { label: "Hizmet Bölgelerimiz", href: "/tr/hizmet-bolgelerimiz" },
+        ],
+      },
+      {
+        label: "Çözümlerimiz",
+        href: "/tr/cozumler",
+        children: [
+          { label: "Sistem Çözümleri", href: "/tr/cozumler/sistem-cozumleri" },
+          { label: "Bina Otomasyonu", href: "/tr/cozumler/bina-otomasyonu" },
+          { label: "Enerji Verimliliği", href: "/tr/cozumler/enerji-verimliligi" },
+          { label: "Servis & Bakım", href: "/tr/cozumler/servis-bakim" },
         ],
       },
       {
@@ -453,16 +453,6 @@ const en: SiteContent = {
         ],
       },
       {
-        label: "Our Solutions",
-        href: "/en/cozumler",
-        children: [
-          { label: "System Solutions", href: "/en/cozumler/sistem-cozumleri" },
-          { label: "Building Automation", href: "/en/cozumler/bina-otomasyonu" },
-          { label: "Energy Efficiency", href: "/en/cozumler/enerji-verimliligi" },
-          { label: "Service & Maintenance", href: "/en/cozumler/servis-bakim" },
-        ],
-      },
-      {
         label: "Service",
         href: "/en/servis",
         children: [
@@ -470,6 +460,16 @@ const en: SiteContent = {
           { label: "AC Service", href: "/en/klima-servisi" },
           { label: "Water-Heater Service", href: "/en/sofben-servisi" },
           { label: "Service Areas", href: "/en/hizmet-bolgelerimiz" },
+        ],
+      },
+      {
+        label: "Our Solutions",
+        href: "/en/cozumler",
+        children: [
+          { label: "System Solutions", href: "/en/cozumler/sistem-cozumleri" },
+          { label: "Building Automation", href: "/en/cozumler/bina-otomasyonu" },
+          { label: "Energy Efficiency", href: "/en/cozumler/enerji-verimliligi" },
+          { label: "Service & Maintenance", href: "/en/cozumler/servis-bakim" },
         ],
       },
       {
