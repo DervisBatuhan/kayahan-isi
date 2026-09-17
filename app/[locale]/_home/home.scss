@@ -409,3 +409,9 @@ footer#iletisim .footerContactButton{color:#073678}
   .timeline{-webkit-mask-image:none;mask-image:none;padding-right:8px}
 }
 @media(max-width:600px){.title{width:auto;max-width:100%;padding:0 8px;line-height:1.3}}
+/* Mobile trust bar (user, 2026-09-18): only the first highlight on the left;
+   phone + language switch stay on the right. */
+@media(max-width:980px){
+  .trustItems{overflow:visible;-webkit-mask-image:none;mask-image:none;padding-right:0}
+  .trustItems span:nth-child(n+2),.trustItems a{display:none!important}
+}
