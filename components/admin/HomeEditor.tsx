@@ -661,6 +661,29 @@ export function HomeEditor({ locale, initial }: { locale: Locale; initial: HomeC
           </div>
         </SectionCard>
 
+        <SectionCard title="Hızlı Servis düğmesi (masaüstü, sağ alt)">
+          {(() => {
+            const fb = data.serviceFocus.fab;
+            const setFb = (patchF: Partial<typeof fb>) => patch("serviceFocus", { ...data.serviceFocus, fab: { ...fb, ...patchF } });
+            const T = (key: keyof typeof fb, label: string) => (
+              <Field label={label}>
+                <TextInput value={fb[key]} onChange={(e) => setFb({ [key]: e.target.value } as Partial<typeof fb>)} />
+              </Field>
+            );
+            return (
+              <div className="grid gap-3 sm:grid-cols-2">
+                {T("label", "Düğme yazısı")}
+                {T("sub", "Küçük etiket (7/24)")}
+                {T("title", "Kart başlığı")}
+                {T("text", "Kart metni")}
+                {T("call", "Ara satırı")}
+                {T("whatsapp", "WhatsApp satırı")}
+                {T("form", "Form satırı")}
+              </div>
+            );
+          })()}
+        </SectionCard>
+
         <SectionCard title="Servis talebi sayfası (/servis-talebi)">
           {(() => {
             const f = data.serviceFocus.form;

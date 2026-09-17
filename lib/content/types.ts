@@ -39,6 +39,8 @@ export type ServiceFocus = {
   };
   /** Mobile sticky bar labels. */
   bar: { call: string; whatsapp: string; form: string };
+  /** Desktop floating "quick service" button (bottom-right, replaces the bare WhatsApp bubble). */
+  fab: { label: string; sub: string; title: string; text: string; call: string; whatsapp: string; form: string };
   /** /servis-talebi page + form copy. */
   form: {
     eyebrow: string;

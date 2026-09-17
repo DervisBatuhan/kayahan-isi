@@ -379,6 +379,15 @@ const tr: SiteContent = {
       formLabel: "Servis talebi bırak",
     },
     bar: { call: "Ara", whatsapp: "WhatsApp", form: "Servis Talebi" },
+    fab: {
+      label: "Hızlı Servis",
+      sub: "7/24",
+      title: "Kombi · Klima · Şofben",
+      text: "Aynı gün servis, 8 ilçe. Size en uygun yolu seçin:",
+      call: "Hemen ara",
+      whatsapp: "WhatsApp'tan yaz",
+      form: "Servis talebi bırak",
+    },
     form: {
       eyebrow: "SERVİS TALEBİ",
       title: "20 saniyede | servis talebi.",
@@ -724,6 +733,15 @@ const en: SiteContent = {
       formLabel: "Leave a service request",
     },
     bar: { call: "Call", whatsapp: "WhatsApp", form: "Request Service" },
+    fab: {
+      label: "Quick Service",
+      sub: "24/7",
+      title: "Boiler · AC · Water heater",
+      text: "Same-day service across 8 districts. Pick the fastest way to reach us:",
+      call: "Call now",
+      whatsapp: "Message on WhatsApp",
+      form: "Leave a service request",
+    },
     form: {
       eyebrow: "SERVICE REQUEST",
       title: "Service request | in 20 seconds.",

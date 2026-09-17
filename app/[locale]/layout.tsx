@@ -15,6 +15,7 @@ import { jsonLdScript, siteGraph } from "@/lib/structured-data";
 import { Analytics } from "@/components/analytics/Analytics";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { ServiceBar } from "@/components/layout/ServiceBar";
+import { QuickServiceFab } from "@/components/layout/QuickServiceFab";
 import { CookieConsent } from "@/components/consent/CookieConsent";
 
 /** Search-engine ownership tags (set the env vars to enable). */
@@ -107,6 +108,7 @@ export default async function LocaleLayout({
         {children}
         <WhatsAppFloat phone={site.footer.contact.whatsapp} />
         <ServiceBar site={site} />
+        <QuickServiceFab site={site} />
         <CookieConsent locale={locale} />
         <Analytics />
       </body>
