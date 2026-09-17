@@ -7,15 +7,22 @@ import { CONSENT_EVENT, readConsentCookie, type ConsentState } from "@/lib/conse
 /**
  * Google Analytics 4 behind cookie consent (Consent Mode v2).
  *
- * - Renders nothing unless `NEXT_PUBLIC_GA_ID` is set (inert locally).
+ * - Measurement ID: `NEXT_PUBLIC_GA_ID` env if set, otherwise the production
+ *   default below (a GA4 ID is public by nature — it is visible in every page
+ *   source). Inert in dev builds so localhost traffic never reaches the property.
  * - `gtag('consent','default', …denied)` is always declared first, so even if
  *   the tag loads it starts in the denied state.
  * - The gtag.js script itself is only injected once the visitor has granted
  *   the analytics category; a later change (footer "Çerez Tercihleri") flips
  *   the consent state without a reload.
  */
+/** GA4 property "kayahanisi.com" (created 2026-09-17 under info@kayahanisi.com). */
+const GA_ID_PRODUCTION = "G-GMDJY891W6";
+
 export function Analytics() {
-  const id = process.env.NEXT_PUBLIC_GA_ID;
+  const id =
+    process.env.NEXT_PUBLIC_GA_ID ||
+    (process.env.NODE_ENV === "production" ? GA_ID_PRODUCTION : undefined);
   const [granted, setGranted] = useState(false);
 
   useEffect(() => {
