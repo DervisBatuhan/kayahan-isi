@@ -60,7 +60,7 @@ export const UT = {
       h1a: "İhtiyacı anlatın.",
       h1b: "Sistemi birlikte kuralım.",
       steps: ["ANALİZ", "TASARIM", "UYGULAMA"],
-      briefLabel: "PROJE BRİEFİ",
+      briefLabel: "PROJE BİLGİSİ",
       briefH2a: "Doğru teklif,",
       briefH2b: "doğru bilgiyle başlar.",
       briefP:
