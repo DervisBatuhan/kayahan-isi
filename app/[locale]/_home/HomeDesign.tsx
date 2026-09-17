@@ -12,6 +12,10 @@ import {
   Box,
   Building2,
   Check,
+  Droplets,
+  Flame,
+  MessageCircle,
+  Snowflake,
   ChevronDown,
   ChevronRight,
   CircleGauge,
@@ -347,6 +351,61 @@ function HomePartners({ band }: { band: PartnersBand }) {
   );
 }
 
+/** "Service first" strip right under the hero: three appliance cards + call / WhatsApp / form. */
+function ServiceStrip({ c }: { c: SiteContent }) {
+  const sf = c.serviceFocus;
+  const phone = c.footer.contact.phone;
+  const tel = `tel:${phone.replace(/[^\d+]/g, "")}`;
+  const wa = c.footer.contact.whatsapp ? `https://wa.me/${c.footer.contact.whatsapp}` : "";
+  const icons = [Flame, Snowflake, Droplets];
+  return (
+    <section className="serviceStrip reveal" aria-labelledby="home-service-title">
+      <div className="serviceStripHead">
+        <span className="serviceStripEyebrow">{sf.strip.eyebrow}</span>
+        <h2 id="home-service-title">{sf.strip.title}</h2>
+        <p>{sf.strip.text}</p>
+        {sf.strip.proofs.length > 0 && (
+          <ul className="serviceProofs">
+            {sf.strip.proofs.map((p) => (
+              <li key={p}>
+                <Check /> {p}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="serviceStripActions">
+          <a className="serviceBtn serviceBtn--call" href={tel}>
+            <Phone /> {sf.strip.phoneLabel} · {phone}
+          </a>
+          {wa && (
+            <a className="serviceBtn serviceBtn--wa" href={wa} target="_blank" rel="noopener noreferrer">
+              <MessageCircle /> {sf.strip.whatsappLabel}
+            </a>
+          )}
+          <a className="serviceBtn serviceBtn--form" href={sf.heroPrimary.href}>
+            {sf.strip.formLabel} <ArrowRight />
+          </a>
+        </div>
+      </div>
+      <div className="serviceCards">
+        {sf.strip.items.map((it, i) => {
+          const I = icons[i % icons.length];
+          return (
+            <a className="serviceCard" href={it.href} key={it.href}>
+              <I />
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+              <span>
+                <ArrowRight />
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function HomeDesign({
   content,
   partners,
@@ -389,6 +448,9 @@ export function HomeDesign({
           );
         })}
         <i />
+        <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
+          <Phone /> {c.footer.contact.phone}
+        </a>
         {c.topBar.links.map((l) => (
           <a key={l.href} href={l.href}>
             {l.label}
@@ -416,7 +478,11 @@ export function HomeDesign({
                   }
                 }}
               >
-                {UP(item.label)} {item.children && <ChevronDown />}
+                {UP(item.label)}
+                {c.serviceFocus.navBadge && /\/servis$/.test(item.href) && (
+                  <b className="navBadge">{c.serviceFocus.navBadge}</b>
+                )}
+                {item.children && <ChevronDown />}
               </a>
               {item.children && openMenu === item.label && (
                 <div className={open ? "navMenu navMenu--mobile" : "navMenu"}>
@@ -429,6 +495,11 @@ export function HomeDesign({
               )}
             </div>
           ))}
+          {c.serviceFocus.headerCta.label && (
+            <a className="offer offer--service" href={c.serviceFocus.headerCta.href} aria-label={c.serviceFocus.headerCta.label} title={c.serviceFocus.headerCta.label}>
+              <Phone /> <span>{UP(c.serviceFocus.headerCta.label)}</span>
+            </a>
+          )}
           <a className="offer" href={c.nav.cta.href}>
             {UP(c.nav.cta.label)} <ArrowRight />
           </a>
@@ -452,6 +523,14 @@ export function HomeDesign({
             {c.hero.subtitlePost}
           </h2>
           <p>{c.hero.paragraph}</p>
+          <div className="heroActions">
+            <a className="heroBtn heroBtn--service" href={c.serviceFocus.heroPrimary.href}>
+              <Wrench /> {c.serviceFocus.heroPrimary.label}
+            </a>
+            <a className="heroBtn heroBtn--ghost" href={c.serviceFocus.heroSecondary.href}>
+              {c.serviceFocus.heroSecondary.label} <ArrowRight />
+            </a>
+          </div>
           <a className="under" href="#yolculuk">
             {c.hero.link.label}
             <i />
@@ -459,6 +538,8 @@ export function HomeDesign({
         </div>
         <Building />
       </section>
+
+      <ServiceStrip c={c} />
 
       {/* Stats */}
       <section className="stats">
@@ -477,9 +558,6 @@ export function HomeDesign({
           </div>
         ))}
       </section>
-
-      <HomeAbout band={c.homeBands.about} />
-      <HomeProjects band={c.homeBands.projects} />
 
       {/* Services */}
       <section className="services section reveal" id="faaliyetler">
@@ -503,6 +581,28 @@ export function HomeDesign({
         </div>
       </section>
 
+      {/* Strength */}
+      <section className="strength section reveal">
+        <Title text={UP(c.corporateStrength.eyebrow)} />
+        <div className="strengthGrid">
+          {c.corporateStrength.items.map((it, i) => {
+            const SI = STRENGTH_ICONS[i % STRENGTH_ICONS.length];
+            return (
+              <article key={it.title}>
+                <SI className="strengthIco" />
+                <div>
+                  <b>{it.title}</b>
+                  <p>{it.description}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <HomeAbout band={c.homeBands.about} />
+      <HomeProjects band={c.homeBands.projects} />
+
       {/* Journey */}
       <section className="journey section reveal" id="yolculuk">
         <div className="journeyIntro">
@@ -523,25 +623,6 @@ export function HomeDesign({
                 <MI className="mileIco" />
                 <h3>{m.title}</h3>
                 <p>{m.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Strength */}
-      <section className="strength section reveal">
-        <Title text={UP(c.corporateStrength.eyebrow)} />
-        <div className="strengthGrid">
-          {c.corporateStrength.items.map((it, i) => {
-            const SI = STRENGTH_ICONS[i % STRENGTH_ICONS.length];
-            return (
-              <article key={it.title}>
-                <SI className="strengthIco" />
-                <div>
-                  <b>{it.title}</b>
-                  <p>{it.description}</p>
-                </div>
               </article>
             );
           })}

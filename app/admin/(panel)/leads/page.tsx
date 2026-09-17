@@ -8,6 +8,7 @@ export const metadata: Metadata = { title: "Talepler" };
 const TYPE_LABEL: Record<string, string> = {
   contact: "İletişim",
   quote: "Teklif",
+  service: "Servis",
 };
 
 const FILTERS = [
@@ -97,7 +98,9 @@ export default async function LeadsList({
                       className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
                         l.type === "quote"
                           ? "bg-navy-700/10 text-navy-700"
-                          : "bg-surface-blue text-brand-600"
+                          : l.type === "service"
+                            ? "bg-orange-500/10 text-orange-700"
+                            : "bg-surface-blue text-brand-600"
                       }`}
                     >
                       {TYPE_LABEL[l.type] ?? l.type}
@@ -123,7 +126,9 @@ export default async function LeadsList({
                   <td className="px-4 py-2.5 text-[12px] text-ink-600">
                     {l.type === "quote"
                       ? [l.projectType, l.location].filter(Boolean).join(" · ") || "—"
-                      : l.subject || "—"}
+                      : l.type === "service"
+                        ? [l.projectType, l.company, l.location, l.subject].filter(Boolean).join(" · ") || "—"
+                        : l.subject || "—"}
                   </td>
                   <td className="px-4 py-2.5">
                     <LeadStatusSelect id={l.id} status={l.status} />

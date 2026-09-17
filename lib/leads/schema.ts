@@ -89,16 +89,42 @@ export const quoteLeadSchema = z.object({
   kvkk,
 });
 
+/**
+ * Short service-request form (/servis-talebi): appliance + district + phone is
+ * enough to dispatch a technician, so e-mail and the description are optional.
+ * Stored in the same Lead row: projectType = appliance, company = brand,
+ * location = district, subject = timing.
+ */
+export const serviceLeadSchema = z.object({
+  type: z.literal("service"),
+  name,
+  phone: phoneRequired,
+  email: z.union([email, z.literal("")]).optional().transform((v) => v ?? ""),
+  device: z.string().trim().min(1, "Cihazı seçin.").max(40),
+  brand: z.string().trim().max(80).optional().default(""),
+  district: z.string().trim().min(1, "İlçeyi seçin.").max(40),
+  timing: z.string().trim().max(40).optional().default(""),
+  message: z.string().trim().max(2000).optional().default(""),
+  source: z.string().max(160).optional().default(""),
+  locale: z.string().max(8).optional().default("tr"),
+  company_url: honeypot,
+  startedAt,
+  turnstileToken,
+  kvkk,
+});
+
 /** A genuine person needs at least this long to read and fill the form. */
 export const MIN_FILL_MS = 1200;
 
 export const leadSchema = z.discriminatedUnion("type", [
   contactLeadSchema,
   quoteLeadSchema,
+  serviceLeadSchema,
 ]);
 
 export type ContactLeadInput = z.input<typeof contactLeadSchema>;
 export type QuoteLeadInput = z.input<typeof quoteLeadSchema>;
+export type ServiceLeadInput = z.input<typeof serviceLeadSchema>;
 export type LeadInput = z.input<typeof leadSchema>;
 
 export type LeadFieldErrors = Partial<Record<string, string>>;

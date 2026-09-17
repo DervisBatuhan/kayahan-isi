@@ -65,6 +65,7 @@ const NAV: NavEntry[] = [
       { section: "founder", label: "Kurucu Hikâyesi", icon: UserRound },
       { section: "authority", label: "Kurumsal Otorite", icon: Award },
       { section: "cta-band", label: "Kapanış Bandı", icon: Megaphone },
+      { section: "service-focus", label: "Servis", icon: Wrench },
     ],
   },
   { href: "/admin/pages", label: "Sayfalar", icon: FileText },

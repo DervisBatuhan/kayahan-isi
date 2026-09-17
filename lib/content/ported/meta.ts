@@ -633,6 +633,19 @@ export const PORTED_META: Record<string, Entry> = {
         "Let's talk about your project — reach us by phone, email or at our Istanbul head office.",
     },
   },
+  "/servis-talebi": {
+    og: "website",
+    tr: {
+      title: "Servis Talebi — Kombi, Klima, Şofben Servisi | Aynı Gün",
+      description:
+        "20 saniyede servis talebi: cihazınızı ve ilçenizi seçin, sizi arayalım. İstanbul Avrupa Yakası'nda 8 ilçede aynı gün kombi, klima ve şofben servisi. 7/24 hat: 0212 441 88 88.",
+    },
+    en: {
+      title: "Request Service — Boiler, AC & Water Heater | Same Day",
+      description:
+        "A service request in 20 seconds: pick your appliance and district and we call you back. Same-day boiler, AC and water-heater service across 8 districts on Istanbul's European side.",
+    },
+  },
   "/teklif-al": {
     og: "website",
     tr: {

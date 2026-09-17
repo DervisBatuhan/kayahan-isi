@@ -42,6 +42,7 @@ export default async function HomeContentPage({
             founder: content.founder,
             authority: content.authority,
             ctaBand: content.ctaBand,
+            serviceFocus: content.serviceFocus,
           }}
         />
       </div>

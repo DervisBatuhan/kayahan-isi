@@ -9,7 +9,7 @@ import { deleteLead } from "../actions";
 
 export const metadata: Metadata = { title: "Talep Detayı" };
 
-const TYPE_LABEL: Record<string, string> = { contact: "İletişim formu", quote: "Teklif formu" };
+const TYPE_LABEL: Record<string, string> = { contact: "İletişim formu", quote: "Teklif formu", service: "Servis talebi" };
 
 function parseFields(s: string): string[] {
   try {
@@ -82,9 +82,20 @@ export default async function LeadDetail({
               </a>
             </Row>
           ) : null}
-          <Row label="Konu">{lead.subject || "—"}</Row>
-          <Row label="Proje türü">{lead.projectType || "—"}</Row>
-          <Row label="Konum">{lead.location || "—"}</Row>
+          {lead.type === "service" ? (
+            <>
+              <Row label="Cihaz">{lead.projectType || "—"}</Row>
+              <Row label="Marka">{lead.company || "—"}</Row>
+              <Row label="İlçe">{lead.location || "—"}</Row>
+              <Row label="Ne zaman">{lead.subject || "—"}</Row>
+            </>
+          ) : (
+            <>
+              <Row label="Konu">{lead.subject || "—"}</Row>
+              <Row label="Proje türü">{lead.projectType || "—"}</Row>
+              <Row label="Konum">{lead.location || "—"}</Row>
+            </>
+          )}
           <Row label="İlgi alanları">
             {fields.length ? (
               <span className="flex flex-wrap gap-1.5">

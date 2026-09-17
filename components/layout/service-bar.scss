@@ -1,0 +1,26 @@
+/* Mobile sticky service bar — desktop never sees it. */
+.serviceBar { display: none; }
+@media (max-width: 980px) {
+  :root { --service-bar-h: 58px; }
+  body { padding-bottom: calc(var(--service-bar-h) + env(safe-area-inset-bottom, 0px)); }
+  .serviceBar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 84;
+    display: grid; grid-template-columns: 1fr 1fr 1.3fr;
+    height: calc(var(--service-bar-h) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: #fff; border-top: 1px solid #d8e0ea;
+    box-shadow: 0 -10px 30px rgba(6, 45, 102, 0.12);
+  }
+  .serviceBar a {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+    color: #073678; border-right: 1px solid #e6ecf2;
+  }
+  .serviceBar a:last-child { border-right: 0; }
+  .serviceBar svg { width: 17px; height: 17px; }
+  .serviceBar a.serviceBar__wa { color: #128c4a; }
+  .serviceBar a.serviceBar__form { background: #073678; color: #fff; }
+  /* The floating WhatsApp bubble and the cookie banner sit above the bar. */
+  .waFloat { display: none; }
+  .cc-banner { bottom: calc(var(--service-bar-h) + 10px) !important; }
+}

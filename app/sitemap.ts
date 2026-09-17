@@ -44,6 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
 
   addAll("", 1, "weekly", homeAt);
+  addAll("/servis-talebi", 0.9, "monthly", homeAt);
 
   for (const e of PORTED_ENTRIES) {
     if (!e.route) continue;

@@ -12,7 +12,7 @@ import type {
   SiteContent,
   Stat,
 } from "@/lib/content/types";
-import { Field, Panel, SaveBar, Select, TextArea, TextInput, useActiveSection } from "./fields";
+import { Field, Panel, SaveBar, SectionCard, Select, TextArea, TextInput, useActiveSection } from "./fields";
 import { ObjectListEditor, StringListEditor } from "./ListEditor";
 
 // Section ids — must match the sidebar sub-links (Sidebar.tsx) and the
@@ -29,6 +29,7 @@ const SECTION_IDS = [
   "founder",
   "authority",
   "cta-band",
+  "service-focus",
 ] as const;
 
 type HomeContent = Pick<
@@ -43,6 +44,7 @@ type HomeContent = Pick<
   | "founder"
   | "authority"
   | "ctaBand"
+  | "serviceFocus"
 >;
 
 export function HomeEditor({ locale, initial }: { locale: Locale; initial: HomeContent }) {
@@ -566,6 +568,140 @@ export function HomeEditor({ locale, initial }: { locale: Locale; initial: HomeC
           value={data.ctaBand.cta}
           onChange={(v) => patch("ctaBand", { ...data.ctaBand, cta: v })}
         />
+      </Panel>
+
+      <Panel
+        active={active}
+        id="service-focus"
+        title="Servis"
+        description="Servis odaklı katman: hero düğmeleri, hero altındaki servis şeridi, üst menü düğmesi ve rozeti, mobil alt çubuk ve /servis-talebi formu."
+      >
+        <div className="grid gap-3 sm:grid-cols-2">
+          <LinkFields
+            label="Hero — birincil düğme (turuncu)"
+            value={data.serviceFocus.heroPrimary}
+            onChange={(v) => patch("serviceFocus", { ...data.serviceFocus, heroPrimary: v })}
+          />
+          <LinkFields
+            label="Hero — ikincil düğme"
+            value={data.serviceFocus.heroSecondary}
+            onChange={(v) => patch("serviceFocus", { ...data.serviceFocus, heroSecondary: v })}
+          />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Field label="Mobil menü düğmesi — yazı" hint="Yalnızca mobil menüde görünür; boş = gizli">
+            <TextInput
+              value={data.serviceFocus.headerCta.label}
+              onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, headerCta: { ...data.serviceFocus.headerCta, label: e.target.value } })}
+            />
+          </Field>
+          <Field label="Mobil menü düğmesi — bağlantı" hint="tel:+90… ya da /tr/servis-talebi">
+            <TextInput
+              value={data.serviceFocus.headerCta.href}
+              onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, headerCta: { ...data.serviceFocus.headerCta, href: e.target.value } })}
+            />
+          </Field>
+          <Field label="SERVİS menü rozeti" hint="Örn. 7/24 — boş = rozet yok">
+            <TextInput
+              value={data.serviceFocus.navBadge}
+              onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, navBadge: e.target.value })}
+            />
+          </Field>
+        </div>
+
+        <SectionCard title="Hero altı servis şeridi">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Üst etiket">
+              <TextInput value={data.serviceFocus.strip.eyebrow} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, eyebrow: e.target.value } })} />
+            </Field>
+            <Field label="Başlık">
+              <TextInput value={data.serviceFocus.strip.title} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, title: e.target.value } })} />
+            </Field>
+          </div>
+          <Field label="Metin">
+            <TextArea rows={3} value={data.serviceFocus.strip.text} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, text: e.target.value } })} />
+          </Field>
+          <StringListEditor
+            label="Kanıt rozetleri (Aynı gün müdahale, Tüm markalar…)"
+            items={data.serviceFocus.strip.proofs}
+            onChange={(v) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, proofs: v } })}
+          />
+          <ObjectListEditor<{ title: string; text: string; href: string }>
+            label="Servis kartları"
+            items={data.serviceFocus.strip.items}
+            onChange={(v) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, items: v } })}
+            newItem={() => ({ title: "", text: "", href: "" })}
+            addLabel="Kart ekle"
+            renderRow={(item, update) => (
+              <>
+                <Field label="Başlık"><TextInput value={item.title} onChange={(e) => update({ title: e.target.value })} /></Field>
+                <Field label="Bağlantı"><TextInput value={item.href} onChange={(e) => update({ href: e.target.value })} /></Field>
+                <Field label="Metin" className="sm:col-span-2"><TextInput value={item.text} onChange={(e) => update({ text: e.target.value })} /></Field>
+              </>
+            )}
+          />
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Field label="Ara düğmesi yazısı">
+              <TextInput value={data.serviceFocus.strip.phoneLabel} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, phoneLabel: e.target.value } })} />
+            </Field>
+            <Field label="WhatsApp düğmesi yazısı">
+              <TextInput value={data.serviceFocus.strip.whatsappLabel} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, whatsappLabel: e.target.value } })} />
+            </Field>
+            <Field label="Form düğmesi yazısı">
+              <TextInput value={data.serviceFocus.strip.formLabel} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, formLabel: e.target.value } })} />
+            </Field>
+          </div>
+        </SectionCard>
+
+        <SectionCard title="Mobil alt çubuk">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Field label="Ara"><TextInput value={data.serviceFocus.bar.call} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, bar: { ...data.serviceFocus.bar, call: e.target.value } })} /></Field>
+            <Field label="WhatsApp"><TextInput value={data.serviceFocus.bar.whatsapp} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, bar: { ...data.serviceFocus.bar, whatsapp: e.target.value } })} /></Field>
+            <Field label="Servis talebi"><TextInput value={data.serviceFocus.bar.form} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, bar: { ...data.serviceFocus.bar, form: e.target.value } })} /></Field>
+          </div>
+        </SectionCard>
+
+        <SectionCard title="Servis talebi sayfası (/servis-talebi)">
+          {(() => {
+            const f = data.serviceFocus.form;
+            const setF = (patchF: Partial<typeof f>) => patch("serviceFocus", { ...data.serviceFocus, form: { ...f, ...patchF } });
+            const T = (key: keyof typeof f, label: string, hint?: string) => (
+              <Field label={label} hint={hint}>
+                <TextInput value={String(f[key])} onChange={(e) => setF({ [key]: e.target.value } as Partial<typeof f>)} />
+              </Field>
+            );
+            return (
+              <>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {T("eyebrow", "Üst etiket")}
+                  {T("title", "Başlık", "Vurgulu satır için | kullanın: 20 saniyede | servis talebi.")}
+                </div>
+                <Field label="Giriş metni"><TextArea rows={2} value={f.lead} onChange={(e) => setF({ lead: e.target.value })} /></Field>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {T("deviceLabel", "Cihaz — etiket")}
+                  {T("brandLabel", "Marka — etiket")}
+                  {T("brandPh", "Marka — yer tutucu")}
+                  {T("districtLabel", "İlçe — etiket")}
+                  {T("timingLabel", "Zaman — etiket")}
+                  {T("nameLabel", "Ad Soyad — etiket")}
+                  {T("phoneLabel", "Telefon — etiket")}
+                  {T("noteLabel", "Açıklama — etiket")}
+                  {T("notePh", "Açıklama — yer tutucu")}
+                  {T("submit", "Gönder düğmesi")}
+                  {T("sending", "Gönderiliyor yazısı")}
+                  {T("okTitle", "Başarı başlığı")}
+                  {T("okWhatsapp", "Başarı — WhatsApp düğmesi")}
+                  {T("sideTitle", "Yan sütun başlığı")}
+                </div>
+                <Field label="Başarı metni"><TextArea rows={2} value={f.okText} onChange={(e) => setF({ okText: e.target.value })} /></Field>
+                <StringListEditor label="Cihaz seçenekleri" items={f.devices} onChange={(v) => setF({ devices: v })} />
+                <StringListEditor label="İlçe seçenekleri" items={f.districts} onChange={(v) => setF({ districts: v })} />
+                <StringListEditor label="Zaman seçenekleri" items={f.timings} onChange={(v) => setF({ timings: v })} />
+                <StringListEditor label="Yan sütun maddeleri" items={f.sidePoints} onChange={(v) => setF({ sidePoints: v })} />
+              </>
+            );
+          })()}
+        </SectionCard>
       </Panel>
 
       <SaveBar pending={pending} status={status} onSave={handleSave} />

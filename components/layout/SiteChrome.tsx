@@ -156,6 +156,9 @@ export function SiteHeader({ content }: { content: SiteContent }) {
           );
         })}
         <i />
+        <a className="trustPhone" href={`tel:${c.footer.contact.phone.replace(/[^\d+]/g, "")}`}>
+          <Phone /> {c.footer.contact.phone}
+        </a>
         {c.topBar.links.map((l) => (
           <a key={l.href} href={l.href}>
             {l.label}
@@ -183,7 +186,11 @@ export function SiteHeader({ content }: { content: SiteContent }) {
                   }
                 }}
               >
-                {UP(item.label)} {item.children && <ChevronDown />}
+                {UP(item.label)}
+                {c.serviceFocus.navBadge && /\/servis$/.test(item.href) && (
+                  <b className="navBadge">{c.serviceFocus.navBadge}</b>
+                )}
+                {item.children && <ChevronDown />}
               </a>
               {item.children && openMenu === item.label && (
                 <div className={open ? "navMenu navMenu--mobile" : "navMenu"}>
@@ -196,6 +203,11 @@ export function SiteHeader({ content }: { content: SiteContent }) {
               )}
             </div>
           ))}
+          {c.serviceFocus.headerCta.label && (
+            <a className="offer offer--service" href={c.serviceFocus.headerCta.href} aria-label={c.serviceFocus.headerCta.label} title={c.serviceFocus.headerCta.label}>
+              <Phone /> <span>{UP(c.serviceFocus.headerCta.label)}</span>
+            </a>
+          )}
           <a className="offer" href={c.nav.cta.href}>
             {UP(c.nav.cta.label)} <ArrowRight />
           </a>

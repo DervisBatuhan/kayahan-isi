@@ -29,3 +29,28 @@
 .up-consent a{color:var(--navy);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .up-consent.is-invalid span{color:#c0392b}
 .up-consent .up-field-error,.up-consent>p{grid-column:2}
+
+// ---------------------------------------------------------- servis talebi ----
+.sr-hero em{color:var(--up-cyan)}
+.sr-layout{grid-template-columns:.85fr 1.15fr;gap:6vw}
+.sr-lead{margin:18px 0 0;font-size:15px;line-height:1.75;color:#687c91;max-width:440px}
+.sr-points{margin:30px 0 0;padding:0;list-style:none;border-top:1px solid #ccd7e0}
+.sr-points li{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #ccd7e0;font-size:13px;line-height:1.55;color:var(--navy);font-weight:600}
+.sr-points svg{width:18px;flex:none;color:var(--up-cyan);margin-top:1px}
+.sr-quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.sr-quick .serviceBtn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px;font-size:12px;font-weight:800;letter-spacing:.04em;border:1px solid #cbd6df;color:var(--navy);background:#fff;transition:.2s}
+.sr-quick .serviceBtn svg{width:16px;height:16px}
+.sr-quick .serviceBtn--call{background:var(--navy);border-color:var(--navy);color:#fff}
+.sr-quick .serviceBtn--wa{border-color:#25d366;color:#128c4a}
+.sr-quick .serviceBtn--wa:hover{background:#25d366;color:#fff}
+.sr-form{min-height:0;gap:24px}
+.sr-form .up-form-head span,.sr-form .up-form-head p{display:inline-flex;align-items:center;gap:8px}
+.sr-head-ico{width:15px;height:15px}
+.sr-form legend{font-size:10px;letter-spacing:.16em;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:12px}
+.sr-chips{grid-template-columns:repeat(4,1fr);gap:8px}
+.sr-chips span{min-height:44px;justify-content:center;font-weight:700}
+.sr-chips[aria-invalid="true"] span{border-color:var(--up-red)}
+
+.sr-ok-text{font-size:15px;line-height:1.7;color:#687c91;max-width:460px;margin:-16px 0 0}
+.up-success .sr-quick button{height:46px}
+@media(max-width:900px){.sr-layout{grid-template-columns:1fr}.sr-chips{grid-template-columns:repeat(2,1fr)}}

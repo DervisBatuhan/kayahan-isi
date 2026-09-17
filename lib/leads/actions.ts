@@ -81,14 +81,17 @@ export async function createLead(input: LeadInput): Promise<SubmitLeadResult> {
       data: {
         type: data.type,
         name: data.name,
-        email: data.email,
+        email: data.email || null,
         phone: data.phone ?? "",
-        company: data.type === "quote" ? data.company || null : null,
-        subject: data.type === "contact" ? data.subject ?? "" : "",
-        projectType: data.type === "quote" ? data.projectType : "",
-        location: data.type === "quote" ? data.location ?? "" : "",
+        company:
+          data.type === "quote" ? data.company || null : data.type === "service" ? data.brand || null : null,
+        subject:
+          data.type === "contact" ? data.subject ?? "" : data.type === "service" ? data.timing ?? "" : "",
+        projectType: data.type === "quote" ? data.projectType : data.type === "service" ? data.device : "",
+        location:
+          data.type === "quote" ? data.location ?? "" : data.type === "service" ? data.district : "",
         fields: data.type === "quote" ? JSON.stringify(data.fields ?? []) : "[]",
-        message: data.message,
+        message: data.message ?? "",
         source: data.source ?? "",
         locale: data.locale ?? "tr",
         status: "new",

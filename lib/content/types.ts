@@ -18,6 +18,54 @@ export type NavItem = {
   children?: NavLink[];
 };
 
+export type ServiceFocus = {
+  /** Hero: primary (service) + secondary (corporate) buttons. */
+  heroPrimary: NavLink;
+  heroSecondary: NavLink;
+  /** Header button next to "Teklif Alın"; empty label hides it. */
+  headerCta: NavLink;
+  /** Small badge on the "Servis" nav item (e.g. "7/24"); empty hides it. */
+  navBadge: string;
+  /** Strip under the hero. */
+  strip: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    proofs: string[];
+    items: { title: string; text: string; href: string }[];
+    phoneLabel: string;
+    whatsappLabel: string;
+    formLabel: string;
+  };
+  /** Mobile sticky bar labels. */
+  bar: { call: string; whatsapp: string; form: string };
+  /** /servis-talebi page + form copy. */
+  form: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    deviceLabel: string;
+    devices: string[];
+    brandLabel: string;
+    brandPh: string;
+    districtLabel: string;
+    districts: string[];
+    timingLabel: string;
+    timings: string[];
+    nameLabel: string;
+    phoneLabel: string;
+    noteLabel: string;
+    notePh: string;
+    submit: string;
+    sending: string;
+    okTitle: string;
+    okText: string;
+    okWhatsapp: string;
+    sideTitle: string;
+    sidePoints: string[];
+  };
+};
+
 export type Stat = {
   value: string;
   suffix?: string;
@@ -179,6 +227,13 @@ export type SiteContent = {
     subtitle: string;
     cta: NavLink;
   };
+  /**
+   * "Service first" layer: the repair/maintenance business is what pays today,
+   * so it gets a hero button, a strip under the hero, a header button, a nav
+   * badge, the mobile sticky bar and its own short request form. One block so a
+   * saved row that predates it is filled from the code default in one go.
+   */
+  serviceFocus: ServiceFocus;
   footer: {
     description: string;
     columns: { title: string; links: NavLink[] }[];
