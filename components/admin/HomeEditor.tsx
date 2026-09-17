@@ -651,6 +651,14 @@ export function HomeEditor({ locale, initial }: { locale: Locale; initial: HomeC
               <TextInput value={data.serviceFocus.strip.formLabel} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, formLabel: e.target.value } })} />
             </Field>
           </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Tümünü gör — yazı" hint="Kartların sağ üstündeki bağlantı; boş = gizli">
+              <TextInput value={data.serviceFocus.strip.allLabel} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, allLabel: e.target.value } })} />
+            </Field>
+            <Field label="Tümünü gör — adres">
+              <TextInput value={data.serviceFocus.strip.allHref} onChange={(e) => patch("serviceFocus", { ...data.serviceFocus, strip: { ...data.serviceFocus.strip, allHref: e.target.value } })} />
+            </Field>
+          </div>
         </SectionCard>
 
         <SectionCard title="Mobil alt çubuk">

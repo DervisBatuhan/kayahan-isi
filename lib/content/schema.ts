@@ -172,6 +172,8 @@ export const siteContentSchema = z.object({
       phoneLabel: z.string(),
       whatsappLabel: z.string(),
       formLabel: z.string(),
+      allLabel: z.string().optional().default(""),
+      allHref: z.string().optional().default(""),
     }),
     bar: z.object({ call: z.string(), whatsapp: z.string(), form: z.string() }),
     fab: z.object({ label: z.string(), sub: z.string(), title: z.string(), text: z.string(), call: z.string(), whatsapp: z.string(), form: z.string() }),

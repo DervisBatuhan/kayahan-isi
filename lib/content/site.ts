@@ -377,6 +377,8 @@ const tr: SiteContent = {
       phoneLabel: "Hemen ara",
       whatsappLabel: "WhatsApp",
       formLabel: "Servis talebi bırak",
+      allLabel: "Tüm servisler",
+      allHref: "/tr/servis",
     },
     bar: { call: "Ara", whatsapp: "WhatsApp", form: "Servis Talebi" },
     fab: {
@@ -731,6 +733,8 @@ const en: SiteContent = {
       phoneLabel: "Call now",
       whatsappLabel: "WhatsApp",
       formLabel: "Leave a service request",
+      allLabel: "All services",
+      allHref: "/en/servis",
     },
     bar: { call: "Call", whatsapp: "WhatsApp", form: "Request Service" },
     fab: {

@@ -36,6 +36,9 @@ export type ServiceFocus = {
     phoneLabel: string;
     whatsappLabel: string;
     formLabel: string;
+    /** "See all services" link to the /servis hub (top-right of the cards). */
+    allLabel: string;
+    allHref: string;
   };
   /** Mobile sticky bar labels. */
   bar: { call: string; whatsapp: string; form: string };

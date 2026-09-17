@@ -491,6 +491,12 @@ function ServiceStrip({ c }: { c: SiteContent }) {
           </a>
         </div>
       </div>
+      <div className="serviceCardsWrap">
+        {sf.strip.allLabel && sf.strip.allHref && (
+          <a className="serviceAll" href={sf.strip.allHref}>
+            {sf.strip.allLabel} <ArrowRight />
+          </a>
+        )}
       <div className="serviceCards">
         {sf.strip.items.map((it, i) => {
           const I = icons[i % icons.length];
@@ -505,6 +511,7 @@ function ServiceStrip({ c }: { c: SiteContent }) {
             </a>
           );
         })}
+      </div>
       </div>
     </section>
   );
