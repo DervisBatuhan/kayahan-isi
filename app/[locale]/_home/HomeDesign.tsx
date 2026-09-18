@@ -543,7 +543,7 @@ export function HomeDesign({
 
   // Hint the browser to fetch the hero artwork early — it's painted from a CSS
   // `background-image` (see home.scss), which the preload scanner can't see.
-  preload("/assets/hero-building.png", { as: "image", fetchPriority: "high" });
+  preload("/assets/hero-building.webp", { as: "image", fetchPriority: "high" });
 
   return (
     <main id="top">
@@ -619,7 +619,7 @@ export function HomeDesign({
             {UP(c.nav.cta.label)} <ArrowRight />
           </a>
         </nav>
-        <button className="menu" onClick={() => setOpen(!open)}>
+        <button className="menu" onClick={() => setOpen(!open)} aria-label={open ? "Menüyü kapat" : "Menü"} aria-expanded={open}>
           {open ? <X /> : <Menu />}
         </button>
       </header>
@@ -724,9 +724,9 @@ export function HomeDesign({
           <h2>{UP(c.journey.eyebrow)}</h2>
           <p>{c.journey.paragraph}</p>
           {/* Decorative, not a link (matches the approved reference). */}
-          <a>
+          <span className="journeyCta">
             {UP(c.journey.cta.label)} <ArrowRight />
-          </a>
+          </span>
         </div>
         <div className="timeline">
           {c.journey.milestones.map((m, i) => {

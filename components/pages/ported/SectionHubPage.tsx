@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ComponentType } from "react";
+import { preload } from "react-dom";
 import {
   Award,
   ArrowRight,
@@ -62,6 +63,9 @@ export default function SectionHubPage({
 }) {
   const h = content;
   const CH = hubChrome(locale);
+  // The hero photo is the LCP element on these pages; announce it before the
+  // stylesheets so the browser doesn't discover it late.
+  preload(h.image, { as: "image", fetchPriority: "high" });
 
   useEffect(() => {
     const nodes = [...document.querySelectorAll<HTMLElement>(".cp-reveal")];
@@ -95,7 +99,7 @@ export default function SectionHubPage({
         <div className="cp-hero-visual cp-reveal">
           <div className="hub-art">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={h.image} alt={h.imageAlt} />
+            <img src={h.image} alt={h.imageAlt} fetchPriority="high" decoding="async" />
           </div>
         </div>
       </section>

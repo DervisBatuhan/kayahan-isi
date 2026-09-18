@@ -216,7 +216,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
             {UP(c.nav.cta.label)} <ArrowRight />
           </a>
         </nav>
-        <button className="menu" onClick={() => setOpen(!open)}>
+        <button className="menu" onClick={() => setOpen(!open)} aria-label={open ? "Menüyü kapat" : "Menü"} aria-expanded={open}>
           {open ? <X /> : <Menu />}
         </button>
       </header>
